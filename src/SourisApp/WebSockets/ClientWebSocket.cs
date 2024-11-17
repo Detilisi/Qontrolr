@@ -6,7 +6,7 @@ internal class ClientWebSocket
 {
     //Constants
     private const int ServerPort = 7890;
-    private const string ServerIP = "127.0.0.1";
+    private const string ServerIP = "10.0.2.2";
     private const string ServiceId = "mouse-automation";
 
 
