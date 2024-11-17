@@ -3,10 +3,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Souris.ServerWinApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Server Control"
+        Height="450" Width="800"
+        WindowStartupLocation="CenterScreen" 
+        ResizeMode="NoResize"
+        Background="#1E1E2E">
     <Grid>
-
+        <Border CornerRadius="10" Background="#2E2E3E" Padding="20" Margin="20">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Server Controller" 
+                           Foreground="White" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           TextAlignment="Center" 
+                           Margin="0,0,0,20"/>
+                <Button x:Name="ServerButton" 
+                        Content="Start Server" 
+                        Width="200" 
+                        Height="50" 
+                        Background="#3E8EFF" 
+                        Foreground="White" 
+                        FontSize="16" 
+                        FontWeight="SemiBold" 
+                        BorderThickness="0" 
+                        Cursor="Hand"
+                        Click="ServerButton_Click"/>
+                <TextBlock x:Name="StatusMessage" 
+                           Text="" 
+                           Foreground="LimeGreen" 
+                           FontSize="16" 
+                           FontWeight="SemiBold" 
+                           Margin="0,20,0,0" 
+                           Visibility="Collapsed"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
