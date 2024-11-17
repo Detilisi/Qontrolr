@@ -1,24 +1,23 @@
-﻿namespace SourisApp
+﻿using SourisApp.WebSockets;
+
+namespace SourisApp
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
 
+        private readonly ClientWebSocket _clientWebSocket;
         public MainPage()
         {
+            _clientWebSocket = new ClientWebSocket();
+
             InitializeComponent();
         }
 
         private void OnCounterClicked(object sender, EventArgs e)
         {
-            count++;
+            _clientWebSocket.Connect();
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            _clientWebSocket.Send("Hello from maui");
         }
     }
 
