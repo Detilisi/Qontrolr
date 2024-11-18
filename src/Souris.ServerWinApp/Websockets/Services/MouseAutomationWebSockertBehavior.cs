@@ -21,11 +21,10 @@ class MouseAutomationWebSockertBehavior : WebSocketBehavior
         var parts = e.Data.Split(",");
 
         if (parts.Length == 2 &&
-            double.TryParse(parts[0], out double deltaX) &&
-            double.TryParse(parts[1], out double deltaY))
+            int.TryParse(parts[0], out int deltaX) &&
+            int.TryParse(parts[1], out int deltaY))
         {
-            Debug.WriteLine((int)deltaX + ", " + (int)deltaY);
-            _inputSimulator.Mouse.MoveMouseBy((int)deltaX, (int)deltaY);
+            _inputSimulator.Mouse.MoveMouseBy(deltaX, deltaY);
         }
     }
 }
