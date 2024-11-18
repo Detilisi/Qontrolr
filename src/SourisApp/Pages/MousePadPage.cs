@@ -26,20 +26,30 @@ public partial class MousePadPage : ContentPage
         _connectButton = new Button
         {
             Text = "Connect to Server",
-            BackgroundColor = Colors.Green,
+            BackgroundColor = Colors.Transparent,
             TextColor = Colors.White,
+            BorderColor = Colors.White,
+            BorderWidth = 2,
+            CornerRadius = 25,
+            HeightRequest = 50,
+            WidthRequest = 250,
             HorizontalOptions = LayoutOptions.Center,
-            VerticalOptions = LayoutOptions.Center
+            VerticalOptions = LayoutOptions.Center,
+            FontSize = 18,
+            Padding = new Thickness(0)
         };
+
         _connectButton.Clicked += OnConnectButtonClicked;
 
         // Connection status label
         _connectionStatusLabel = new Label
         {
             Text = "Not connected",
-            TextColor = Colors.Red,
-            FontSize = 14,
-            HorizontalOptions = LayoutOptions.Center
+            TextColor = Colors.Gray,
+            FontSize = 16,
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center,
+            FontFamily = "Segoe UI"
         };
 
         // Add GraphicsView
@@ -48,16 +58,18 @@ public partial class MousePadPage : ContentPage
             Drawable = new MousePadDrawable(),
             BackgroundColor = Colors.LightGray,
             HeightRequest = 300,
-            WidthRequest = 300
+            WidthRequest = 300,
+            HorizontalOptions = LayoutOptions.Center,
+            VerticalOptions = LayoutOptions.Center
         };
 
         // Touch tracking
-        _mousePadView.DragInteraction += GameView_DragInteraction;
+        _mousePadView.DragInteraction += MousePad_DragInteraction;
         
         // Layout
         Content = new VerticalStackLayout
         {
-            Padding = 20,
+            Padding = 40,
             Spacing = 20,
             Children =
             {
@@ -79,7 +91,7 @@ public partial class MousePadPage : ContentPage
         _connectButton.IsEnabled = false;
     }
 
-    void GameView_DragInteraction(object sender, TouchEventArgs e)
+    void MousePad_DragInteraction(object sender, TouchEventArgs e)
     {
         var touchPoint = e.Touches.First();
         var movementScalingFactor = 5;
@@ -99,6 +111,9 @@ public class MousePadDrawable : IDrawable
 {
     public void Draw(ICanvas canvas, RectF dirtyRect)
     {
+        canvas.FillColor = Colors.LightGray;
+        canvas.FillRectangle(0, 0, dirtyRect.Width, dirtyRect.Height);
+
         // Draw a border for the mouse pad
         canvas.StrokeColor = Colors.Black;
         canvas.StrokeSize = 2;
