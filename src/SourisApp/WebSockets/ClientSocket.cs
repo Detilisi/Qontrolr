@@ -2,7 +2,7 @@
 
 namespace SourisApp.WebSockets;
 
-internal class ClientWebSocket
+internal class ClientSocket
 {
     //Constants
     private const int ServerPort = 7890;
@@ -14,7 +14,7 @@ internal class ClientWebSocket
     private readonly WebSocket _webSocket;
 
     //Construction
-    public ClientWebSocket()
+    public ClientSocket()
     {
         var serverRoute = $"ws://{ServerIP}:{ServerPort}/{ServiceId}";
         _webSocket = new WebSocket(serverRoute);
