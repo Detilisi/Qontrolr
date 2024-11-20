@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SourisApp.MainPage"
              Shell.NavBarIsVisible="False"
-             BackgroundColor="333333">
+             BackgroundColor="#1C1C1C">
 
     <Grid RowDefinitions="80, *">
         <!-- Panel for Buttons -->
