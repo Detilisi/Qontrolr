@@ -43,13 +43,16 @@ public partial class MainPage : ContentPage
 
     private void OnLeftClick(object sender, EventArgs e)
     {
-        // Placeholder for left-click functionality
+        var data = "{Event: CLICK,  Value: LEFT}";
+        _webSocket.Send(data);
         Debug.WriteLine("Left Click triggered");
     }
 
     private void OnRightClick(object sender, EventArgs e)
     {
         // Placeholder for right-click functionality
+        var data = "{Event: CLICK,  Value: RIGHT}";
+        _webSocket.Send(data);
         Debug.WriteLine("Right Click triggered");
     }
 
