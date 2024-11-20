@@ -17,27 +17,40 @@ public partial class MainPage : ContentPage
         // Add touch interaction event
         MousePadView.Drawable = new MousePadDrawable();
         MousePadView.DragInteraction += MousePad_DragInteraction;
+
+        // Show the modal on startup
+        ConnectionModal.IsVisible = true;
     }
-
-
-    private void OnConnectButtonClicked(object sender, EventArgs e)
+ 
+    //Event handlers
+    private async void OnConnectButtonClicked(object sender, EventArgs e)
     {
         try
         {
-            IsBusy = true;
             // Connect to WebSocket server
             _webSocket.Connect();
             _webSocket.Send("Connected");
 
-            // Update UI on successful connection
-            IsBusy = false;
-            ButtonPanel.IsVisible = false;
+            // Hide the modal on successful connection
+            ConnectionModal.IsVisible = false;
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"Connection Error: {ex.Message}");
-            ConnectionStatusLabel.Text = "Connection Failed";
+            await DisplayAlert("Connection Failed", "Unable to connect to the server.", "OK");
         }
+    }
+
+    private void OnLeftClick(object sender, EventArgs e)
+    {
+        // Placeholder for left-click functionality
+        Debug.WriteLine("Left Click triggered");
+    }
+
+    private void OnRightClick(object sender, EventArgs e)
+    {
+        // Placeholder for right-click functionality
+        Debug.WriteLine("Right Click triggered");
     }
 
     private void MousePad_DragInteraction(object sender, TouchEventArgs e)
@@ -70,17 +83,11 @@ public class MousePadDrawable : IDrawable
 
     public void Draw(ICanvas canvas, RectF dirtyRect)
     {
-        canvas.FillColor = Colors.LightGray;
-        canvas.FillRectangle(0, 0, dirtyRect.Width, dirtyRect.Height);
-
-        // Draw a border for the mouse pad
-        canvas.StrokeColor = Colors.Black;
-        canvas.StrokeSize = 2;
-        canvas.DrawRectangle(0, 0, dirtyRect.Width, dirtyRect.Height);
-
-        // Draw a centered label
-        canvas.FontSize = 16;
-        canvas.FontColor = Colors.DarkGray;
-        canvas.DrawString("Mouse Pad", dirtyRect.Width / 2, dirtyRect.Height / 2, HorizontalAlignment.Center);
+        // Add centered text
+        canvas.FontSize = 18;
+        canvas.FontColor = Colors.LightGray;
+        canvas.DrawString("Touchpad Area", dirtyRect.Width / 2, dirtyRect.Height / 2, HorizontalAlignment.Center);
     }
+
+
 }
