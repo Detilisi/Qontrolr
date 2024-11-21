@@ -42,11 +42,12 @@ class MouseAutomation : WebSocketBehavior
                 break;
 
             case Commands.Click:
-                if (command.Data == "right")
+                var clickDirection = int.Parse(command.Data);
+                if (clickDirection == 0)
                 {
                     _inputSimulator.Mouse.RightButtonClick();
                 }
-                else if (command.Data == "left")
+                else if (clickDirection == 1)
                 {
                     _inputSimulator.Mouse.RightButtonClick();
                 }
