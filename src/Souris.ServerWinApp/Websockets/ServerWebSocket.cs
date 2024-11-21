@@ -7,17 +7,15 @@ class ServerWebSocket
 {
     //Constants
     private const int PortNumer = 7890;
-    private const string IP_Address = "127.0.0.1";
-
+   
     //Fields
     private readonly WebSocketServer _webSocketServer;
 
     //Construction
     public ServerWebSocket()
     {
-        var serverRoute = $"ws://{IP_Address}:{PortNumer}";
-        _webSocketServer = new WebSocketServer(serverRoute);
-
+        _webSocketServer = new WebSocketServer(PortNumer);
+        
         InitializeServices();
     }
 
@@ -31,5 +29,4 @@ class ServerWebSocket
     //Public methods
     public void Start() => _webSocketServer.Start();
     public void Stop() => _webSocketServer.Stop();
-    
 }
