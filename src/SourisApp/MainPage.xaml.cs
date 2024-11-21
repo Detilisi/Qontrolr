@@ -1,5 +1,7 @@
-﻿using SourisApp.WebSockets;
+﻿using Souris.Shared;
+using SourisApp.WebSockets;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace SourisApp;
 
@@ -41,19 +43,16 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private void OnLeftClick(object sender, EventArgs e)
-    {
-        var data = "{Event: CLICK,  Value: LEFT}";
-        _webSocket.Send(data);
-        Debug.WriteLine("Left Click triggered");
-    }
-
     private void OnRightClick(object sender, EventArgs e)
     {
-        // Placeholder for right-click functionality
-        var data = "{Event: CLICK,  Value: RIGHT}";
-        _webSocket.Send(data);
+        SendCommand(Commands.Click, "0");
         Debug.WriteLine("Right Click triggered");
+    }
+
+    private void OnLeftClick(object sender, EventArgs e)
+    {
+        SendCommand(Commands.Click, "1");
+        Debug.WriteLine("Left Click triggered");
     }
 
     private void MousePad_DragInteraction(object sender, TouchEventArgs e)
@@ -69,13 +68,26 @@ public partial class MainPage : ContentPage
 
             _lastTouchPoint = touchPoint;
 
-            var message = $"{deltaX},{deltaY}";
-            _webSocket.Send(message);
+            var data = $"{deltaX},{deltaY}";
+            SendCommand(Commands.MoveCursor, data);
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"Error sending touch data: {ex.Message}");
         }
+    }
+
+    //Helper methods
+    private void SendCommand(string eventId, string data)
+    {
+        var command = new CommandModel
+        {
+            Name = eventId,
+            Data = data
+        };
+
+        string jsonCommand = JsonSerializer.Serialize(command);
+        _webSocket.Send(jsonCommand);
     }
 }
 
