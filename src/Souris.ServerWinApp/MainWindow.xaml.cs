@@ -10,12 +10,12 @@ namespace Souris.ServerWinApp
     {
         //Fields
         private bool _isServerRunning = false;
-        private readonly ServerWebSocket _serverWebSocket;
+        private readonly ServerSocket _serverWebSocket;
 
         //Construction
         public MainWindow()
         {
-            _serverWebSocket = new ServerWebSocket();
+            _serverWebSocket = new ServerSocket();
 
             InitializeComponent();
         }

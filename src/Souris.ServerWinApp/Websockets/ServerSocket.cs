@@ -1,9 +1,9 @@
-﻿using Souris.Server.Websockets.Services;
+﻿using Souris.Server.Websockets.WebSocketBehaviors;
 using WebSocketSharp.Server;
 
 namespace Souris.Server.Websockets;
 
-class ServerWebSocket
+class ServerSocket
 {
     //Constants
     private const int PortNumer = 7890;
@@ -12,7 +12,7 @@ class ServerWebSocket
     private readonly WebSocketServer _webSocketServer;
 
     //Construction
-    public ServerWebSocket()
+    public ServerSocket()
     {
         _webSocketServer = new WebSocketServer(PortNumer);
         
@@ -23,7 +23,7 @@ class ServerWebSocket
     public void InitializeServices()
     {
         var mouseAutomationEndpoint = "/mouse-automation";
-        _webSocketServer.AddWebSocketService<MouseAutomationWebSockertBehavior>(mouseAutomationEndpoint);
+        _webSocketServer.AddWebSocketService<MouseAutomation>(mouseAutomationEndpoint);
     }
 
     //Public methods
