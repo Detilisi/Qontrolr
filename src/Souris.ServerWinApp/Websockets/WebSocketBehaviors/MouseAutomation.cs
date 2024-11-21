@@ -20,10 +20,9 @@ class MouseAutomation : WebSocketBehavior
         base.OnMessage(e);
 
         var commandData = e.Data;
-        if (string.IsNullOrEmpty(commandData))
-        {
-            HandleCommand(commandData);
-        }
+        if (string.IsNullOrEmpty(commandData)) return;
+
+        HandleCommand(commandData);
     }
 
     public void HandleCommand(string jsonMessage)
@@ -49,7 +48,7 @@ class MouseAutomation : WebSocketBehavior
                 }
                 else if (clickDirection == 1)
                 {
-                    _inputSimulator.Mouse.RightButtonClick();
+                    _inputSimulator.Mouse.LeftButtonClick();
                 }
                 break;
             default:
