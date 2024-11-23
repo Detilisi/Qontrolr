@@ -22,8 +22,7 @@ class ServerSocket
     //Initialization
     public void InitializeServices()
     {
-        var mouseAutomationEndpoint = "/mouse-automation";
-        _webSocketServer.AddWebSocketService<MouseAutomation>(mouseAutomationEndpoint);
+        _webSocketServer.AddWebSocketService<MouseAutomation>(MouseAutomation.Endpoint);
     }
 
     //Public methods
