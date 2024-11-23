@@ -1,6 +1,7 @@
 ﻿using Foundation;
+using QontrolrApp;
 
-namespace SourisApp
+namespace QontrolrApp.Platforms.MacCatalyst
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

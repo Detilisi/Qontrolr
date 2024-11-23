@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace SourisApp
+namespace QontrolrApp.Platforms.iOS
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

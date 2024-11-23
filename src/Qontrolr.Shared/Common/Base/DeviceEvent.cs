@@ -2,6 +2,6 @@
 
 public abstract class DeviceEvent<T>(string name, T data)
 {
-    public required string Name { get; set; } = name;
-    public required T Data { get; set; } = data;
+    public  string Name { get;} = name;
+    public T Data { get; } = data;
 }

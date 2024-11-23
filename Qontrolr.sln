@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1D7A0DB3-595
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Souris.Server", "src\Souris.ServerWinApp\Souris.Server.csproj", "{3C190CCA-B0FC-4FDE-B6DC-1BE4E8605050}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourisApp", "src\SourisApp\SourisApp.csproj", "{612C9025-D4CB-470F-BD18-497E69A0FC87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QontrolrApp", "src\SourisApp\QontrolrApp.csproj", "{612C9025-D4CB-470F-BD18-497E69A0FC87}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Souris.Shared", "src\Souris.Shared\Souris.Shared.csproj", "{13ADE8A4-8976-4034-8268-9E57683066A1}"
 EndProject

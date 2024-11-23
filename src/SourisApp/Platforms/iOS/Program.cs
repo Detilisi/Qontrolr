@@ -1,7 +1,6 @@
-﻿using ObjCRuntime;
-using UIKit;
+﻿using UIKit;
 
-namespace SourisApp
+namespace QontrolrApp.Platforms.iOS
 {
     public class Program
     {
