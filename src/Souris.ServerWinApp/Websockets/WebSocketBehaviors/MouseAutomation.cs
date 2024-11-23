@@ -6,26 +6,29 @@ using WindowsInput;
 
 namespace Souris.Server.Websockets.WebSocketBehaviors;
 
-class MouseAutomation : WebSocketBehavior
+internal class MouseAutomation : WebSocketBehavior
 {
+    //Fields
     private readonly InputSimulator _inputSimulator;
+    public static string Endpoint => "/mouse-automation";
 
+    //Construction
     public MouseAutomation()
     {
         _inputSimulator = new InputSimulator();
     }
 
+    //Event handlers
     protected override void OnMessage(MessageEventArgs e)
     {
-        base.OnMessage(e);
+        var message = e.Data;
+        if (string.IsNullOrEmpty(message)) return;
 
-        var commandData = e.Data;
-        if (string.IsNullOrEmpty(commandData)) return;
-
-        HandleCommand(commandData);
+        HandleCommand(message);
     }
 
-    public void HandleCommand(string jsonMessage)
+    //Hepler
+    private void HandleCommand(string jsonMessage)
     {
         var command = JsonSerializer.Deserialize<CommandModel>(jsonMessage);
         if (command == null) return;
