@@ -1,5 +1,4 @@
-﻿using Qontrolr.Shared.Common.Base;
-using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
+﻿using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
 
 namespace Qontrolr.Shared.Mouse.Cursor.Events;
 
