@@ -1,4 +1,6 @@
-﻿using WebSocketSharp;
+﻿using Qontrolr.Shared.Common.Base;
+using System.Text.Json;
+using WebSocketSharp;
 
 namespace SourisApp.WebSockets;
 
@@ -38,4 +40,9 @@ internal class ClientSocket
     public void Connect() => _webSocket.Connect();
     public void Close() => _webSocket.Close();
     public void Send(string data) => _webSocket.Send(data);
+    public void SendEvent<T>(DeviceEvent<T> deviceEvent)
+    {
+        string jsonCommand = JsonSerializer.Serialize(deviceEvent);
+        _webSocket.Send(jsonCommand);
+    }
 }

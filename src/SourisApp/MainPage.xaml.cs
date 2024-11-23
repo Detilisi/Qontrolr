@@ -1,15 +1,17 @@
-﻿using Souris.Shared;
+﻿using Qontrolr.Shared.Mouse.Button.Enums;
+using Qontrolr.Shared.Mouse.Button.Events;
+using Qontrolr.Shared.Mouse.Cursor.Events;
+using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
 using SourisApp.WebSockets;
-using System.Diagnostics;
-using System.Text.Json;
 
 namespace SourisApp;
 
 public partial class MainPage : ContentPage
 {
+    //Fields
     private readonly ClientSocket _webSocket;
-    private Point _lastTouchPoint = new(0, 0);
-
+    
+    //Construction
     public MainPage()
     {
         InitializeComponent();
@@ -23,7 +25,11 @@ public partial class MainPage : ContentPage
         // Show the modal on startup
         ConnectionModal.IsVisible = true;
     }
- 
+
+    //Properties
+    private int MovementScalingFactor { get; set; } = 5;
+    private Point LastTouchPoint { get; set; } = new(0, 0);
+    
     //Event handlers
     private async void OnConnectButtonClicked(object sender, EventArgs e)
     {
@@ -31,63 +37,47 @@ public partial class MainPage : ContentPage
         {
             // Connect to WebSocket server
             _webSocket.Connect();
-            _webSocket.Send("Connected");
 
             // Hide the modal on successful connection
             ConnectionModal.IsVisible = false;
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Connection Error: {ex.Message}");
-            await DisplayAlert("Connection Failed", "Unable to connect to the server.", "OK");
+            await DisplayAlert("Connection Failed", $"Unable to connect to the server. {ex.Message}", "OK");
         }
     }
 
     private void OnRightClick(object sender, EventArgs e)
     {
-        SendCommand(Commands.Click, "0");
-        Debug.WriteLine("Right Click triggered");
+        _webSocket.SendEvent(new ButtonClicked(ButtonId.Right));
     }
 
     private void OnLeftClick(object sender, EventArgs e)
     {
-        SendCommand(Commands.Click, "1");
-        Debug.WriteLine("Left Click triggered");
+        _webSocket.SendEvent(new ButtonClicked(ButtonId.Left));
     }
 
-    private void MousePad_DragInteraction(object sender, TouchEventArgs e)
+    private async void MousePad_DragInteraction(object sender, TouchEventArgs e)
     {
         try
         {
             var touchPoint = e.Touches.First();
-            var movementScalingFactor = 5;
-
+            
             // Calculate movement delta
-            var deltaX = (int)(touchPoint.X - _lastTouchPoint.X) * movementScalingFactor;
-            var deltaY = (int)(touchPoint.Y - _lastTouchPoint.Y) * movementScalingFactor;
+            var deltaX = (int)(touchPoint.X - LastTouchPoint.X) * MovementScalingFactor;
+            var deltaY = (int)(touchPoint.Y - LastTouchPoint.Y) * MovementScalingFactor;
 
-            _lastTouchPoint = touchPoint;
+            //Send event
+            var cursorMovedEvent = new CursorMoved(new CursorPosition(deltaX, deltaY));
+            _webSocket.SendEvent(cursorMovedEvent);
 
-            var data = $"{deltaX},{deltaY}";
-            SendCommand(Commands.MoveCursor, data);
+            //Update last touch point
+            LastTouchPoint = touchPoint;
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Error sending touch data: {ex.Message}");
+            await DisplayAlert("Failed", $"Error sending touch data. {ex.Message}", "OK");
         }
-    }
-
-    //Helper methods
-    private void SendCommand(string eventId, string data)
-    {
-        var command = new CommandModel
-        {
-            Name = eventId,
-            Data = data
-        };
-
-        string jsonCommand = JsonSerializer.Serialize(command);
-        _webSocket.Send(jsonCommand);
     }
 }
 
@@ -103,6 +93,4 @@ public class MousePadDrawable : IDrawable
         canvas.FontColor = Colors.LightGray;
         canvas.DrawString("Touchpad Area", dirtyRect.Width / 2, dirtyRect.Height / 2, HorizontalAlignment.Center);
     }
-
-
 }
