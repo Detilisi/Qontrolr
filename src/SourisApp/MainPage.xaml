@@ -27,8 +27,18 @@
                 VerticalOptions="Center"
                 Clicked="OnLeftClick" />
 
-            <!-- Spacer (empty column for aesthetics) -->
-            <BoxView Grid.Column="1" />
+            <!-- Mouse Wheel (Vertical Slider for Scrolling) -->
+            <Slider 
+                Grid.Column="1"
+                x:Name="MouseWheelSlider"
+                Maximum="100"
+                Minimum="-100"
+                Value="0"
+                BackgroundColor="#3A3A3A"
+                ThumbColor="#0078D7"
+                VerticalOptions="Fill"
+                HorizontalOptions="Center"
+                ValueChanged="OnMouseWheelScrolled" />
 
             <!-- Right Click -->
             <Button 
