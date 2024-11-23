@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
+using QontrolrApp;
 
-namespace SourisApp
+namespace QontrolrApp
 {
     public static class MauiProgram
     {
@@ -16,7 +17,7 @@ namespace SourisApp
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

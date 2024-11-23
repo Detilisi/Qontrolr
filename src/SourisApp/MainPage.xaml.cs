@@ -2,9 +2,9 @@
 using Qontrolr.Shared.Mouse.Button.Events;
 using Qontrolr.Shared.Mouse.Cursor.Events;
 using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
-using SourisApp.WebSockets;
+using QontrolrApp.WebSockets;
 
-namespace SourisApp;
+namespace QontrolrApp;
 
 public partial class MainPage : ContentPage
 {

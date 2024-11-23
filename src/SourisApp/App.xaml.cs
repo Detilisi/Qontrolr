@@ -1,4 +1,4 @@
-﻿namespace SourisApp
+﻿namespace QontrolrApp
 {
     public partial class App : Application
     {

@@ -2,7 +2,7 @@
 using System.Text.Json;
 using WebSocketSharp;
 
-namespace SourisApp.WebSockets;
+namespace QontrolrApp.WebSockets;
 
 internal class ClientSocket
 {
@@ -20,7 +20,7 @@ internal class ClientSocket
     {
         var serverRoute = $"ws://{ServerIP}:{ServerPort}/{ServiceId}";
         _webSocket = new WebSocket(serverRoute);
-        
+
         InitializeClient();
     }
 

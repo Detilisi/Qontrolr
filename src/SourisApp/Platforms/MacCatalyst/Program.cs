@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace SourisApp
+namespace QontrolrApp.Platforms.MacCatalyst
 {
     public class Program
     {
