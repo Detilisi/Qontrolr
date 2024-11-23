@@ -1,8 +1,8 @@
-﻿using Qontrolr.Shared.Mouse.Button.Enums;
+﻿using QontrolrApp.WebSockets;
+using Qontrolr.Shared.Mouse.Button.Enums;
 using Qontrolr.Shared.Mouse.Button.Events;
 using Qontrolr.Shared.Mouse.Cursor.Events;
 using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
-using QontrolrApp.WebSockets;
 
 namespace QontrolrApp;
 
