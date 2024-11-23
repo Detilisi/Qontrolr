@@ -3,6 +3,7 @@ using Qontrolr.Shared.Mouse.Button.Enums;
 using Qontrolr.Shared.Mouse.Button.Events;
 using Qontrolr.Shared.Mouse.Cursor.Events;
 using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
+using System.Diagnostics;
 
 namespace QontrolrApp;
 
@@ -23,7 +24,7 @@ public partial class MainPage : ContentPage
         MousePadView.DragInteraction += MousePad_DragInteraction;
 
         // Show the modal on startup
-        ConnectionModal.IsVisible = true;
+        ConnectionModal.IsVisible = false;
     }
 
     //Properties
@@ -79,6 +80,20 @@ public partial class MainPage : ContentPage
             await DisplayAlert("Failed", $"Error sending touch data. {ex.Message}", "OK");
         }
     }
+
+    private void OnMouseWheelScrolled(object sender, ValueChangedEventArgs e)
+    {
+        // Calculate scroll delta (difference between old and new values)
+        var delta = (int)e.NewValue;
+
+        // Send scroll event to the WebSocket
+        //_webSocket.SendEvent(new MouseWheelScrolled(delta));
+
+        // Reset slider position after the event is sent
+        Debug.WriteLine("Scrolled: " + delta);
+        MouseWheelSlider.Value = 0;
+    }
+
 }
 
 //Helper class
