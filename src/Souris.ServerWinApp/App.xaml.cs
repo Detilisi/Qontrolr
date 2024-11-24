@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace Souris.ServerWinApp
+namespace Qontrolr.ServerWinApp
 {
     /// <summary>
     /// Interaction logic for App.xaml

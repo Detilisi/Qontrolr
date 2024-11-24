@@ -1,7 +1,7 @@
-﻿<Application x:Class="Souris.ServerWinApp.App"
+﻿<Application x:Class="Qontrolr.ServerWinApp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Souris.ServerWinApp"
+             xmlns:local="clr-namespace:Qontrolr.ServerWinApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

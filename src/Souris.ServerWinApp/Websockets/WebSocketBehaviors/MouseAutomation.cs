@@ -8,7 +8,7 @@ using WebSocketSharp;
 using WebSocketSharp.Server;
 using WindowsInput;
 
-namespace Souris.Server.Websockets.WebSocketBehaviors;
+namespace Qontrolr.Server.Websockets.WebSocketBehaviors;
 
 internal class MouseAutomation : WebSocketBehavior
 {

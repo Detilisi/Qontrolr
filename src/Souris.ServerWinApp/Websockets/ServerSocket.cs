@@ -1,7 +1,7 @@
-﻿using Souris.Server.Websockets.WebSocketBehaviors;
+﻿using Qontrolr.Server.Websockets.WebSocketBehaviors;
 using WebSocketSharp.Server;
 
-namespace Souris.Server.Websockets;
+namespace Qontrolr.Server.Websockets;
 
 class ServerSocket
 {

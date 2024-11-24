@@ -1,7 +1,7 @@
-﻿using Souris.Server.Websockets;
+﻿using Qontrolr.Server.Websockets;
 using System.Windows;
 
-namespace Souris.ServerWinApp
+namespace Qontrolr.ServerWinApp
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
