@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Souris.Shared\Souris.Shared.csproj" />
+    <ProjectReference Include="..\Qontrolr.Shared\Qontrolr.Shared.csproj" />
   </ItemGroup>
 
 </Project>

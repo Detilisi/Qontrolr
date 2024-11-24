@@ -28,14 +28,14 @@
                 Clicked="OnLeftClick" />
 
             <!-- Mouse Wheel (Vertical Slider for Scrolling) -->
-            <Slider 
+            <Slider
                 Grid.Column="1"
                 x:Name="MouseWheelSlider"
                 Maximum="100"
                 Minimum="-100"
                 Value="0"
                 BackgroundColor="#3A3A3A"
-                ThumbColor="#0078D7"
+                ThumbColor="Transparent"
                 VerticalOptions="Fill"
                 HorizontalOptions="Center"
                 ValueChanged="OnMouseWheelScrolled" />
