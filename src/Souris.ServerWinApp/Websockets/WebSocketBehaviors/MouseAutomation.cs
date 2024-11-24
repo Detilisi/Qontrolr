@@ -1,4 +1,8 @@
-﻿using Souris.Shared;
+﻿using Qontrolr.Shared.Mouse.Button.Enums;
+using Qontrolr.Shared.Mouse.Button.Events;
+using Qontrolr.Shared.Mouse.Cursor.Events;
+using Qontrolr.Shared.Mouse.Wheel.Enums;
+using Qontrolr.Shared.Mouse.Wheel.Events;
 using System.Text.Json;
 using WebSocketSharp;
 using WebSocketSharp.Server;
@@ -24,38 +28,47 @@ internal class MouseAutomation : WebSocketBehavior
         var message = e.Data;
         if (string.IsNullOrEmpty(message)) return;
 
-        HandleCommand(message);
+        ProccessEvent(message);
     }
 
     //Hepler
-    private void HandleCommand(string jsonMessage)
+    private void ProccessEvent(string jsonMessage)
     {
-        var command = JsonSerializer.Deserialize<CommandModel>(jsonMessage);
-        if (command == null) return;
-
-        switch (command.Name)
+        if (jsonMessage.Contains("mouse.cursor.moved"))
         {
-            case Commands.MoveCursor:
-                var coordinates = command.Data.Split(',');
-                int x = int.Parse(coordinates[0]);
-                int y = int.Parse(coordinates[1]);
+            var cursorMovedEvent = JsonSerializer.Deserialize<CursorMoved>(jsonMessage);
+            if (cursorMovedEvent == null) return;
 
-                _inputSimulator.Mouse.MoveMouseBy(x, y);
-                break;
-
-            case Commands.Click:
-                var clickDirection = int.Parse(command.Data);
-                if (clickDirection == 0)
-                {
-                    _inputSimulator.Mouse.RightButtonClick();
-                }
-                else if (clickDirection == 1)
-                {
-                    _inputSimulator.Mouse.LeftButtonClick();
-                }
-                break;
-            default:
-                break;
+            _inputSimulator.Mouse.MoveMouseBy(cursorMovedEvent.Data.DeltaX, cursorMovedEvent.Data.DeltaY);
         }
-    }
+        else if (jsonMessage.Contains("mouse.button.clicked"))
+        {
+            var clickedEvent = JsonSerializer.Deserialize<ButtonClicked>(jsonMessage);
+            if (clickedEvent == null) return;
+
+            if (clickedEvent.Data == ButtonId.Right)
+            {
+                _inputSimulator.Mouse.RightButtonClick();
+            }
+            else if (clickedEvent.Data == ButtonId.Left)
+            {
+                _inputSimulator.Mouse.LeftButtonClick();
+            }
+        }
+        else if (jsonMessage.Contains("mouse.wheel.scrolled"))
+        {
+            var wheelScrolledEvent = JsonSerializer.Deserialize<WheelScrolled>(jsonMessage);
+            if (wheelScrolledEvent == null) return;
+
+            const int scrollFactor = 2;
+            if (wheelScrolledEvent.Data == ScrollDirection.Up)
+            {
+                _inputSimulator.Mouse.VerticalScroll(scrollFactor);
+            }
+            else if (wheelScrolledEvent.Data == ScrollDirection.Down)
+            {
+                _inputSimulator.Mouse.VerticalScroll(-scrollFactor);
+            }
+        }
+    }    
 }

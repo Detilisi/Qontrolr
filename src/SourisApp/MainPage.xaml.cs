@@ -25,7 +25,7 @@ public partial class MainPage : ContentPage
         MousePadView.DragInteraction += MousePad_DragInteraction;
 
         // Show the modal on startup
-        ConnectionModal.IsVisible = false;
+        //ConnectionModal.IsVisible = false;
     }
 
     //Properties
