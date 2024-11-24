@@ -2,7 +2,7 @@
 
 public class ButtonDoubledClicked : DeviceEvent<ButtonId>
 {
-    public ButtonDoubledClicked(ButtonId data) : base("button.double.clicked", data)
+    public ButtonDoubledClicked(ButtonId data) : base("mouse.button.double.clicked", data)
     {
     }
 }

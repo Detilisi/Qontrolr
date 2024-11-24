@@ -4,7 +4,7 @@ namespace Qontrolr.Shared.Mouse.Cursor.Events;
 
 public class CursorMoved : DeviceEvent<CursorPosition>
 {
-    public CursorMoved(CursorPosition data) : base("cursor.moved", data)
+    public CursorMoved(CursorPosition data) : base("mouse.cursor.moved", data)
     {
     }
 }

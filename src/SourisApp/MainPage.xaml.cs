@@ -1,9 +1,10 @@
-﻿using QontrolrApp.WebSockets;
-using Qontrolr.Shared.Mouse.Button.Enums;
+﻿using Qontrolr.Shared.Mouse.Button.Enums;
 using Qontrolr.Shared.Mouse.Button.Events;
 using Qontrolr.Shared.Mouse.Cursor.Events;
 using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
-using System.Diagnostics;
+using Qontrolr.Shared.Mouse.Wheel.Enums;
+using Qontrolr.Shared.Mouse.Wheel.Events;
+using QontrolrApp.WebSockets;
 
 namespace QontrolrApp;
 
@@ -48,16 +49,6 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private void OnRightClick(object sender, EventArgs e)
-    {
-        _webSocket.SendEvent(new ButtonClicked(ButtonId.Right));
-    }
-
-    private void OnLeftClick(object sender, EventArgs e)
-    {
-        _webSocket.SendEvent(new ButtonClicked(ButtonId.Left));
-    }
-
     private async void MousePad_DragInteraction(object sender, TouchEventArgs e)
     {
         try
@@ -83,17 +74,25 @@ public partial class MainPage : ContentPage
 
     private void OnMouseWheelScrolled(object sender, ValueChangedEventArgs e)
     {
-        // Calculate scroll delta (difference between old and new values)
-        var delta = (int)e.NewValue;
-
         // Send scroll event to the WebSocket
-        //_webSocket.SendEvent(new MouseWheelScrolled(delta));
+        var direction = (int)e.OldValue> 0 
+            ? ScrollDirection.Up 
+            : ScrollDirection.Down;
+        _webSocket.SendEvent(new WheelScrolled(direction));
 
         // Reset slider position after the event is sent
-        Debug.WriteLine("Scrolled: " + delta);
         MouseWheelSlider.Value = 0;
     }
 
+    private void OnRightClick(object sender, EventArgs e)
+    {
+        _webSocket.SendEvent(new ButtonClicked(ButtonId.Right));
+    }
+
+    private void OnLeftClick(object sender, EventArgs e)
+    {
+        _webSocket.SendEvent(new ButtonClicked(ButtonId.Left));
+    }
 }
 
 //Helper class
