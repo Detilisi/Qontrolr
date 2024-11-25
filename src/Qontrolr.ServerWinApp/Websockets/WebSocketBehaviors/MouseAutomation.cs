@@ -3,6 +3,7 @@ using Qontrolr.Shared.Mouse.Button.Events;
 using Qontrolr.Shared.Mouse.Cursor.Events;
 using Qontrolr.Shared.Mouse.Wheel.Enums;
 using Qontrolr.Shared.Mouse.Wheel.Events;
+using System.Diagnostics;
 using System.Text.Json;
 using WebSocketSharp;
 using WebSocketSharp.Server;
@@ -67,7 +68,7 @@ internal class MouseAutomation : WebSocketBehavior
             }
             else if (wheelScrolledEvent.Data == ScrollDirection.Down)
             {
-                _inputSimulator.Mouse.VerticalScroll(-scrollFactor);
+                _inputSimulator.Mouse.VerticalScroll(scrollFactor * -1);
             }
         }
     }    
