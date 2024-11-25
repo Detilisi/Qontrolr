@@ -75,10 +75,15 @@ public partial class MainPage : ContentPage
     private void OnMouseWheelScrolled(object sender, ValueChangedEventArgs e)
     {
         // Send scroll event to the WebSocket
-        var direction = (int)e.OldValue> 0 
-            ? ScrollDirection.Up 
-            : ScrollDirection.Down;
-        _webSocket.SendEvent(new WheelScrolled(direction));
+        if ((int)e.OldValue > 0)
+        {
+            _webSocket.SendEvent(new WheelScrolled(ScrollDirection.Up));
+        }
+        else if ((int)e.OldValue < 0)
+        {
+            _webSocket.SendEvent(new WheelScrolled(ScrollDirection.Down));
+        }
+            
 
         // Reset slider position after the event is sent
         MouseWheelSlider.Value = 0;
