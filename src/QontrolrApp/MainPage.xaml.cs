@@ -84,7 +84,6 @@ public partial class MainPage : ContentPage
             _webSocket.SendEvent(new WheelScrolled(ScrollDirection.Down));
         }
             
-
         // Reset slider position after the event is sent
         MouseWheelSlider.Value = 0;
     }
