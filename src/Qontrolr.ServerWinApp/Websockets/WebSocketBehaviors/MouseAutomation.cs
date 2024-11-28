@@ -1,8 +1,10 @@
-﻿using Qontrolr.Shared.Mouse.Button.Enums;
-using Qontrolr.Shared.Mouse.Button.Events;
-using Qontrolr.Shared.Mouse.Cursor.Events;
+﻿using Qontrolr.Shared.Common.Base;
+using Qontrolr.Shared.Mouse.Button.Constants;
+using Qontrolr.Shared.Mouse.Button.Enums;
+using Qontrolr.Shared.Mouse.Cursor.Constants;
+using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
+using Qontrolr.Shared.Mouse.Wheel.Constants;
 using Qontrolr.Shared.Mouse.Wheel.Enums;
-using Qontrolr.Shared.Mouse.Wheel.Events;
 using System.Text.Json;
 using WebSocketSharp;
 using WebSocketSharp.Server;
@@ -34,16 +36,16 @@ internal class MouseAutomation : WebSocketBehavior
     //Hepler
     private void ProccessEvent(string jsonMessage)
     {
-        if (jsonMessage.Contains("mouse.cursor.moved"))
+        if (jsonMessage.Contains(CursorEvents.CursorMoved))
         {
-            var cursorMovedEvent = JsonSerializer.Deserialize<CursorMoved>(jsonMessage);
+            var cursorMovedEvent = JsonSerializer.Deserialize<DeviceEvent<CursorPosition>>(jsonMessage);
             if (cursorMovedEvent == null) return;
-
+            
             _inputSimulator.Mouse.MoveMouseBy(cursorMovedEvent.Data.DeltaX, cursorMovedEvent.Data.DeltaY);
         }
-        else if (jsonMessage.Contains("mouse.button.clicked"))
+        else if (jsonMessage.Contains(ButtonEvents.ButtonClick))
         {
-            var clickedEvent = JsonSerializer.Deserialize<ButtonClicked>(jsonMessage);
+            var clickedEvent = JsonSerializer.Deserialize<DeviceEvent<ButtonId>>(jsonMessage);
             if (clickedEvent == null) return;
 
             if (clickedEvent.Data == ButtonId.Right)
@@ -55,9 +57,9 @@ internal class MouseAutomation : WebSocketBehavior
                 _inputSimulator.Mouse.LeftButtonClick();
             }
         }
-        else if (jsonMessage.Contains("mouse.wheel.scrolled"))
+        else if (jsonMessage.Contains(WheelEvents.WheelScrolled))
         {
-            var wheelScrolledEvent = JsonSerializer.Deserialize<WheelScrolled>(jsonMessage);
+            var wheelScrolledEvent = JsonSerializer.Deserialize<DeviceEvent<ScrollDirection>>(jsonMessage);
             if (wheelScrolledEvent == null) return;
 
             const int scrollFactor = 2;
