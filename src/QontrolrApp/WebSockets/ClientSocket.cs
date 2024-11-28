@@ -1,4 +1,4 @@
-﻿using Qontrolr.Shared.Common.Base;
+﻿using Qontrolr.Shared.Common.Events;
 using System.Text.Json;
 using WebSocketSharp;
 

@@ -1,4 +1,4 @@
-﻿using Qontrolr.Shared.Common.Base;
+﻿using Qontrolr.Shared.Common.Events;
 using Qontrolr.Shared.Mouse.Button.Constants;
 using Qontrolr.Shared.Mouse.Button.Enums;
 using Qontrolr.Shared.Mouse.Cursor.Constants;
