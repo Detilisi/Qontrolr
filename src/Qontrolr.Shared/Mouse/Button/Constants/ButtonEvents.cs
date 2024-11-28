@@ -1,6 +1,6 @@
 ﻿namespace Qontrolr.Shared.Mouse.Button.Constants;
 
-public class ButtonEventNames
+public static class ButtonEvents
 {
     public static string ButtonPressed => "mouse.button.pressed";
     public static string ButtonReleased => "mouse.button.released";
