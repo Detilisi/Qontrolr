@@ -1,9 +1,10 @@
-﻿using Qontrolr.Shared.Mouse.Button.Enums;
-using Qontrolr.Shared.Mouse.Button.Events;
-using Qontrolr.Shared.Mouse.Cursor.Events;
+﻿using Qontrolr.Shared.Common.Base;
+using Qontrolr.Shared.Mouse.Button.Constants;
+using Qontrolr.Shared.Mouse.Button.Enums;
+using Qontrolr.Shared.Mouse.Cursor.Constants;
 using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
+using Qontrolr.Shared.Mouse.Wheel.Constants;
 using Qontrolr.Shared.Mouse.Wheel.Enums;
-using Qontrolr.Shared.Mouse.Wheel.Events;
 using QontrolrApp.WebSockets;
 
 namespace QontrolrApp;
@@ -25,7 +26,7 @@ public partial class MainPage : ContentPage
         MousePadView.DragInteraction += MousePad_DragInteraction;
 
         // Show the modal on startup
-        //ConnectionModal.IsVisible = false;
+        ConnectionModal.IsVisible = true;
     }
 
     //Properties
@@ -60,7 +61,9 @@ public partial class MainPage : ContentPage
             var deltaY = (int)(touchPoint.Y - LastTouchPoint.Y) * MovementScalingFactor;
 
             //Send event
-            var cursorMovedEvent = new CursorMoved(new CursorPosition(deltaX, deltaY));
+            var cursorMovedEvent = new DeviceEvent<CursorPosition>(
+                CursorEvents.CursorMoved, new CursorPosition(deltaX, deltaY)
+            );
             _webSocket.SendEvent(cursorMovedEvent);
 
             //Update last touch point
@@ -77,11 +80,11 @@ public partial class MainPage : ContentPage
         // Send scroll event to the WebSocket
         if ((int)e.OldValue > 0)
         {
-            _webSocket.SendEvent(new WheelScrolled(ScrollDirection.Up));
+            _webSocket.SendEvent(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, ScrollDirection.Up));
         }
         else if ((int)e.OldValue < 0)
         {
-            _webSocket.SendEvent(new WheelScrolled(ScrollDirection.Down));
+            _webSocket.SendEvent(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, ScrollDirection.Down));
         }
             
         // Reset slider position after the event is sent
@@ -90,12 +93,12 @@ public partial class MainPage : ContentPage
 
     private void OnRightClick(object sender, EventArgs e)
     {
-        _webSocket.SendEvent(new ButtonClicked(ButtonId.Right));
+        _webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonClick, ButtonId.Right));
     }
 
     private void OnLeftClick(object sender, EventArgs e)
     {
-        _webSocket.SendEvent(new ButtonClicked(ButtonId.Left));
+        _webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonClick, ButtonId.Left));
     }
 }
 
