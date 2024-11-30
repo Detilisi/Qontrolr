@@ -12,7 +12,6 @@ namespace Qontrolr.ServerWinApp
     public partial class MainWindow : Window
     {
         //Fields
-        private bool _isServerRunning = false;
         private readonly ServerSocket _serverWebSocket;
 
         //Construction
@@ -21,16 +20,15 @@ namespace Qontrolr.ServerWinApp
             _serverWebSocket = new ServerSocket();
 
             InitializeComponent();
-            StartServer();
+            StartServerAndDisplayQrCode();
         }
 
         //Helper
-        private void StartServer()
+        private void StartServerAndDisplayQrCode()
         {
             // UI update
-            _isServerRunning = true;
             _serverWebSocket.Start();
-            QrCodeImage.Source = GenerateQRCode("randomLink");
+            QrCodeImage.Source = GenerateQRCode(ServerSocket.BaseUrl);
         }
 
         private static BitmapImage GenerateQRCode(string text)
