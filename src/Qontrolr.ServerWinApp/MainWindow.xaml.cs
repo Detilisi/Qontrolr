@@ -1,5 +1,8 @@
 ﻿using Qontrolr.Server.Websockets;
+using QRCoder;
+using System.IO;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace Qontrolr.ServerWinApp
 {
@@ -18,19 +21,7 @@ namespace Qontrolr.ServerWinApp
             _serverWebSocket = new ServerSocket();
 
             InitializeComponent();
-        }
-
-        //Event handler
-        private void ServerButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (_isServerRunning)
-            {
-                StopServer();
-            }
-            else
-            {
-                StartServer();
-            }
+            StartServer();
         }
 
         //Helper
@@ -38,25 +29,27 @@ namespace Qontrolr.ServerWinApp
         {
             // UI update
             _isServerRunning = true;
-            ServerButton.Content = "Stop Server";
-            StatusMessage.Text = "Server has started successfully!";
-            StatusMessage.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LimeGreen);
-            StatusMessage.Visibility = Visibility.Visible;
-
             _serverWebSocket.Start();
+            QrCodeImage.Source = GenerateQRCode("randomLink");
         }
 
-        private void StopServer()
+        private static BitmapImage GenerateQRCode(string text)
         {
-            // UI update
-            _isServerRunning = false;
-            ServerButton.Content = "Start Server";
-            StatusMessage.Text = "Server has been stopped!";
-            StatusMessage.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Red);
-            StatusMessage.Visibility = Visibility.Visible;
+            var qrGenerator = new QRCodeGenerator();
+            var qrCodeData = qrGenerator.CreateQrCode(text, QRCodeGenerator.ECCLevel.Q);
+            var qrCode = new QRCode(qrCodeData);
 
+            using var qrBitmap = qrCode.GetGraphic(20);
+            using var stream = new MemoryStream();
+            qrBitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
 
-            _serverWebSocket.Stop();
+            var bitmapImage = new BitmapImage();
+            bitmapImage.BeginInit();
+            bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapImage.StreamSource = new MemoryStream(stream.ToArray());
+            bitmapImage.EndInit();
+
+            return bitmapImage;
         }
     }
 }
