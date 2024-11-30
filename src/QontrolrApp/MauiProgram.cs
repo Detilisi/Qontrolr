@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using QontrolrApp;
+using ZXing.Net.Maui.Controls;
 
 namespace QontrolrApp
 {
@@ -10,6 +11,7 @@ namespace QontrolrApp
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseBarcodeReader()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
