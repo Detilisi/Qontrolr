@@ -6,7 +6,7 @@
         Title="Qontrolr"
         ResizeMode="NoResize"
         Background="#1E1E2E"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" FontFamily="Candara">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
