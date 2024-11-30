@@ -33,29 +33,25 @@
         </StackPanel>
 
         <!-- QR Code Section -->
-        <Border 
-            Grid.Row="1" 
-            CornerRadius="20" 
-            Background="#27273C" 
-            Margin="30"
-            Effect="{DynamicResource DropShadowEffect}">
-            <Grid>
-                <Image
-                    x:Name="QrCodeImage" 
-                    Height="300"
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center" />
-                <TextBlock 
-                    Text="Generating QR Code..."
-                    Foreground="#70708A"
-                    FontSize="18"
-                    FontStyle="Italic"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Visibility="Collapsed"
-                    x:Name="PlaceholderText" />
-            </Grid>
-        </Border>
+        <StackPanel
+            Grid.Row="1"
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center">
+            <Image
+                x:Name="QrCodeImage" 
+                Height="300"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" />
+            <TextBlock 
+                Text="Generating QR Code..."
+                Foreground="#70708A"
+                FontSize="18"
+                FontStyle="Italic"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Visibility="Collapsed"
+                x:Name="PlaceholderText" />
+        </StackPanel>
 
         <!-- Footer Section -->
         <StackPanel 
@@ -72,13 +68,4 @@
             <Separator Margin="20" />
         </StackPanel>
     </Grid>
-
-    <Window.Resources>
-        <DropShadowEffect x:Key="DropShadowEffect" 
-                      ShadowDepth="5" 
-                      Opacity="0.3" 
-                      BlurRadius="15" 
-                      Color="#000000" />
-    </Window.Resources>
-
 </Window>
