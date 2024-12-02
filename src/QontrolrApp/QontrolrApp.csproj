@@ -69,7 +69,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\BarcodeReaderPage.xaml">
+	  <Compile Update="Pages\QRCodeReaderPage.xaml.cs">
+	    <DependentUpon>QRCodeReaderPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\QRCodeReaderPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
