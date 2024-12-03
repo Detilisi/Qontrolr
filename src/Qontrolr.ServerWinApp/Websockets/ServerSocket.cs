@@ -6,42 +6,88 @@ namespace Qontrolr.Server.Websockets;
 
 public class ServerSocket
 {
-    //Fields
+    // Fields
     private readonly WebSocketServer _webSocketServer;
+    private static readonly string _baseUrl;
 
-    //Construction
-    public ServerSocket()
+    // Static Constructor for Initializing BaseUrl
+    static ServerSocket()
     {
-        _webSocketServer = new WebSocketServer(BaseUrl);
-        
-        InitializeServices();
-    }
-
-    //Properties
-    public static string BaseUrl
-    {
-        get
+        _baseUrl = InitializeBaseUrl();
+        if (string.IsNullOrWhiteSpace(_baseUrl))
         {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            var ipv4Address = host.AddressList.FirstOrDefault(
-                ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork && ip.ToString().StartsWith("192"));
-
-            if (ipv4Address == null) return string.Empty;
-
-            const int  portNumber = 7890;
-            return string.Format("ws://{0}:{1}", ipv4Address.ToString(), portNumber);
+            Console.WriteLine("Failed to determine server base URL.");
         }
     }
 
-    //Initialization
-    public void InitializeServices()
+    // Constructor
+    public ServerSocket()
     {
+        if (string.IsNullOrWhiteSpace(_baseUrl))
+        {
+            throw new InvalidOperationException("Server base URL is not initialized.");
+        }
+
+        _webSocketServer = new WebSocketServer(_baseUrl);
+        InitializeServices();
+    }
+
+    // Properties
+    public static string BaseUrl => _baseUrl;
+
+    // Initialization
+    private static string InitializeBaseUrl()
+    {
+        try
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            var ipv4Address = host.AddressList.FirstOrDefault(ip =>
+                ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork &&
+                ip.ToString().StartsWith("192")); // Adjust this prefix as needed.
+
+            if (ipv4Address == null)
+            {
+                return string.Empty;
+            }
+
+            const int portNumber = 7890;
+            return $"ws://{ipv4Address}:{portNumber}";
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error initializing BaseUrl: {ex.Message}");
+            return string.Empty;
+        }
+    }
+
+    private void InitializeServices()
+    {
+        // Register WebSocket services
         _webSocketServer.AddWebSocketService<MouseAutomation>(MouseAutomation.Endpoint);
     }
 
-    //Public methods
-    public void Start() => _webSocketServer.Start();
-    public void Stop() => _webSocketServer.Stop();
+    // Public Methods
+    public void Start()
+    {
+        if (_webSocketServer.IsListening)
+        {
+            Console.WriteLine("WebSocket server is already running.");
+            return;
+        }
 
-    
+        _webSocketServer.Start();
+        Console.WriteLine($"WebSocket server started at {BaseUrl}");
+    }
+
+    public void Stop()
+    {
+        if (!_webSocketServer.IsListening)
+        {
+            Console.WriteLine("WebSocket server is not running.");
+            return;
+        }
+
+        _webSocketServer.Stop();
+        Console.WriteLine("WebSocket server stopped.");
+    }
 }
