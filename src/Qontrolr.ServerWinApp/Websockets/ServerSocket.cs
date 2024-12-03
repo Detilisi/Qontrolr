@@ -24,7 +24,7 @@ public class ServerSocket
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());
             var ipv4Address = host.AddressList.FirstOrDefault(
-                ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+                ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork && ip.ToString().StartsWith("192"));
 
             if (ipv4Address == null) return string.Empty;
 
