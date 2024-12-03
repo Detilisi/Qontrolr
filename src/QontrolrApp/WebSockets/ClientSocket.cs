@@ -10,6 +10,7 @@ internal class ClientSocket
     private const int ServerPort = 7890;
     private const string ServerIP = "10.0.2.2";
     private const string ServiceId = "mouse-automation";
+    public static string ServerUrl { get; set; }
 
 
     //Fields
@@ -18,7 +19,8 @@ internal class ClientSocket
     //Construction
     public ClientSocket()
     {
-        var serverRoute = $"ws://{ServerIP}:{ServerPort}/{ServiceId}";
+        var serverRoute = $"{ServerUrl}/{ServiceId}";
+        var clientRoute = ServerUrl;
         _webSocket = new WebSocket(serverRoute);
 
         InitializeClient();
