@@ -7,12 +7,9 @@ namespace QontrolrApp.WebSockets;
 internal class ClientSocket
 {
     //Constants
-    private const int ServerPort = 7890;
-    private const string ServerIP = "10.0.2.2";
-    private const string ServiceId = "mouse-automation";
     public static string ServerUrl { get; set; }
-
-
+    private const string ServiceId = "mouse-automation";
+    
     //Fields
     private readonly WebSocket _webSocket;
 
