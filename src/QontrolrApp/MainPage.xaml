@@ -53,7 +53,7 @@
                 VerticalOptions="Center"
                 Clicked="OnRightClick" />
         </Grid>
-        
+
         <!-- Main Touch Pad -->
         <GraphicsView 
             Grid.Row="1"
@@ -61,41 +61,5 @@
             BackgroundColor="#333333"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"/>
-
-        <!-- Modal Popup -->
-        <Border 
-            Grid.Row="1"
-            x:Name="ConnectionModal"
-            BackgroundColor="#333333"
-            Padding="20"
-            Stroke="#FFFFFF"
-            StrokeThickness="2"
-            IsVisible="True"
-            VerticalOptions="Center"
-            HorizontalOptions="Center"
-            WidthRequest="300"
-            HeightRequest="200">
-            <VerticalStackLayout Spacing="15" VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="Connect to Server"
-                       FontSize="18"
-                       TextColor="White"
-                       HorizontalOptions="Center" />
-
-                <Label Text="Please connect to the WebSocket server to start."
-                       FontSize="14"
-                       TextColor="#CCCCCC"
-                       HorizontalOptions="Center"
-                       HorizontalTextAlignment="Center" />
-
-                <Button Text="Connect"
-                        FontSize="16"
-                        BackgroundColor="#0078D7"
-                        TextColor="White"
-                        CornerRadius="8"
-                        WidthRequest="150"
-                        Clicked="OnConnectButtonClicked" />
-            </VerticalStackLayout>
-        </Border>
     </Grid>
-
 </ContentPage>
