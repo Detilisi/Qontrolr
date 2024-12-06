@@ -27,7 +27,6 @@ public partial class MainPage : ContentPage
 
         // Show the modal on startup
         _webSocket.Connect();
-        //ConnectionModal.IsVisible = true;
     }
 
     //Properties
@@ -35,22 +34,6 @@ public partial class MainPage : ContentPage
     private Point LastTouchPoint { get; set; } = new(0, 0);
     
     //Event handlers
-    private async void OnConnectButtonClicked(object sender, EventArgs e)
-    {
-        try
-        {
-            // Connect to WebSocket server
-            _webSocket.Connect();
-
-            // Hide the modal on successful connection
-            ConnectionModal.IsVisible = false;
-        }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Connection Failed", $"Unable to connect to the server. {ex.Message}", "OK");
-        }
-    }
-
     private async void MousePad_DragInteraction(object sender, TouchEventArgs e)
     {
         try
