@@ -1,4 +1,5 @@
 ﻿using Qontrolr.Server.Websockets.WebSocketBehaviors;
+using System.Diagnostics;
 using System.Net;
 using WebSocketSharp.Server;
 
@@ -16,7 +17,7 @@ public class ServerSocket
         _baseUrl = InitializeBaseUrl();
         if (string.IsNullOrWhiteSpace(_baseUrl))
         {
-            Console.WriteLine("Failed to determine server base URL.");
+            Debug.WriteLine("Failed to determine server base URL.");
         }
     }
 
@@ -55,7 +56,7 @@ public class ServerSocket
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error initializing BaseUrl: {ex.Message}");
+            Debug.WriteLine($"Error initializing BaseUrl: {ex.Message}");
             return string.Empty;
         }
     }
@@ -71,23 +72,23 @@ public class ServerSocket
     {
         if (_webSocketServer.IsListening)
         {
-            Console.WriteLine("WebSocket server is already running.");
+            Debug.WriteLine("WebSocket server is already running.");
             return;
         }
 
         _webSocketServer.Start();
-        Console.WriteLine($"WebSocket server started at {BaseUrl}");
+        Debug.WriteLine($"WebSocket server started at {BaseUrl}");
     }
 
     public void Stop()
     {
         if (!_webSocketServer.IsListening)
         {
-            Console.WriteLine("WebSocket server is not running.");
+            Debug.WriteLine("WebSocket server is not running.");
             return;
         }
 
         _webSocketServer.Stop();
-        Console.WriteLine("WebSocket server stopped.");
+        Debug.WriteLine("WebSocket server stopped.");
     }
 }
