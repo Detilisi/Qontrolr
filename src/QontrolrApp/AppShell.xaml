@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:QontrolrApp"
     xmlns:page="clr-namespace:QontrolrApp.Pages"
+    xmlns:mouse_pages="clr-namespace:QontrolrApp.Pages.Mouse"
     Shell.FlyoutBehavior="Disabled"
     Title="SourisApp">
 
@@ -14,8 +15,12 @@
         Route="ScannerPage" />
 
     <ShellContent
+        Title="Touch Pad"
+        ContentTemplate="{DataTemplate mouse_pages:TouchPadPage}"
+        Route="TouchPadPage" />
+
+    <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
-
 </Shell>
