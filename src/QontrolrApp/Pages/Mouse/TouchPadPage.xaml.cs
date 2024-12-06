@@ -46,7 +46,7 @@ public partial class TouchPadPage : ContentPage
             var cursorMovedEvent = new DeviceEvent<CursorPosition>(
                 CursorEvents.CursorMoved, new CursorPosition(deltaX, deltaY)
             );
-            //_webSocket.SendEvent(cursorMovedEvent);
+            _webSocket.SendEvent(cursorMovedEvent);
 
             //Update last touch point
             LastTouchPoint = touchPoint;
@@ -61,11 +61,11 @@ public partial class TouchPadPage : ContentPage
         // Send scroll event to the WebSocket
         if ((int)e.OldValue > 0)
         {
-            //_webSocket.SendEvent(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, ScrollDirection.Up));
+            _webSocket.SendEvent(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, ScrollDirection.Up));
         }
         else if ((int)e.OldValue < 0)
         {
-            //_webSocket.SendEvent(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, ScrollDirection.Down));
+            _webSocket.SendEvent(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, ScrollDirection.Down));
         }
 
         // Reset slider position after the event is sent
@@ -74,11 +74,11 @@ public partial class TouchPadPage : ContentPage
 
     private void OnRightClick(object sender, EventArgs e)
     {
-        //_webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonClick, ButtonId.Right));
+        _webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonClick, ButtonId.Right));
     }
 
     private void OnLeftClick(object sender, EventArgs e)
     {
-        //_webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonClick, ButtonId.Left));
+        _webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonClick, ButtonId.Left));
     }
 }
