@@ -5,6 +5,7 @@ using Qontrolr.Shared.Mouse.Cursor.Constants;
 using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
 using Qontrolr.Shared.Mouse.Wheel.Constants;
 using Qontrolr.Shared.Mouse.Wheel.Enums;
+using QontrolrApp.Controls.Mouse;
 using QontrolrApp.WebSockets;
 using System.Linq.Expressions;
 
@@ -22,7 +23,7 @@ public partial class TouchPadPage : ContentPage, IQueryAttributable
 		InitializeComponent();
 
         // Add touch interaction event
-        TouchPadView.Drawable = new MousePadDrawable();
+        TouchPadView.Drawable = new TouchPadDrawable();
         TouchPadView.DragInteraction += MousePad_DragInteraction;
     }
 

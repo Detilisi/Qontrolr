@@ -18,9 +18,4 @@
         Title="Touch Pad"
         ContentTemplate="{DataTemplate mouse_pages:TouchPadPage}"
         Route="TouchPadPage" />
-
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
 </Shell>
