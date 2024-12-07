@@ -6,21 +6,20 @@ using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
 using Qontrolr.Shared.Mouse.Wheel.Constants;
 using Qontrolr.Shared.Mouse.Wheel.Enums;
 using QontrolrApp.WebSockets;
+using System.Linq.Expressions;
 
 namespace QontrolrApp.Pages.Mouse;
 
-public partial class TouchPadPage : ContentPage
+public partial class TouchPadPage : ContentPage, IQueryAttributable
 {
     //Fields
-    private readonly ClientSocket _webSocket;
+    private ClientSocket _webSocket;
+    public string ServerUrl { get; set; }
 
     //Construcion
     public TouchPadPage()
 	{
 		InitializeComponent();
-
-        //_webSocket = new ClientSocket();
-        //_webSocket.Connect();
 
         // Add touch interaction event
         TouchPadView.Drawable = new MousePadDrawable();
@@ -30,6 +29,25 @@ public partial class TouchPadPage : ContentPage
     //Properties
     private int MovementScalingFactor { get; set; } = 5;
     private Point LastTouchPoint { get; set; } = new(0, 0);
+
+    public Type ElementType => throw new NotImplementedException();
+
+    public Expression Expression => throw new NotImplementedException();
+
+    public IQueryProvider Provider => throw new NotImplementedException();
+
+    //Initialize
+    public async void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        ServerUrl = query[nameof(ServerUrl)]?.ToString();
+        if(string.IsNullOrEmpty(ServerUrl))
+        {
+            await Shell.Current.GoToAsync(".."); //Navigate back
+            return;
+        }
+        _webSocket = new ClientSocket(ServerUrl);
+        _webSocket.Connect();
+    }
 
     //Event handlers
     private async void MousePad_DragInteraction(object sender, TouchEventArgs e)
@@ -56,6 +74,7 @@ public partial class TouchPadPage : ContentPage
             await DisplayAlert("Failed", $"Error sending touch data. {ex.Message}", "OK");
         }
     }
+
     private void OnMouseWheelScrolled(object sender, ValueChangedEventArgs e)
     {
         // Send scroll event to the WebSocket

@@ -1,4 +1,3 @@
-using QontrolrApp.WebSockets;
 using ZXing.Net.Maui;
 
 namespace QontrolrApp.Pages;
@@ -25,10 +24,9 @@ public partial class QRCodeReaderPage : ContentPage
                 bool isContinue = await DisplayAlert("Scanned QR Code", $"Scanned QR: {scannedText}", "Continue", "Retry");
                 if (isContinue)
                 {
-                    ClientSocket.ServerUrl = scannedText;
-
                     // Navigate to Main page
-                    await Shell.Current.GoToAsync("//MainPage");
+                    await Shell.Current.GoToAsync(
+                        $"//{nameof(Mouse.TouchPadPage)}?{nameof(Mouse.TouchPadPage.ServerUrl)}={scannedText}");
                 }
                 else
                 {
@@ -39,10 +37,8 @@ public partial class QRCodeReaderPage : ContentPage
         }
     }
 
-    private async void OnCancelClicked(object sender, EventArgs e)
+    private void OnCancelClicked(object sender, EventArgs e)
     {
         // Cancel and navigate back or close the pageTouchPadPage
-        //await Navigation.PopAsync();
-        await Shell.Current.GoToAsync("//TouchPadPage");
     }
 }

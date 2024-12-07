@@ -19,7 +19,7 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
 
-        _webSocket = new ClientSocket();
+        //_webSocket = new ClientSocket();
 
         // Add touch interaction event
         MousePadView.Drawable = new MousePadDrawable();
