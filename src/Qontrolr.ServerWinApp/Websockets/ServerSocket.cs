@@ -30,7 +30,9 @@ public class ServerSocket
         }
 
         _webSocketServer = new WebSocketServer(_baseUrl);
-        InitializeServices();
+        
+        // Register WebSocket services
+        _webSocketServer.AddWebSocketService<MouseAutomation>(MouseAutomation.Endpoint);
     }
 
     // Properties
@@ -41,18 +43,17 @@ public class ServerSocket
     {
         try
         {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            var ipv4Address = host.AddressList.FirstOrDefault(ip =>
-                ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork &&
-                ip.ToString().StartsWith("192")); // Adjust this prefix as needed.
+            const int PortNumber = 7890;
+            const System.Net.Sockets.AddressFamily AddressFamily = System.Net.Sockets.AddressFamily.InterNetwork;
 
-            if (ipv4Address == null)
-            {
-                return string.Empty;
-            }
+            var addressList = Dns.GetHostEntry(Dns.GetHostName())?.AddressList;
 
-            const int portNumber = 7890;
-            return $"ws://{ipv4Address}:{portNumber}";
+            if (addressList == null || addressList.Length == 0) return string.Empty;
+
+            var ipv4Address = addressList
+                .FirstOrDefault(ip => ip.AddressFamily == AddressFamily && IsTwoDigitSuffix(ip.ToString()));
+
+            return ipv4Address != null ? $"ws://{ipv4Address}:{PortNumber}" : string.Empty;
         }
         catch (Exception ex)
         {
@@ -61,10 +62,12 @@ public class ServerSocket
         }
     }
 
-    private void InitializeServices()
+    private static bool IsTwoDigitSuffix(string ipAddress)
     {
-        // Register WebSocket services
-        _webSocketServer.AddWebSocketService<MouseAutomation>(MouseAutomation.Endpoint);
+        var segments = ipAddress.Split('.');
+        return segments.Length == 4
+            && int.TryParse(segments[3], out int lastSegment)
+            && lastSegment is >= 10 and <= 99; // Compact two-digit check
     }
 
     // Public Methods
