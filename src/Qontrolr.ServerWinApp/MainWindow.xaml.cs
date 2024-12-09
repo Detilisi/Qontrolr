@@ -29,6 +29,7 @@ namespace Qontrolr.ServerWinApp
             // UI update
             _serverWebSocket.Start();
             QrCodeImage.Source = GenerateQRCode(ServerSocket.BaseUrl);
+            ConnectText.Text = $"Connect to {ServerSocket.BaseUrl}";
         }
 
         private static BitmapImage GenerateQRCode(string text)
