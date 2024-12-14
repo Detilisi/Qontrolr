@@ -25,22 +25,24 @@
                 CornerRadius="8"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
-                Clicked="OnLeftClick" />
+                Clicked="OnLeftClick"
+                Pressed="LeftClickButton_Pressed"
+                Released="LeftClickButton_Released"/>
 
                     <!-- Mouse Wheel (Vertical Slider for Scrolling) -->
-                    <Slider
-                Grid.Column="1"
-                x:Name="MouseWheelSlider"
-                Maximum="100"
-                Minimum="-100"
-                Value="0"
-                BackgroundColor="#3A3A3A"
-                ThumbColor="Transparent"
-                VerticalOptions="Fill"
-                HorizontalOptions="Center"
-                ValueChanged="OnMouseWheelScrolled" />
+            <Slider
+                    Grid.Column="1"
+                    x:Name="MouseWheelSlider"
+                    Maximum="100"
+                    Minimum="-100"
+                    Value="0"
+                    BackgroundColor="#3A3A3A"
+                    ThumbColor="Transparent"
+                    VerticalOptions="Fill"
+                    HorizontalOptions="Center"
+                    ValueChanged="OnMouseWheelScrolled" />
 
-                    <!-- Right Click -->
+            <!-- Right Click -->
             <Button 
                 Grid.Column="2"
                 x:Name="RightClickButton"
@@ -51,7 +53,9 @@
                 CornerRadius="8"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
-                Clicked="OnRightClick" />
+                Clicked="OnRightClick" 
+                Pressed="RightClickButton_Pressed"
+                Released="RightClickButton_Released"/>
         </Grid>
 
         <!-- Main Touch Pad -->
