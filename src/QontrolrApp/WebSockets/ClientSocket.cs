@@ -37,6 +37,6 @@ internal class ClientSocket
     //Events
     private void _webSocket_OnError(object? sender, WebSocketSharp.ErrorEventArgs e)
     {
-        ClientOnError.Invoke(sender, e);
+        ClientOnError?.Invoke(sender, e);
     }
 }
