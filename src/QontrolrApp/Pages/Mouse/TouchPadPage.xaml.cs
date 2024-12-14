@@ -96,9 +96,26 @@ public partial class TouchPadPage : ContentPage, IQueryAttributable
     {
         _webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonClick, ButtonId.Right));
     }
-
     private void OnLeftClick(object sender, EventArgs e)
     {
         _webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonClick, ButtonId.Left));
+    }
+
+    private void RightClickButton_Pressed(object sender, EventArgs e)
+    {
+        _webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonPressed, ButtonId.Right));
+    }
+    private void RightClickButton_Released(object sender, EventArgs e)
+    {
+        _webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonReleased, ButtonId.Right));
+    }
+
+    private void LeftClickButton_Pressed(object sender, EventArgs e)
+    {
+        _webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonPressed, ButtonId.Left));
+    }
+    private void LeftClickButton_Released(object sender, EventArgs e)
+    {
+        _webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonReleased, ButtonId.Left));
     }
 }
