@@ -12,13 +12,18 @@ internal class ClientSocket
     //Fields
     private readonly WebSocket _webSocket;
 
+    //Properties
+    public EventHandler<EventArgs> ClientOnError { set; private get; }
+
     //Construction
     public ClientSocket(string serverUrl)
     {
         var serverRoute = $"{serverUrl}/{ServiceId}";
         _webSocket = new WebSocket(serverRoute);
+        _webSocket.OnError += _webSocket_OnError;
     }
 
+    
     //Public methods
     public void Connect() => _webSocket.Connect();
     public void Close() => _webSocket.Close();
@@ -27,5 +32,11 @@ internal class ClientSocket
     {
         string jsonCommand = JsonSerializer.Serialize(deviceEvent);
         _webSocket.Send(jsonCommand);
+    }
+
+    //Events
+    private void _webSocket_OnError(object? sender, WebSocketSharp.ErrorEventArgs e)
+    {
+        ClientOnError.Invoke(sender, e);
     }
 }
