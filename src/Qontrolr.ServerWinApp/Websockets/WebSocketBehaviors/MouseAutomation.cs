@@ -57,6 +57,34 @@ internal class MouseAutomation : WebSocketBehavior
                 _inputSimulator.Mouse.LeftButtonClick();
             }
         }
+        else if (jsonMessage.Contains(ButtonEvents.ButtonPressed))
+        {
+            var clickedEvent = JsonSerializer.Deserialize<DeviceEvent<ButtonId>>(jsonMessage);
+            if (clickedEvent == null) return;
+
+            if (clickedEvent.Data == ButtonId.Right)
+            {
+                _inputSimulator.Mouse.RightButtonDown();
+            }
+            else if (clickedEvent.Data == ButtonId.Left)
+            {
+                _inputSimulator.Mouse.LeftButtonDown();
+            }
+        }
+        else if (jsonMessage.Contains(ButtonEvents.ButtonReleased))
+        {
+            var clickedEvent = JsonSerializer.Deserialize<DeviceEvent<ButtonId>>(jsonMessage);
+            if (clickedEvent == null) return;
+
+            if (clickedEvent.Data == ButtonId.Right)
+            {
+                _inputSimulator.Mouse.RightButtonUp();
+            }
+            else if (clickedEvent.Data == ButtonId.Left)
+            {
+                _inputSimulator.Mouse.LeftButtonUp();
+            }
+        }
         else if (jsonMessage.Contains(WheelEvents.WheelScrolled))
         {
             var wheelScrolledEvent = JsonSerializer.Deserialize<DeviceEvent<ScrollDirection>>(jsonMessage);
