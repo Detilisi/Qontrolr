@@ -51,7 +51,7 @@ public class ServerSocket
             if (addressList == null || addressList.Length == 0) return string.Empty;
 
             var ipv4Address = addressList
-                .FirstOrDefault(ip => ip.AddressFamily == AddressFamily && IsTwoDigitSuffix(ip.ToString()));
+                .FirstOrDefault(ip => ip.AddressFamily == AddressFamily);
 
             return ipv4Address != null ? $"ws://{ipv4Address}:{PortNumber}" : string.Empty;
         }

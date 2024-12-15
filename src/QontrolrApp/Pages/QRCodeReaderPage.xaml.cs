@@ -37,8 +37,10 @@ public partial class QRCodeReaderPage : ContentPage
         }
     }
 
-    private void OnCancelClicked(object sender, EventArgs e)
+    private async void OnCancelClicked(object sender, EventArgs e)
     {
         // Cancel and navigate back or close the pageTouchPadPage
+        await Shell.Current.GoToAsync(
+                        $"//{nameof(Mouse.TouchPadPage)}?{nameof(Mouse.TouchPadPage.ServerUrl)}={"hello"}");
     }
 }

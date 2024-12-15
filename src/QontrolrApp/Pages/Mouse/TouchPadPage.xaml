@@ -2,68 +2,105 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="QontrolrApp.Pages.Mouse.TouchPadPage"
-             Shell.NavBarIsVisible="False"
-             BackgroundColor="#1C1C1C"
+             Shell.NavBarIsVisible="True"
+             BackgroundColor="White"
              Title="Touch Pad">
-    <Grid RowDefinitions="80, *">
-        <!-- Panel for Buttons -->
+
+    <Frame
+        CornerRadius="30"
+        BackgroundColor="#F5F5F5"
+        HasShadow="True"
+        Padding="0"
+        Margin="10">
         <Grid 
-            Grid.Row="0"
-            BackgroundColor="#1C1C1C"
-            ColumnDefinitions="*, *, *"
-            Padding="10"
-            VerticalOptions="End">
+            RowDefinitions="*, Auto"
+            BackgroundColor="White"
+            Padding="10">
+            <!-- Touch Pad Area -->
+            <Grid Grid.Row="0"
+                  ColumnDefinitions="*, Auto">
+                <GraphicsView 
+                    Grid.Column="0"
+                    x:Name="TouchPadView"
+                    BackgroundColor="Yellow"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"/>
+                <!-- Mouse Wheel Slider on the Right -->
+                <Frame 
+                    CornerRadius="5"
+                    BackgroundColor="#F5F5F5"
+                    HasShadow="True"
+                    VerticalOptions="FillAndExpand"
+                    HorizontalOptions="End"
+                    WidthRequest="30"
+                    Margin="0,10,10,10">
 
-            <!-- Left Click -->
-            <Button 
-                Grid.Column="0"
-                x:Name="LeftClickButton"
-                Text="Left Click"
-                BackgroundColor="#3A3A3A"
-                TextColor="White"
-                FontSize="14"
-                CornerRadius="8"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                Clicked="OnLeftClick"
-                Pressed="LeftClickButton_Pressed"
-                Released="LeftClickButton_Released"/>
+                    <Slider x:Name="MouseWheelSlider1"
+                            Maximum="100"
+                            Minimum="-100"
+                            Value="0"
+                            ThumbColor="#1C1C1C"
+                            WidthRequest="30" 
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand"
+                            ValueChanged="OnMouseWheelScrolled"/>
+                </Frame>
+            </Grid>
+            
+            <!-- Control Buttons -->
+            <Grid Grid.Row="1"
+                BackgroundColor="AliceBlue"
+                Padding="10"
+                ColumnDefinitions="*, Auto, *"
+                ColumnSpacing="10"  
+                Margin="10">
 
-                    <!-- Mouse Wheel (Vertical Slider for Scrolling) -->
-            <Slider
-                    Grid.Column="1"
-                    x:Name="MouseWheelSlider"
-                    Maximum="100"
-                    Minimum="-100"
-                    Value="0"
-                    BackgroundColor="#3A3A3A"
-                    ThumbColor="Transparent"
-                    VerticalOptions="Fill"
-                    HorizontalOptions="Center"
-                    ValueChanged="OnMouseWheelScrolled" />
+                <!-- Left Click -->
+                <Frame Grid.Column="0"
+                    CornerRadius="30"
+                    BackgroundColor="#F5F5F5"
+                    HasShadow="True"
+                    Padding="0"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill">
+                    <Button x:Name="LeftClickButton"
+                        Text="L"
+                        FontSize="22"
+                        TextColor="Black"
+                        BackgroundColor="Transparent"
+                        Clicked="OnLeftClick"/>
+                </Frame>
 
-            <!-- Right Click -->
-            <Button 
-                Grid.Column="2"
-                x:Name="RightClickButton"
-                Text="Right Click"
-                BackgroundColor="#3A3A3A"
-                TextColor="White"
-                FontSize="14"
-                CornerRadius="8"
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                Clicked="OnRightClick" 
-                Pressed="RightClickButton_Pressed"
-                Released="RightClickButton_Released"/>
+                <!-- Slider (Mouse Wheel) -->
+                <Frame Grid.Column="1"
+                    CornerRadius="30"
+                    BackgroundColor="#F5F5F5"
+                    HasShadow="True"
+                    Padding="10,0,10,0">
+                    <Slider x:Name="MouseWheelSlider"
+                        Maximum="100"
+                        Minimum="-100"
+                        Value="0"
+                        ThumbColor="#1C1C1C"
+                        BackgroundColor="Transparent"
+                        VerticalOptions="Center"
+                        ValueChanged="OnMouseWheelScrolled"/>
+                </Frame>
+
+                <!-- Right Click -->
+                <Frame Grid.Column="2"
+                    CornerRadius="30"
+                    BackgroundColor="#F5F5F5"
+                    HasShadow="True"
+                    Padding="0">
+                    <Button x:Name="RightClickButton"
+                        Text="R"
+                        FontSize="22"
+                        TextColor="Black"
+                        BackgroundColor="Transparent"
+                        Clicked="OnRightClick"/>
+                </Frame>
+            </Grid>
         </Grid>
-
-        <!-- Main Touch Pad -->
-        <GraphicsView 
-            Grid.Row="1"
-            x:Name="TouchPadView"
-            BackgroundColor="#333333"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="FillAndExpand"/>
-    </Grid>
+    </Frame>
 </ContentPage>
