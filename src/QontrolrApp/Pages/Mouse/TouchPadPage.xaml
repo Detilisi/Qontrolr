@@ -3,70 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="QontrolrApp.Pages.Mouse.TouchPadPage"
              Shell.NavBarIsVisible="True"
-             BackgroundColor="White"
+             BackgroundColor="#F5F5F5"
              Title="Touch Pad">
 
-    <Frame
-        CornerRadius="30"
-        BackgroundColor="#F5F5F5"
-        HasShadow="True"
-        Padding="0"
-        Margin="10">
-        <Grid 
-            RowDefinitions="*, Auto"
-            BackgroundColor="White"
-            Padding="10">
-            <!-- Touch Pad Area -->
-            <Grid Grid.Row="0"
-                  ColumnDefinitions="*, Auto">
-                <GraphicsView 
-                    Grid.Column="0"
-                    x:Name="TouchPadView"
-                    BackgroundColor="Yellow"
-                    HorizontalOptions="FillAndExpand"
-                    VerticalOptions="FillAndExpand"/>
-                <!-- Mouse Wheel Slider on the Right -->
-                <Frame 
-                    CornerRadius="5"
-                    BackgroundColor="#F5F5F5"
-                    HasShadow="True"
-                    VerticalOptions="FillAndExpand"
-                    HorizontalOptions="End"
-                    WidthRequest="30"
-                    Margin="0,10,10,10">
+    <Grid 
+        RowDefinitions="*, Auto"
+        Padding="10">
+        <!-- Touch Pad Area -->
+        <GraphicsView 
+            Grid.Row="0"
+            x:Name="TouchPadView"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"/>
 
-                    <Slider x:Name="MouseWheelSlider1"
-                            Maximum="100"
-                            Minimum="-100"
-                            Value="0"
-                            ThumbColor="#1C1C1C"
-                            WidthRequest="30" 
-                            VerticalOptions="FillAndExpand"
-                            HorizontalOptions="FillAndExpand"
-                            ValueChanged="OnMouseWheelScrolled"/>
-                </Frame>
-            </Grid>
-            
-            <!-- Control Buttons -->
+        <!-- Control Buttons -->
             <Grid Grid.Row="1"
-                BackgroundColor="AliceBlue"
                 Padding="10"
                 ColumnDefinitions="*, Auto, *"
-                ColumnSpacing="10"  
+                ColumnSpacing="5"  
                 Margin="10">
 
                 <!-- Left Click -->
                 <Frame Grid.Column="0"
                     CornerRadius="30"
-                    BackgroundColor="#F5F5F5"
-                    HasShadow="True"
-                    Padding="0"
                     HorizontalOptions="Fill"
-                    VerticalOptions="Fill">
+                    VerticalOptions="Center">
                     <Button x:Name="LeftClickButton"
                         Text="L"
                         FontSize="22"
-                        TextColor="Black"
+                        TextColor="AliceBlue" 
                         BackgroundColor="Transparent"
                         Clicked="OnLeftClick"/>
                 </Frame>
@@ -74,15 +39,14 @@
                 <!-- Slider (Mouse Wheel) -->
                 <Frame Grid.Column="1"
                     CornerRadius="30"
-                    BackgroundColor="#F5F5F5"
                     HasShadow="True"
                     Padding="10,0,10,0">
                     <Slider x:Name="MouseWheelSlider"
                         Maximum="100"
                         Minimum="-100"
+                        Rotation="90"
                         Value="0"
-                        ThumbColor="#1C1C1C"
-                        BackgroundColor="Transparent"
+                        ThumbColor="Transparent"
                         VerticalOptions="Center"
                         ValueChanged="OnMouseWheelScrolled"/>
                 </Frame>
@@ -90,17 +54,15 @@
                 <!-- Right Click -->
                 <Frame Grid.Column="2"
                     CornerRadius="30"
-                    BackgroundColor="#F5F5F5"
                     HasShadow="True"
                     Padding="0">
-                    <Button x:Name="RightClickButton"
+                <Button x:Name="RightClickButton"
                         Text="R"
                         FontSize="22"
-                        TextColor="Black"
+                        TextColor="AliceBlue"
                         BackgroundColor="Transparent"
                         Clicked="OnRightClick"/>
-                </Frame>
-            </Grid>
+            </Frame>
         </Grid>
-    </Frame>
+    </Grid>
 </ContentPage>

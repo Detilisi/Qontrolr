@@ -89,7 +89,7 @@ public partial class TouchPadPage : ContentPage, IQueryAttributable
         }
 
         // Reset slider position after the event is sent
-        MouseWheelSlider1.Value = 0;
+        MouseWheelSlider.Value = 0;
     }
 
     private void OnRightClick(object sender, EventArgs e)
