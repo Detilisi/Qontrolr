@@ -28,7 +28,7 @@
                    WidthRequest="40"
                 BackgroundColor="WhiteSmoke">
                 <Frame.GestureRecognizers>
-                    <SwipeGestureRecognizer Direction="Up,Down" Swiped="SwipeGestureRecognizer_Swiped"/>
+                    <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"/>
                 </Frame.GestureRecognizers>
             </Frame>
         </Grid>
