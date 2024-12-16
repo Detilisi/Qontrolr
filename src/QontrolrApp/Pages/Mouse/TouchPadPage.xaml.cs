@@ -118,4 +118,17 @@ public partial class TouchPadPage : ContentPage, IQueryAttributable
     {
         _webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonReleased, ButtonId.Left));
     }
+
+    private void SwipeGestureRecognizer_Swiped(object sender, SwipedEventArgs e)
+    {
+        switch (e.Direction)
+        {
+            case SwipeDirection.Up:
+                _webSocket.SendEvent(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, ScrollDirection.Up));
+                break;
+            case SwipeDirection.Down:
+                _webSocket.SendEvent(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, ScrollDirection.Down));
+                break;
+        }
+    }
 }
