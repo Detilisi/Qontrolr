@@ -7,7 +7,6 @@ using Qontrolr.Shared.Mouse.Wheel.Constants;
 using Qontrolr.Shared.Mouse.Wheel.Enums;
 using QontrolrApp.Controls.Mouse;
 using QontrolrApp.WebSockets;
-using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace QontrolrApp.Pages.Mouse;
@@ -76,23 +75,23 @@ public partial class TouchPadPage : ContentPage, IQueryAttributable
             await DisplayAlert("Failed", $"Error sending touch data. {ex.Message}", "OK");
         }
     }
-
-    private void OnMouseWheelScrolled(object sender, ValueChangedEventArgs e)
+    private void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)
     {
         // Send scroll event to the WebSocket
-        if ((int)e.OldValue > 0)
+        if ((int)e.TotalY > 0)
         {
             _webSocket.SendEvent(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, ScrollDirection.Up));
         }
-        else if ((int)e.OldValue < 0)
+        else if ((int)e.TotalY < 0)
         {
             _webSocket.SendEvent(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, ScrollDirection.Down));
         }
-
-        // Reset slider position after the event is sent
-        MouseWheelSlider.Value = 0;
     }
 
+    private void OnMiddleClick(object sender, EventArgs e)
+    {
+        _webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonClick, ButtonId.Middle));
+    }
     private void OnRightClick(object sender, EventArgs e)
     {
         _webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonClick, ButtonId.Right));
@@ -120,16 +119,5 @@ public partial class TouchPadPage : ContentPage, IQueryAttributable
         _webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonReleased, ButtonId.Left));
     }
 
-    private void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)
-    {
-        // Send scroll event to the WebSocket
-        if ((int)e.TotalY > 0)
-        {
-            _webSocket.SendEvent(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, ScrollDirection.Up));
-        }
-        else if ((int)e.TotalY < 0)
-        {
-            _webSocket.SendEvent(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, ScrollDirection.Down));
-        }
-    }
+    
 }
