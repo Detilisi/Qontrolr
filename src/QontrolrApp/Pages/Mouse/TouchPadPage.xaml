@@ -10,56 +10,77 @@
         RowDefinitions="*, Auto"
         Padding="10">
         <!-- Touch Pad Area -->
-        <GraphicsView 
-            Grid.Row="0"
-            x:Name="TouchPadView"
-            HorizontalOptions="Fill"
-            VerticalOptions="Fill"/>
+        <Grid Grid.Row="0"
+            Padding="10"
+            ColumnDefinitions="*, Auto"
+            ColumnSpacing="5"  
+            Margin="10">
+            <GraphicsView 
+                Grid.Column="0"
+                x:Name="TouchPadView"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"/>
+
+            <Frame Grid.Column="1"
+                CornerRadius="15"
+                HasShadow="True"
+                Padding="10"
+                   WidthRequest="40"
+                BackgroundColor="WhiteSmoke">
+                <Frame.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Up,Down" Swiped="SwipeGestureRecognizer_Swiped"/>
+                </Frame.GestureRecognizers>
+            </Frame>
+        </Grid>
+        
 
         <!-- Control Buttons -->
-            <Grid Grid.Row="1"
-                Padding="10"
-                ColumnDefinitions="*, Auto, *"
-                ColumnSpacing="5"  
-                Margin="10">
+        <Grid Grid.Row="1"
+            Padding="10"
+            ColumnDefinitions="*, Auto, *"
+            ColumnSpacing="5"  
+            Margin="10">
 
-                <!-- Left Click -->
-                <Frame Grid.Column="0"
-                    CornerRadius="30"
-                    HorizontalOptions="Fill"
-                    VerticalOptions="Center">
-                    <Button x:Name="LeftClickButton"
-                        Text="L"
-                        FontSize="22"
-                        TextColor="AliceBlue" 
-                        BackgroundColor="Transparent"
-                        Clicked="OnLeftClick"/>
-                </Frame>
+            <!-- Left Click -->
+            <Frame Grid.Column="0"
+                CornerRadius="20"
+                HorizontalOptions="Fill"
+                VerticalOptions="Center"
+                BackgroundColor="WhiteSmoke">
+                <Button x:Name="LeftClickButton"
+                    Text="L"
+                    FontSize="22"
+                    TextColor="Gray" 
+                    BackgroundColor="Transparent"
+                    Clicked="OnLeftClick"/>
+            </Frame>
 
-                <!-- Slider (Mouse Wheel) -->
-                <Frame Grid.Column="1"
-                    CornerRadius="30"
-                    HasShadow="True"
-                    Padding="10,0,10,0">
-                    <Slider x:Name="MouseWheelSlider"
-                        Maximum="100"
-                        Minimum="-100"
-                        Rotation="90"
-                        Value="0"
-                        ThumbColor="Transparent"
-                        VerticalOptions="Center"
-                        ValueChanged="OnMouseWheelScrolled"/>
-                </Frame>
+            <!-- Slider (Mouse Wheel) -->
+            <Frame Grid.Column="1"
+                CornerRadius="20"
+                HasShadow="True"
+                Padding="10,0,10,0"
+                BackgroundColor="WhiteSmoke">
+                <Slider x:Name="MouseWheelSlider"
+                    Maximum="100"
+                    Minimum="-100"
+                    Rotation="90"
+                    Value="0"
+                    ThumbColor="Transparent"
+                    VerticalOptions="Center"
+                    ValueChanged="OnMouseWheelScrolled"/>
+            </Frame>
 
-                <!-- Right Click -->
-                <Frame Grid.Column="2"
-                    CornerRadius="30"
-                    HasShadow="True"
-                    Padding="0">
+            <!-- Right Click -->
+            <Frame Grid.Column="2"
+                CornerRadius="20"
+                HasShadow="True"
+                Padding="0"
+                BackgroundColor="WhiteSmoke">
                 <Button x:Name="RightClickButton"
                         Text="R"
                         FontSize="22"
-                        TextColor="AliceBlue"
+                        TextColor="Gray"
                         BackgroundColor="Transparent"
                         Clicked="OnRightClick"/>
             </Frame>
