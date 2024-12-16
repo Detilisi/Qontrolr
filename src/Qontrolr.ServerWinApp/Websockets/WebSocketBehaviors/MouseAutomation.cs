@@ -56,6 +56,10 @@ internal class MouseAutomation : WebSocketBehavior
             {
                 _inputSimulator.Mouse.LeftButtonClick();
             }
+            else if (clickedEvent.Data == ButtonId.Middle)
+            {
+                _inputSimulator.Mouse.XButtonClick((int)MouseButton.MiddleButton);
+            }
         }
         else if (jsonMessage.Contains(ButtonEvents.ButtonPressed))
         {
