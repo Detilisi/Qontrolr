@@ -7,6 +7,7 @@ using Qontrolr.Shared.Mouse.Wheel.Constants;
 using Qontrolr.Shared.Mouse.Wheel.Enums;
 using QontrolrApp.Controls.Mouse;
 using QontrolrApp.WebSockets;
+using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace QontrolrApp.Pages.Mouse;
@@ -119,16 +120,16 @@ public partial class TouchPadPage : ContentPage, IQueryAttributable
         _webSocket.SendEvent(new DeviceEvent<ButtonId>(ButtonEvents.ButtonReleased, ButtonId.Left));
     }
 
-    private void SwipeGestureRecognizer_Swiped(object sender, SwipedEventArgs e)
+    private void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)
     {
-        switch (e.Direction)
+        // Send scroll event to the WebSocket
+        if ((int)e.TotalY > 0)
         {
-            case SwipeDirection.Up:
-                _webSocket.SendEvent(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, ScrollDirection.Up));
-                break;
-            case SwipeDirection.Down:
-                _webSocket.SendEvent(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, ScrollDirection.Down));
-                break;
+            _webSocket.SendEvent(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, ScrollDirection.Up));
+        }
+        else if ((int)e.TotalY < 0)
+        {
+            _webSocket.SendEvent(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, ScrollDirection.Down));
         }
     }
 }
