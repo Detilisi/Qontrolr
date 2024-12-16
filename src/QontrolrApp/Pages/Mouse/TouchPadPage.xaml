@@ -25,7 +25,7 @@
                 CornerRadius="15"
                 HasShadow="True"
                 Padding="10"
-                   WidthRequest="40"
+                WidthRequest="35"
                 BackgroundColor="WhiteSmoke">
                 <Frame.GestureRecognizers>
                     <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"/>
@@ -55,20 +55,18 @@
                     Clicked="OnLeftClick"/>
             </Frame>
 
-            <!-- Slider (Mouse Wheel) -->
+            <!-- Middle Click -->
             <Frame Grid.Column="1"
                 CornerRadius="20"
                 HasShadow="True"
                 Padding="10,0,10,0"
                 BackgroundColor="WhiteSmoke">
-                <Slider x:Name="MouseWheelSlider"
-                    Maximum="100"
-                    Minimum="-100"
-                    Rotation="90"
-                    Value="0"
-                    ThumbColor="Transparent"
-                    VerticalOptions="Center"
-                    ValueChanged="OnMouseWheelScrolled"/>
+                <Button
+                    Text=""
+                    FontSize="22"
+                    TextColor="Gray"
+                    BackgroundColor="Transparent"
+                    Clicked="OnMiddleClick"/>
             </Frame>
 
             <!-- Right Click -->
