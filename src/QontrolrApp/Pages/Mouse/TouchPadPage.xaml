@@ -6,80 +6,90 @@
              BackgroundColor="#F5F5F5"
              Title="Touch Pad">
 
-    <Grid 
-        RowDefinitions="*, Auto"
-        Padding="10">
+    <ContentPage.Resources>
+        <!-- Shared Styles -->
+        <Style TargetType="Frame" x:Key="ShadowedFrameStyle">
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="BackgroundColor" Value="White"/>
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+
+        <Style TargetType="BoxView" x:Key="TouchpadButtonStyle">
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+            <Setter Property="BackgroundColor" Value="#E0E0E0"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*, Auto"
+          Padding="5"
+          BackgroundColor="#EDEDED">
+
         <!-- Touch Pad Area -->
         <Grid Grid.Row="0"
-            Padding="10"
-            ColumnDefinitions="*, Auto"
-            ColumnSpacing="5"  
-            Margin="10">
-            <GraphicsView 
-                Grid.Column="0"
-                x:Name="TouchPadView"
-                HorizontalOptions="Fill"
-                VerticalOptions="Fill"/>
+              Padding="10"
+              ColumnDefinitions="*, Auto"
+              ColumnSpacing="0">
+            <!-- Touch Pad -->
+            <Frame Style="{StaticResource ShadowedFrameStyle}" Grid.Column="0">
+                <GraphicsView 
+                    x:Name="TouchPadView"
+                    BackgroundColor="#FAFAFA"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill"/>
+            </Frame>
 
-            <Frame Grid.Column="1"
-                CornerRadius="15"
-                HasShadow="True"
-                Padding="10"
-                WidthRequest="35"
-                BackgroundColor="WhiteSmoke">
+            <!-- Mouse Wheel -->
+            <Frame Style="{StaticResource ShadowedFrameStyle}" Grid.Column="1"
+                   WidthRequest="50">
+                <Label Text="⇅"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       FontSize="32"
+                       TextColor="#4A4A4A"/>
                 <Frame.GestureRecognizers>
                     <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"/>
                 </Frame.GestureRecognizers>
             </Frame>
         </Grid>
-        
 
         <!-- Control Buttons -->
         <Grid Grid.Row="1"
-            Padding="10"
-            ColumnDefinitions="*, Auto, *"
-            ColumnSpacing="5"  
-            Margin="10">
+              ColumnDefinitions="*, Auto, *"
+              HeightRequest="60"
+              Padding="10,0,10,0">
 
             <!-- Left Click -->
             <Frame Grid.Column="0"
-                CornerRadius="20"
-                HorizontalOptions="Fill"
-                VerticalOptions="Center"
-                BackgroundColor="WhiteSmoke">
-                <Button x:Name="LeftClickButton"
-                    Text="L"
-                    FontSize="22"
-                    TextColor="Gray" 
-                    BackgroundColor="Transparent"
-                    Clicked="OnLeftClick"/>
+                   BorderColor="#D0D0D0"
+                   BackgroundColor="White"
+                   CornerRadius="0"
+                   HasShadow="False"
+                   Padding="0">
+                <Button BackgroundColor="Transparent"
+                        Clicked="OnLeftClick"/>
             </Frame>
 
             <!-- Middle Click -->
             <Frame Grid.Column="1"
-                CornerRadius="20"
-                HasShadow="True"
-                Padding="10,0,10,0"
-                BackgroundColor="WhiteSmoke">
-                <Button
-                    Text=""
-                    FontSize="22"
-                    TextColor="Gray"
-                    BackgroundColor="Transparent"
-                    Clicked="OnMiddleClick"/>
+                   BorderColor="#D0D0D0"
+                   BackgroundColor="White"
+                   CornerRadius="0"
+                   HasShadow="False"
+                   Padding="0">
+                <Button BackgroundColor="Transparent"
+                        Clicked="OnMiddleClick"/>
             </Frame>
 
             <!-- Right Click -->
             <Frame Grid.Column="2"
-                CornerRadius="20"
-                HasShadow="True"
-                Padding="0"
-                BackgroundColor="WhiteSmoke">
-                <Button x:Name="RightClickButton"
-                        Text="R"
-                        FontSize="22"
-                        TextColor="Gray"
-                        BackgroundColor="Transparent"
+                   BorderColor="#D0D0D0"
+                   BackgroundColor="White"
+                   CornerRadius="0"
+                   HasShadow="False"
+                   Padding="0">
+                <Button BackgroundColor="Transparent"
                         Clicked="OnRightClick"/>
             </Frame>
         </Grid>
