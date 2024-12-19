@@ -3,66 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
              x:Class="QontrolrApp.Pages.QRCodeReaderPage"
-             BackgroundColor="#1a1a2e">
-    <Grid RowSpacing="20" Padding="20">
-        <!-- Define Rows -->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <!-- Title -->
-            <RowDefinition Height="Auto"/>
-            <!-- Subtitle -->
-            <RowDefinition Height="*"/>
-            <!-- Barcode Reader -->
-            <RowDefinition Height="Auto"/>
-            <!-- Instructions -->
-            <RowDefinition Height="Auto"/>
-            <!-- Cancel Button -->
-        </Grid.RowDefinitions>
+             BackgroundColor="#f4f4f9">
+    <Grid 
+        RowDefinitions="Auto, *, Auto"
+        Padding="5">
 
-        <!-- App Title -->
-        <Label Text="Qontrolr"
-               FontSize="28"
+        <!-- Welcome Text -->
+        <VerticalStackLayout Grid.Row="0"
+                     Spacing="10"
+                     Padding="0,10,0,0"
+                     HorizontalOptions="Center">
+            <Label Text="Scan Your Barcode"
+               FontSize="24"
                FontAttributes="Bold"
-               TextColor="White"
                HorizontalOptions="Center"
-               VerticalOptions="Center"
-               Grid.Row="0"/>
-
-        <!-- Subtitle -->
-        <Label Text="Effortlessly connect and control"
-               FontSize="18"
-               TextColor="#cccccc"
+               TextColor="#2D3748" />
+            <Label Text="Align the barcode within the frame to scan it."
+               FontSize="16"
                HorizontalOptions="Center"
-               VerticalOptions="Center"
-               Grid.Row="1"/>
-
+               TextColor="#718096" />
+        </VerticalStackLayout>
+        
         <!-- Barcode Reader -->
         <zxing:CameraBarcodeReaderView x:Name="barcodeReader"
-                                       Grid.Row="2"
+                                       Grid.Row="1"
                                        HeightRequest="300"
                                        WidthRequest="300"
                                        HorizontalOptions="Center"
                                        VerticalOptions="Center"
                                        BarcodesDetected="OnBarcodeDetected"/>
 
-        <!-- Instruction Text -->
-        <Label Text="Scan the server QR code to connect"
-               FontSize="18"
-               TextColor="#cccccc"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
-               Grid.Row="3"/>
-
         <!-- Cancel Button -->
         <Button Text="Cancel"
                 FontSize="18"
-                BackgroundColor="#0f3460"
+                CornerRadius="25"
+                BackgroundColor="#3182CE"
                 TextColor="White"
-                CornerRadius="20"
-                Padding="10"
-                HorizontalOptions="Center"
-                VerticalOptions="End"
+                Padding="15"
+                VerticalOptions="Center"
                 Clicked="OnCancelClicked"
-                Grid.Row="4"/>
+                Grid.Row="2"/>
     </Grid>
 </ContentPage>
