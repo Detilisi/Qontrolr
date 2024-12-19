@@ -39,8 +39,9 @@ public partial class QRCodeReaderPage : ContentPage
 
     private async void OnCancelClicked(object sender, EventArgs e)
     {
-        // Cancel and navigate back or close the pageTouchPadPage
+        // Stop scanning
+        barcodeReader.IsDetecting = false;
         await Shell.Current.GoToAsync(
-                        $"//{nameof(Mouse.TouchPadPage)}?{nameof(Mouse.TouchPadPage.ServerUrl)}={"hello"}");
+                        $"//{nameof(Pages.HomePage)}");
     }
 }

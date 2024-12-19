@@ -10,9 +10,14 @@
     Title="SourisApp">
 
     <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate page:HomePage}"
+        Route="HomePage" />
+    
+    <ShellContent
         Title="Scanner"
         ContentTemplate="{DataTemplate page:QRCodeReaderPage}"
-        Route="ScannerPage" />
+        Route="QRCodeReaderPage" />
 
     <ShellContent
         Title="Touch Pad"

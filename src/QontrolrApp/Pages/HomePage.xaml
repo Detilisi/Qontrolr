@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="QontrolrApp.Pages.HomePage"
+             Title="Home"
+             BackgroundColor="#f4f4f9">
+    <Grid 
+        RowDefinitions="2*, 6*, 2*"
+        Padding="5">
+
+        <!-- Welcome Text -->
+        <VerticalStackLayout Grid.Row="0"
+                             Spacing="20"
+                             Padding="10"
+                             HorizontalOptions="Center">
+            <Label Text="Qontrolr!"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   TextColor="#2D3748" />
+            <Label Text="Control your PC remotely with ease."
+                   FontSize="18"
+                   HorizontalOptions="Center"
+                   TextColor="#718096" />
+        </VerticalStackLayout>
+        
+
+        <!-- Decorative Image -->
+        <Image Grid.Row="1" 
+               Source="connect.png"
+               HeightRequest="200"
+               HorizontalOptions="Center" />
+
+        <!-- Navigation Buttons -->
+        <Button Grid.Row="2" 
+                Text="Let's Get Started!"
+                FontSize="18"
+                CornerRadius="25"
+                BackgroundColor="#3182CE"
+                TextColor="White"
+                Padding="30"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Clicked="Button_Clicked"/>
+    </Grid>
+</ContentPage>
