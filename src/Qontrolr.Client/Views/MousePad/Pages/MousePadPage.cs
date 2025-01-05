@@ -40,7 +40,7 @@ public class MousePadPage : ContentPage
             return new Grid()
             {
                 Padding = 0,
-                ColumnSpacing = 5,
+                ColumnSpacing = 1,
                 ColumnDefinitions =
                 [
                     new ColumnDefinition { Width = new GridLength(4, GridUnitType.Star) },
@@ -65,6 +65,7 @@ public class MousePadPage : ContentPage
             {
                 Padding = 0,
                 ColumnSpacing = 1,
+                BackgroundColor = Colors.Gray,
                 ColumnDefinitions =
                 [
                     new ColumnDefinition { Width = new GridLength(9, GridUnitType.Star) },
@@ -76,12 +77,12 @@ public class MousePadPage : ContentPage
                     {
                         Padding = 0,
                         CornerRadius = 0,
-                        BackgroundColor = Colors.Blue, 
+                        BackgroundColor = Colors.Gray, 
                         
                         Content = new Label()
                         {
                             FontSize = 32,
-                            Text = MaterialIconsRound.Swipe,
+                            Text = MaterialIconsRound.Mouse,
                             FontFamily = MaterialIconsRound.FontFamily,
                             
                             VerticalOptions = LayoutOptions.Center,
@@ -92,7 +93,7 @@ public class MousePadPage : ContentPage
                     {
                         Padding = 0,
                         CornerRadius = 0,
-                        BackgroundColor = Colors.Yellow,
+                        BackgroundColor = Colors.Gray,
 
                         Content = new Label()
                         {
