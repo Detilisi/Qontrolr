@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Maui.Markup;
-using System.Diagnostics;
 
 namespace Qontrolr.Client.Views.MousePad.Controls;
 
@@ -9,6 +8,10 @@ internal class MouseButtons : Grid
     private Button LeftButton;
     private Button RightButton;
     private Button MiddleButton;
+
+    public Command ClickCommand { get;  set; }
+    public Command PressedCommand { get;  set; }
+    public Command ReleasedCommand { get;  set; }
     
     //Construction
     public MouseButtons()
@@ -48,60 +51,39 @@ internal class MouseButtons : Grid
         return newButton;
     }
 
-
+    private string GetButtonId(Button button)
+    {
+        return button switch
+        {
+            _ when button == LeftButton => "L",
+            _ when button == RightButton => "R",
+            _ when button == MiddleButton => "M",
+            _ => string.Empty
+        };
+    }
 
     //Handlders
     private void Button_Clicked(object? sender, EventArgs e)
     {
         if (sender is not Button button) return;
 
-        if (button == LeftButton)
-        {
-            Debug.WriteLine("Left clicked");
-        }
-        else if (button == RightButton)
-        {
-            Debug.WriteLine("Right clicked");
-        }
-        else if (button == MiddleButton)
-        {
-            Debug.WriteLine("Mid clicked");
-        }
+        var buttonId = GetButtonId(button);
+        ClickCommand.Execute(buttonId);
     }
 
     private void Button_Pressed(object? sender, EventArgs e)
     {
         if (sender is not Button button) return;
 
-        if (button == LeftButton) 
-        {
-            Debug.WriteLine("Left pressed");
-        }
-        else if (button == RightButton)
-        {
-            Debug.WriteLine("Right pressed");
-        }
-        else if (button == MiddleButton)
-        {
-            Debug.WriteLine("Mid pressed");
-        }
+        var buttonId = GetButtonId(button);
+        PressedCommand.Execute(buttonId);
     }
 
     private void Button_Released(object? sender, EventArgs e)
     {
         if (sender is not Button button) return;
 
-        if (button == LeftButton)
-        {
-            Debug.WriteLine("Left released");
-        }
-        else if (button == RightButton)
-        {
-            Debug.WriteLine("Right released");
-        }
-        else if (button == MiddleButton)
-        {
-            Debug.WriteLine("Mid released");
-        }
+        var buttonId = GetButtonId(button);
+        ReleasedCommand.Execute(buttonId);
     }
 }
