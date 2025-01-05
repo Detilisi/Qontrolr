@@ -73,12 +73,13 @@ internal class TouchPad : Grid
     public TouchPad()
     {
         var trackPadPanGesture = new PanGestureRecognizer();
-        trackPadPanGesture.PanUpdated += (s, e) =>
-        {
-            // Handle the pan
-        };
+        trackPadPanGesture.PanUpdated += TrackPadPanGesture_PanUpdated;
+
+        var mouseWheelPanGesture = new PanGestureRecognizer();
+        mouseWheelPanGesture.PanUpdated += MouseWheelPanGesture_PanUpdated;
 
         TrackPad.GestureRecognizers.Add(trackPadPanGesture);
+        MouseWheel.GestureRecognizers.Add(mouseWheelPanGesture);
 
         Padding = 0;
         ColumnSpacing = 1;
@@ -91,5 +92,25 @@ internal class TouchPad : Grid
 
         Children.Add(TrackPad.Column(0));
         Children.Add(MouseWheel.Column(1));
+    }
+
+    //Event handlers
+    private void MouseWheelPanGesture_PanUpdated(object? sender, PanUpdatedEventArgs e)
+    {
+        // Send scroll event to the WebSocket
+        if ((int)e.TotalY > 0)
+        {
+            //scroll up
+        }
+        else if ((int)e.TotalY < 0)
+        {
+            //scroll down
+        }
+    }
+
+    private void TrackPadPanGesture_PanUpdated(object? sender, PanUpdatedEventArgs e)
+    {
+        var x = e.TotalX;
+        var y = e.TotalY;
     }
 }
