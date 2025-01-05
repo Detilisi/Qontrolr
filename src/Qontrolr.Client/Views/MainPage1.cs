@@ -1,3 +1,5 @@
+using Qontrolr.Client.Views.Common.Fonts;
+
 namespace Qontrolr.Client.Views;
 
 public class MainPage1 : TabbedPage
@@ -9,11 +11,11 @@ public class MainPage1 : TabbedPage
         var tab1 = new ContentPage
         {
             Title = "Tab 1",
-            Content = new Label
+            IconImageSource = new FontImageSource()
             {
-                Text = "Welcome to Tab 1!",
-                VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.Center
+                FontFamily = MaterialIconsRound.FontFamily,
+                Glyph = MaterialIconsRound.Home,
+                Color = Colors.Black
             }
         };
 
@@ -21,11 +23,11 @@ public class MainPage1 : TabbedPage
         var tab2 = new ContentPage
         {
             Title = "Tab 2",
-            Content = new Label
+            IconImageSource = new FontImageSource()
             {
-                Text = "Welcome to Tab 2!",
-                VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.Center
+                FontFamily = MaterialIconsRound.FontFamily,
+                Glyph = MaterialIconsRound.Home,
+                Color = Colors.Black
             }
         };
 
