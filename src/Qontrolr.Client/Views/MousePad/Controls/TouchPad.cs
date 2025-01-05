@@ -1,12 +1,13 @@
 ﻿using CommunityToolkit.Maui.Markup;
 using Qontrolr.Client.Views.Common.Fonts;
+using System.Diagnostics;
 
 namespace Qontrolr.Client.Views.MousePad.Controls;
 
 internal class TouchPad : Grid
 {
     //Fields
-    private Frame TrackPad => new()
+    private Frame TrackPad = new()
     {
         Padding = 0,
         CornerRadius = 0,
@@ -24,7 +25,7 @@ internal class TouchPad : Grid
         }
     };
 
-    private Frame MouseWheel => new()
+    private Frame MouseWheel = new()
     {
         Padding = 0,
         CornerRadius = 0,
@@ -101,10 +102,12 @@ internal class TouchPad : Grid
         if ((int)e.TotalY > 0)
         {
             //scroll up
+            Debug.WriteLine("scroll up");
         }
         else if ((int)e.TotalY < 0)
         {
             //scroll down
+            Debug.WriteLine("scroll down");
         }
     }
 
@@ -112,5 +115,7 @@ internal class TouchPad : Grid
     {
         var x = e.TotalX;
         var y = e.TotalY;
+
+        Debug.WriteLine($"X: {e.TotalX:F2}, Y: {e.TotalY:F2}");
     }
 }
