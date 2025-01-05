@@ -18,6 +18,7 @@ public class MousePadPage : ContentPage
 
         Content = new Grid
 		{
+            RowSpacing = 1,
             RowDefinitions = 
             [
                 new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
@@ -77,7 +78,8 @@ public class MousePadPage : ContentPage
                     {
                         Padding = 0,
                         CornerRadius = 0,
-                        BackgroundColor = Colors.Gray, 
+                        BackgroundColor = Colors.Gray,
+                        BorderColor = Colors.Transparent,
                         
                         Content = new Label()
                         {
@@ -94,15 +96,43 @@ public class MousePadPage : ContentPage
                         Padding = 0,
                         CornerRadius = 0,
                         BackgroundColor = Colors.Gray,
+                        BorderColor = Colors.Transparent,
 
-                        Content = new Label()
+                        Content = new Grid()
                         {
-                            FontSize = 32,
-                            Text = MaterialIconsRound.Height,
-                            FontFamily = MaterialIconsRound.FontFamily,
+                            RowDefinitions =
+                            [
+                                new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
+                                new RowDefinition { Height = new GridLength(8, GridUnitType.Star) },
+                                new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
+                            ],
+                            Children =
+                            {
+                                new Label()
+                                {
+                                    FontSize = 32,
+                                    Text = MaterialIconsRound.Keyboard_arrow_up,
+                                    FontFamily = MaterialIconsRound.FontFamily,
 
-                            VerticalOptions = LayoutOptions.Center,
-                            HorizontalOptions = LayoutOptions.Center,
+                                    VerticalOptions = LayoutOptions.Center,
+                                    HorizontalOptions = LayoutOptions.Center,
+                                }.Row(0),
+                                new BoxView
+                                {
+                                    Color = Colors.Black,
+                                    WidthRequest = 2,
+                                    VerticalOptions = LayoutOptions.Fill
+                                }.Row(1),
+                                new Label()
+                                {
+                                    FontSize = 32,
+                                    Text = MaterialIconsRound.Keyboard_arrow_down,
+                                    FontFamily = MaterialIconsRound.FontFamily,
+
+                                    VerticalOptions = LayoutOptions.Center,
+                                    HorizontalOptions = LayoutOptions.Center,
+                                }.Row(2),
+                            }
                         }
 
                     }.Column(1)
