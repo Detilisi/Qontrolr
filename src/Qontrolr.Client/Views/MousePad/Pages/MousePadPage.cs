@@ -36,29 +36,6 @@ public class MousePadPage : ContentPage
 	}
 
     //Controls
-    private Grid MouseButtonControl
-    {
-        get {
-            return new Grid()
-            {
-                Padding = 0,
-                ColumnSpacing = 1,
-                ColumnDefinitions =
-                [
-                    new ColumnDefinition { Width = new GridLength(4, GridUnitType.Star) },
-                    new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) },
-                    new ColumnDefinition { Width = new GridLength(4, GridUnitType.Star) },
-                ],
-                Children =
-                {
-                    new Button(){ BackgroundColor = Colors.Gray, CornerRadius = 0 }.Column(0),
-                    new Button(){ BackgroundColor = Colors.Gray, CornerRadius = 0 }.Column(1),
-                    new Button() { BackgroundColor = Colors.Gray, CornerRadius = 0 }.Column(2),
-                }
-            };
-        }
-    }
-
     private Grid TouchPadControl
     {
         get
