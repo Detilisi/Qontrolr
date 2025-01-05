@@ -1,12 +1,13 @@
-﻿namespace Qontrolr.Client
-{
-    public partial class App : Application
-    {
-        public App()
-        {
-            InitializeComponent();
+﻿using Qontrolr.Client.Views;
 
-            MainPage = new AppShell();
-        }
+namespace Qontrolr.Client;
+
+public partial class App : Application
+{
+    public App()
+    {
+        InitializeComponent();
+
+        MainPage = new MainPage1();
     }
 }
