@@ -1,6 +1,7 @@
 namespace Qontrolr.Client.Views.MousePad.Pages;
 using CommunityToolkit.Maui.Markup;
 using Qontrolr.Client.Views.Common.Fonts;
+using Qontrolr.Client.Views.MousePad.Controls;
 
 public class MousePadPage : ContentPage
 {
@@ -29,7 +30,7 @@ public class MousePadPage : ContentPage
             {
                 new Grid(){ BackgroundColor = Colors.Red }.Row(0),
                 TouchPadControl.Row(1),
-                MouseButtonControl.Row(2),
+                new MouseButtons().Row(2),
             }
         };
 	}
