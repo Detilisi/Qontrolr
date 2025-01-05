@@ -41,12 +41,34 @@ internal class MouseButtons : Grid
             BackgroundColor = Colors.Gray
         };
 
+        newButton.Clicked += Button_Clicked;
         newButton.Pressed += Button_Pressed;
+        newButton.Released += Button_Released;
         
         return newButton;
     }
 
+
+
     //Handlders
+    private void Button_Clicked(object? sender, EventArgs e)
+    {
+        if (sender is not Button button) return;
+
+        if (button == LeftButton)
+        {
+            Debug.WriteLine("Left clicked");
+        }
+        else if (button == RightButton)
+        {
+            Debug.WriteLine("Right clicked");
+        }
+        else if (button == MiddleButton)
+        {
+            Debug.WriteLine("Mid clicked");
+        }
+    }
+
     private void Button_Pressed(object? sender, EventArgs e)
     {
         if (sender is not Button button) return;
@@ -65,4 +87,21 @@ internal class MouseButtons : Grid
         }
     }
 
+    private void Button_Released(object? sender, EventArgs e)
+    {
+        if (sender is not Button button) return;
+
+        if (button == LeftButton)
+        {
+            Debug.WriteLine("Left released");
+        }
+        else if (button == RightButton)
+        {
+            Debug.WriteLine("Right released");
+        }
+        else if (button == MiddleButton)
+        {
+            Debug.WriteLine("Mid released");
+        }
+    }
 }
