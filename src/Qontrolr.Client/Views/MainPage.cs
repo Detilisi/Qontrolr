@@ -2,9 +2,9 @@ using Qontrolr.Client.Views.Common.Fonts;
 
 namespace Qontrolr.Client.Views;
 
-public class MainPage1 : TabbedPage
+public class MainPage : TabbedPage
 {
-	public MainPage1()
+	public MainPage()
 	{
 
         // Tab 1
@@ -30,9 +30,23 @@ public class MainPage1 : TabbedPage
                 Color = Colors.Black
             }
         };
+        // Tab 2
+        var tab3 = new ContentPage
+        {
+            Title = "Tab 3",
+            IconImageSource = new FontImageSource()
+            {
+                FontFamily = MaterialIconsRound.FontFamily,
+                Glyph = MaterialIconsRound.Home,
+                Color = Colors.Black
+            }
+        };
+
 
         // Adding Tabs to TabbedPage
         Children.Add(tab1);
         Children.Add(tab2);
+        Children.Add(tab3);
+
     }
 }

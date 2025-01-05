@@ -8,6 +8,6 @@ public partial class App : Application
     {
         InitializeComponent();
 
-        MainPage = new MainPage1();
+        MainPage = new MainPage();
     }
 }
