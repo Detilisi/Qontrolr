@@ -1,4 +1,5 @@
 using Qontrolr.Client.Views.Common.Fonts;
+using Qontrolr.Client.Views.MousePad.Pages;
 
 namespace Qontrolr.Client.Views;
 
@@ -8,16 +9,7 @@ public class MainPage : TabbedPage
 	{
 
         // Tab 1
-        var tab1 = new ContentPage
-        {
-            Title = "Tab 1",
-            IconImageSource = new FontImageSource()
-            {
-                FontFamily = MaterialIconsRound.FontFamily,
-                Glyph = MaterialIconsRound.Home,
-                Color = Colors.Black
-            }
-        };
+        var tab1 = new MousePadPage();
 
         // Tab 2
         var tab2 = new ContentPage
