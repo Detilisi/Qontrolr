@@ -29,8 +29,8 @@ public class MousePadPage : ContentPage
             Children =
             {
                 new Grid(){ BackgroundColor = Colors.Red }.Row(0),
-                new TouchPad().Row(1),
-                new MouseButtons().Row(2),
+                new TouchPad(null, null).Row(1),
+                new MouseButtons(null, null, null).Row(2),
             }
         };
 	}
