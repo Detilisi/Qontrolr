@@ -15,8 +15,8 @@ internal class TouchPad : Grid
     )
     {
         //Initialize frames
-        var trackPad = CreateTrackPadFrame(trackPadhandler);
-        var mouseWheel = CreateMouseWheelFrame(mouseWheelHandler);
+        var trackPad = TouchPad.CreateTrackPadFrame(trackPadhandler);
+        var mouseWheel = TouchPad.CreateMouseWheelFrame(mouseWheelHandler);
 
         //Set up Grid
         Padding = 0;
@@ -32,7 +32,7 @@ internal class TouchPad : Grid
     }
 
     //Helper method
-    private Frame CreateMouseWheelFrame
+    private static Frame CreateMouseWheelFrame
     (
          Action<PanUpdatedEventArgs> handler
     )
@@ -68,7 +68,7 @@ internal class TouchPad : Grid
         return mouseWheelFrame;
     }
 
-    private Frame CreateTrackPadFrame
+    private static Frame CreateTrackPadFrame
     (
         Action<PanUpdatedEventArgs> handler
     )
