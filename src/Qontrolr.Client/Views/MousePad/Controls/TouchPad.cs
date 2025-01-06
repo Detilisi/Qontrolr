@@ -8,22 +8,19 @@ namespace Qontrolr.Client.Views.MousePad.Controls;
 internal class TouchPad : Grid
 {
     //Construction
-    public TouchPad()
+    public TouchPad
+    (
+        Action<PanUpdatedEventArgs> mouseWheelHandler,
+        Action<PanUpdatedEventArgs> trackPadhandler
+    )
     {
-        var trackPad = CreateTrackPadFrame();
-        var trackPadPanGesture = new PanGestureRecognizer();
-        trackPadPanGesture.PanUpdated += TrackPadPanGesture_PanUpdated;
-        trackPad.GestureRecognizers.Add(trackPadPanGesture);
+        //Initialize frames
+        var trackPad = CreateTrackPadFrame(trackPadhandler);
+        var mouseWheel = CreateMouseWheelFrame(mouseWheelHandler);
 
-
-        var mouseWheel = CreateMouseWheelFrame();
-        var mouseWheelPanGesture = new PanGestureRecognizer();
-        mouseWheelPanGesture.PanUpdated += MouseWheelPanGesture_PanUpdated;
-        mouseWheel.GestureRecognizers.Add(mouseWheelPanGesture);
-
+        //Set up Grid
         Padding = 0;
         ColumnSpacing = 1;
-        BackgroundColor = Colors.Gray;
         ColumnDefinitions =
         [
             new ColumnDefinition { Width = new GridLength(9, GridUnitType.Star) },
@@ -35,9 +32,12 @@ internal class TouchPad : Grid
     }
 
     //Helper method
-    private Frame CreateMouseWheelFrame()
+    private Frame CreateMouseWheelFrame
+    (
+         Action<PanUpdatedEventArgs> handler
+    )
     {
-        var frame = new Frame()
+        var mouseWheelFrame = new Frame()
         {
             Padding = 0,
             CornerRadius = 0,
@@ -61,12 +61,19 @@ internal class TouchPad : Grid
             }
         };
 
-        return frame;
+        var mouseWheelPanGesture = new PanGestureRecognizer();
+        mouseWheelPanGesture.PanUpdated += (sender, e) => { handler.Invoke(e); };
+        mouseWheelFrame.GestureRecognizers.Add(mouseWheelPanGesture);
+
+        return mouseWheelFrame;
     }
 
-    private Frame CreateTrackPadFrame()
+    private Frame CreateTrackPadFrame
+    (
+        Action<PanUpdatedEventArgs> handler
+    )
     {
-        var frame = new Frame()
+        var trackPadFrame = new Frame()
         {
             Padding = 0,
             CornerRadius = 0,
@@ -75,52 +82,11 @@ internal class TouchPad : Grid
             Content = new MaterialIconLabel(MaterialIconsRound.Mouse)
         };
 
-        return frame;
+        var trackPadPanGesture = new PanGestureRecognizer();
+        trackPadPanGesture.PanUpdated += (sender, e) => { handler.Invoke(e); };
+        trackPadFrame.GestureRecognizers.Add(trackPadPanGesture);
+
+        return trackPadFrame;
     }
 
-    //Event handlers
-    private void MouseWheelPanGesture_PanUpdated(object? sender, PanUpdatedEventArgs e)
-    {
-        // Send scroll event to the WebSocket
-        if ((int)e.TotalY > 0)
-        {
-            //scroll up
-            Debug.WriteLine("scroll up");
-        }
-        else if ((int)e.TotalY < 0)
-        {
-            //scroll down
-            Debug.WriteLine("scroll down");
-        }
-    }
-
-    private void TrackPadPanGesture_PanUpdated(object? sender, PanUpdatedEventArgs e)
-    {
-        var x = e.TotalX;
-        var y = e.TotalY;
-
-        Debug.WriteLine($"X: {e.TotalX:F2}, Y: {e.TotalY:F2}");
-    }
-}
-
-//Helper classes
-internal class TrackPadControl : Frame
-{
-    public TrackPadControl()
-    {
-        Padding = 0;
-        CornerRadius = 0;
-        BackgroundColor = Colors.Gray;
-        BorderColor = Colors.Transparent;
-
-        Content = new Label()
-        {
-            FontSize = 32,
-            Text = MaterialIconsRound.Mouse,
-            FontFamily = MaterialIconsRound.FontFamily,
-
-            VerticalOptions = LayoutOptions.Center,
-            HorizontalOptions = LayoutOptions.Center,
-        };
-    }
 }
