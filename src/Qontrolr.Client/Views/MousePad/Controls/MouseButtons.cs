@@ -4,13 +4,18 @@ namespace Qontrolr.Client.Views.MousePad.Controls;
 
 internal class MouseButtons : Grid
 {
-    
     //Construction
-    public MouseButtons()
+    public MouseButtons
+    (
+        EventHandler XButtonClicked,
+        EventHandler XButtonPressed,
+        EventHandler XButtonReleased
+    )
     {
-        var leftButton = CreateButton("L");
-        var rightButton = CreateButton("R");
-        var middleButton = CreateButton("M");
+        //Initialize buttons
+        var leftButton = MouseButtons.CreateButton("L", XButtonClicked, XButtonPressed, XButtonReleased);
+        var rightButton = MouseButtons.CreateButton("R", XButtonClicked, XButtonPressed, XButtonReleased);
+        var middleButton = MouseButtons.CreateButton("M", XButtonClicked, XButtonPressed, XButtonReleased);
 
         //Set up Grids
         Padding = 0;
@@ -28,7 +33,13 @@ internal class MouseButtons : Grid
     }
 
     //Helper methods
-    private Button CreateButton(string buttonId)
+    private static Button CreateButton
+    (
+        string buttonId,
+        EventHandler XButtonClicked,
+        EventHandler XButtonPressed,
+        EventHandler XButtonReleased
+    )
     {
         var newButton = new Button()
         {
@@ -37,26 +48,10 @@ internal class MouseButtons : Grid
             BackgroundColor = Colors.Gray
         };
 
-        newButton.Clicked += Button_Clicked;
-        newButton.Pressed += Button_Pressed;
-        newButton.Released += Button_Released;
+        newButton.Clicked += XButtonClicked;
+        newButton.Pressed += XButtonPressed;
+        newButton.Released += XButtonReleased;
         
         return newButton;
-    }
-
-    //Handlders
-    private void Button_Clicked(object? sender, EventArgs e)
-    {
-        if (sender is not Button button) return;
-    }
-
-    private void Button_Pressed(object? sender, EventArgs e)
-    {
-        if (sender is not Button button) return;
-    }
-
-    private void Button_Released(object? sender, EventArgs e)
-    {
-        if (sender is not Button button) return;
     }
 }
