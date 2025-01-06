@@ -6,13 +6,67 @@ namespace Qontrolr.Client.Views.MousePad.Controls;
 
 internal class TouchPad : Grid
 {
-    //Fields
-    private Frame TrackPad = new()
+    //Construction
+    public TouchPad()
     {
-        Padding = 0,
-        CornerRadius = 0,
-        BackgroundColor = Colors.Gray,
-        BorderColor = Colors.Transparent,
+        var trackPad = new TrackPadControl();
+        var trackPadPanGesture = new PanGestureRecognizer();
+        trackPadPanGesture.PanUpdated += TrackPadPanGesture_PanUpdated;
+        trackPad.GestureRecognizers.Add(trackPadPanGesture);
+
+
+        var mouseWheel = new MouseWheelControl();
+        var mouseWheelPanGesture = new PanGestureRecognizer();
+        mouseWheelPanGesture.PanUpdated += MouseWheelPanGesture_PanUpdated;
+        mouseWheel.GestureRecognizers.Add(mouseWheelPanGesture);
+
+        Padding = 0;
+        ColumnSpacing = 1;
+        BackgroundColor = Colors.Gray;
+        ColumnDefinitions =
+        [
+            new ColumnDefinition { Width = new GridLength(9, GridUnitType.Star) },
+            new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }
+        ];
+
+        Children.Add(trackPad.Column(0));
+        Children.Add(mouseWheel.Column(1));
+    }
+
+    //Event handlers
+    private void MouseWheelPanGesture_PanUpdated(object? sender, PanUpdatedEventArgs e)
+    {
+        // Send scroll event to the WebSocket
+        if ((int)e.TotalY > 0)
+        {
+            //scroll up
+            Debug.WriteLine("scroll up");
+        }
+        else if ((int)e.TotalY < 0)
+        {
+            //scroll down
+            Debug.WriteLine("scroll down");
+        }
+    }
+
+    private void TrackPadPanGesture_PanUpdated(object? sender, PanUpdatedEventArgs e)
+    {
+        var x = e.TotalX;
+        var y = e.TotalY;
+
+        Debug.WriteLine($"X: {e.TotalX:F2}, Y: {e.TotalY:F2}");
+    }
+}
+
+//Helper classes
+internal class TrackPadControl : Frame
+{
+    public TrackPadControl()
+    {
+        Padding = 0;
+        CornerRadius = 0;
+        BackgroundColor = Colors.Gray;
+        BorderColor = Colors.Transparent;
 
         Content = new Label()
         {
@@ -22,15 +76,18 @@ internal class TouchPad : Grid
 
             VerticalOptions = LayoutOptions.Center,
             HorizontalOptions = LayoutOptions.Center,
-        }
-    };
+        };
+    }
+}
 
-    private Frame MouseWheel = new()
+internal class MouseWheelControl : Frame
+{
+    public MouseWheelControl()
     {
-        Padding = 0,
-        CornerRadius = 0,
-        BackgroundColor = Colors.Gray,
-        BorderColor = Colors.Transparent,
+        Padding = 0;
+        CornerRadius = 0;
+        BackgroundColor = Colors.Gray;
+        BorderColor = Colors.Transparent;
 
         Content = new Grid()
         {
@@ -67,55 +124,6 @@ internal class TouchPad : Grid
                     HorizontalOptions = LayoutOptions.Center,
                 }.Row(2),
             }
-        }
-    };
-
-    //Construction
-    public TouchPad()
-    {
-        var trackPadPanGesture = new PanGestureRecognizer();
-        trackPadPanGesture.PanUpdated += TrackPadPanGesture_PanUpdated;
-
-        var mouseWheelPanGesture = new PanGestureRecognizer();
-        mouseWheelPanGesture.PanUpdated += MouseWheelPanGesture_PanUpdated;
-
-        TrackPad.GestureRecognizers.Add(trackPadPanGesture);
-        MouseWheel.GestureRecognizers.Add(mouseWheelPanGesture);
-
-        Padding = 0;
-        ColumnSpacing = 1;
-        BackgroundColor = Colors.Gray;
-        ColumnDefinitions =
-        [
-            new ColumnDefinition { Width = new GridLength(9, GridUnitType.Star) },
-            new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }
-        ];
-
-        Children.Add(TrackPad.Column(0));
-        Children.Add(MouseWheel.Column(1));
-    }
-
-    //Event handlers
-    private void MouseWheelPanGesture_PanUpdated(object? sender, PanUpdatedEventArgs e)
-    {
-        // Send scroll event to the WebSocket
-        if ((int)e.TotalY > 0)
-        {
-            //scroll up
-            Debug.WriteLine("scroll up");
-        }
-        else if ((int)e.TotalY < 0)
-        {
-            //scroll down
-            Debug.WriteLine("scroll down");
-        }
-    }
-
-    private void TrackPadPanGesture_PanUpdated(object? sender, PanUpdatedEventArgs e)
-    {
-        var x = e.TotalX;
-        var y = e.TotalY;
-
-        Debug.WriteLine($"X: {e.TotalX:F2}, Y: {e.TotalY:F2}");
+        };
     }
 }
