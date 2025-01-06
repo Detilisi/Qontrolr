@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Markup;
+using Qontrolr.Client.Views.Common.Controls;
 using Qontrolr.Client.Views.Common.Fonts;
 using System.Diagnostics;
 
@@ -9,13 +10,13 @@ internal class TouchPad : Grid
     //Construction
     public TouchPad()
     {
-        var trackPad = new TrackPadControl();
+        var trackPad = CreateTrackPadFrame();
         var trackPadPanGesture = new PanGestureRecognizer();
         trackPadPanGesture.PanUpdated += TrackPadPanGesture_PanUpdated;
         trackPad.GestureRecognizers.Add(trackPadPanGesture);
 
 
-        var mouseWheel = new MouseWheelControl();
+        var mouseWheel = CreateMouseWheelFrame();
         var mouseWheelPanGesture = new PanGestureRecognizer();
         mouseWheelPanGesture.PanUpdated += MouseWheelPanGesture_PanUpdated;
         mouseWheel.GestureRecognizers.Add(mouseWheelPanGesture);
@@ -31,6 +32,50 @@ internal class TouchPad : Grid
 
         Children.Add(trackPad.Column(0));
         Children.Add(mouseWheel.Column(1));
+    }
+
+    //Helper method
+    private Frame CreateMouseWheelFrame()
+    {
+        var frame = new Frame()
+        {
+            Padding = 0,
+            CornerRadius = 0,
+            BackgroundColor = Colors.Gray,
+            BorderColor = Colors.Transparent,
+
+            Content = new Grid()
+            {
+                RowDefinitions =
+                [
+                    new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
+                    new RowDefinition { Height = new GridLength(8, GridUnitType.Star) },
+                    new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
+                ],
+                Children =
+                {
+                    new MaterialIconLabel(MaterialIconsRound.Keyboard_arrow_up).Row(0),
+                    new MaterialIconLabel(MaterialIconsRound.Keyboard_arrow_down).Row(2),
+                    new BoxView { WidthRequest = 2, Color = Colors.Black, VerticalOptions = LayoutOptions.Fill }.Row(1),
+                }
+            }
+        };
+
+        return frame;
+    }
+
+    private Frame CreateTrackPadFrame()
+    {
+        var frame = new Frame()
+        {
+            Padding = 0,
+            CornerRadius = 0,
+            BackgroundColor = Colors.Gray,
+            BorderColor = Colors.Transparent,
+            Content = new MaterialIconLabel(MaterialIconsRound.Mouse)
+        };
+
+        return frame;
     }
 
     //Event handlers
@@ -76,54 +121,6 @@ internal class TrackPadControl : Frame
 
             VerticalOptions = LayoutOptions.Center,
             HorizontalOptions = LayoutOptions.Center,
-        };
-    }
-}
-
-internal class MouseWheelControl : Frame
-{
-    public MouseWheelControl()
-    {
-        Padding = 0;
-        CornerRadius = 0;
-        BackgroundColor = Colors.Gray;
-        BorderColor = Colors.Transparent;
-
-        Content = new Grid()
-        {
-            RowDefinitions =
-            [
-                new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-                new RowDefinition { Height = new GridLength(8, GridUnitType.Star) },
-                new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-            ],
-            Children =
-            {
-                new Label()
-                {
-                    FontSize = 32,
-                    Text = MaterialIconsRound.Keyboard_arrow_up,
-                    FontFamily = MaterialIconsRound.FontFamily,
-
-                    VerticalOptions = LayoutOptions.Center,
-                    HorizontalOptions = LayoutOptions.Center,
-                }.Row(0),
-                new BoxView
-                {
-                    Color = Colors.Black,
-                    WidthRequest = 2,
-                    VerticalOptions = LayoutOptions.Fill
-                }.Row(1),
-                new Label()
-                {
-                    FontSize = 32,
-                    Text = MaterialIconsRound.Keyboard_arrow_down,
-                    FontFamily = MaterialIconsRound.FontFamily,
-
-                    VerticalOptions = LayoutOptions.Center,
-                    HorizontalOptions = LayoutOptions.Center,
-                }.Row(2),
-            }
         };
     }
 }
