@@ -17,7 +17,7 @@ internal class MouseButtons : Grid
         var rightButton = MouseButtons.CreateButton("R", XButtonClicked, XButtonPressed, XButtonReleased);
         var middleButton = MouseButtons.CreateButton("M", XButtonClicked, XButtonPressed, XButtonReleased);
 
-        //Set up Grids
+        //Set up Grid
         Padding = 0;
         ColumnSpacing = 1;
         ColumnDefinitions =
