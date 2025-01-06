@@ -4,21 +4,13 @@ namespace Qontrolr.Client.Views.MousePad.Controls;
 
 internal class MouseButtons : Grid
 {
-    //Fields
-    private Button LeftButton;
-    private Button RightButton;
-    private Button MiddleButton;
-
-    public Command ClickCommand { get;  set; }
-    public Command PressedCommand { get;  set; }
-    public Command ReleasedCommand { get;  set; }
     
     //Construction
     public MouseButtons()
     {
-        LeftButton = CreateButton();
-        RightButton = CreateButton();
-        MiddleButton = CreateButton();
+        var leftButton = CreateButton("L");
+        var rightButton = CreateButton("R");
+        var middleButton = CreateButton("M");
 
         //Set up Grids
         Padding = 0;
@@ -30,16 +22,17 @@ internal class MouseButtons : Grid
             new ColumnDefinition { Width = new GridLength(4, GridUnitType.Star) },
         ];
 
-        Children.Add(LeftButton.Column(0));
-        Children.Add(MiddleButton.Column(1));
-        Children.Add(RightButton.Column(2));
+        Children.Add(leftButton.Column(0));
+        Children.Add(middleButton.Column(1));
+        Children.Add(rightButton.Column(2));
     }
 
     //Helper methods
-    private Button CreateButton()
+    private Button CreateButton(string buttonId)
     {
         var newButton = new Button()
         {
+            ClassId = buttonId,
             CornerRadius = 0,
             BackgroundColor = Colors.Gray
         };
@@ -51,39 +44,19 @@ internal class MouseButtons : Grid
         return newButton;
     }
 
-    private string GetButtonId(Button button)
-    {
-        return button switch
-        {
-            _ when button == LeftButton => "L",
-            _ when button == RightButton => "R",
-            _ when button == MiddleButton => "M",
-            _ => string.Empty
-        };
-    }
-
     //Handlders
     private void Button_Clicked(object? sender, EventArgs e)
     {
         if (sender is not Button button) return;
-
-        var buttonId = GetButtonId(button);
-        ClickCommand.Execute(buttonId);
     }
 
     private void Button_Pressed(object? sender, EventArgs e)
     {
         if (sender is not Button button) return;
-
-        var buttonId = GetButtonId(button);
-        PressedCommand.Execute(buttonId);
     }
 
     private void Button_Released(object? sender, EventArgs e)
     {
         if (sender is not Button button) return;
-
-        var buttonId = GetButtonId(button);
-        ReleasedCommand.Execute(buttonId);
     }
 }
