@@ -9,13 +9,13 @@ internal class TouchPad : Grid
     //Construction
     public TouchPad
     (
-        Action<Frame, PanUpdatedEventArgs> trackPadhandler,
-        Action<Frame, PanUpdatedEventArgs> mouseWheelHandler
+        Action<Frame, PanUpdatedEventArgs> trackPadPanUpdated,
+        Action<Frame, PanUpdatedEventArgs> mouseWheelPanUpdated
     )
     {
         //Initialize frames
-        var trackPad = TouchPad.CreateTrackPadFrame(trackPadhandler);
-        var mouseWheel = TouchPad.CreateMouseWheelFrame(mouseWheelHandler);
+        var trackPad = TouchPad.CreateTrackPadFrame(trackPadPanUpdated);
+        var mouseWheel = TouchPad.CreateMouseWheelFrame(mouseWheelPanUpdated);
 
         //Set up Grid
         Padding = 0;
@@ -33,7 +33,7 @@ internal class TouchPad : Grid
     //Helper method
     private static Frame CreateMouseWheelFrame
     (
-         Action<Frame, PanUpdatedEventArgs> handler
+         Action<Frame, PanUpdatedEventArgs> panUpdated
     )
     {
         var mouseWheelFrame = new Frame()
@@ -61,7 +61,7 @@ internal class TouchPad : Grid
         };
 
         var mouseWheelPanGesture = new PanGestureRecognizer();
-        mouseWheelPanGesture.PanUpdated += (sender, e) => handler(mouseWheelFrame, e); 
+        mouseWheelPanGesture.PanUpdated += (sender, e) => panUpdated(mouseWheelFrame, e); 
         mouseWheelFrame.GestureRecognizers.Add(mouseWheelPanGesture);
 
         return mouseWheelFrame;
@@ -69,7 +69,7 @@ internal class TouchPad : Grid
 
     private static Frame CreateTrackPadFrame
     (
-        Action<Frame, PanUpdatedEventArgs> handler
+        Action<Frame, PanUpdatedEventArgs> panUpdated
     )
     {
         var trackPadFrame = new Frame()
@@ -82,9 +82,9 @@ internal class TouchPad : Grid
         };
 
         var trackPadPanGesture = new PanGestureRecognizer();
-        trackPadPanGesture.PanUpdated += (sender, e) => handler(trackPadFrame, e);
+        trackPadPanGesture.PanUpdated += (sender, e) => panUpdated(trackPadFrame, e);
         trackPadFrame.GestureRecognizers.Add(trackPadPanGesture);
 
         return trackPadFrame;
-    }
+    } 
 }
