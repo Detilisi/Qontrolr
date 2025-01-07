@@ -58,7 +58,7 @@ public class MousePadPage : ContentPage
     }
 
     //MouseWheel event hanlders
-    private void TrackPadPanUpdated(Frame sender, TouchEventArgs e)
+    private void TrackPadPanUpdated(Frame sender, PanUpdatedEventArgs e)
     {
         
     }
