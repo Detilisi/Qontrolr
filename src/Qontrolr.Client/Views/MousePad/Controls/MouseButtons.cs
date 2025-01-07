@@ -7,15 +7,15 @@ internal class MouseButtons : Grid
     //Construction
     public MouseButtons
     (
-        EventHandler XButtonClicked,
-        EventHandler XButtonPressed,
-        EventHandler XButtonReleased
+        Action<Button, EventArgs> buttonsClicked,
+        Action<Button, EventArgs> buttonsPressed,
+        Action<Button, EventArgs> buttonsReleased
     )
     {
         //Initialize buttons
-        var leftButton = MouseButtons.CreateButton("L", XButtonClicked, XButtonPressed, XButtonReleased);
-        var rightButton = MouseButtons.CreateButton("R", XButtonClicked, XButtonPressed, XButtonReleased);
-        var middleButton = MouseButtons.CreateButton("M", XButtonClicked, XButtonPressed, XButtonReleased);
+        var leftButton = MouseButtons.CreateButton("L", buttonsClicked, buttonsPressed, buttonsReleased);
+        var rightButton = MouseButtons.CreateButton("R", buttonsClicked, buttonsPressed, buttonsReleased);
+        var middleButton = MouseButtons.CreateButton("M", buttonsClicked, buttonsPressed, buttonsReleased);
 
         //Set up Grid
         Padding = 0;
@@ -36,9 +36,9 @@ internal class MouseButtons : Grid
     private static Button CreateButton
     (
         string buttonId,
-        EventHandler XButtonClicked,
-        EventHandler XButtonPressed,
-        EventHandler XButtonReleased
+        Action<Button, EventArgs> xButtonClicked,
+        Action<Button, EventArgs> xButtonPressed,
+        Action<Button, EventArgs> xButtonReleased
     )
     {
         var newButton = new Button()
@@ -48,9 +48,9 @@ internal class MouseButtons : Grid
             BackgroundColor = Colors.Gray
         };
 
-        newButton.Clicked += XButtonClicked;
-        newButton.Pressed += XButtonPressed;
-        newButton.Released += XButtonReleased;
+        newButton.Clicked   += (s, e) => xButtonClicked(newButton, e);
+        newButton.Pressed   += (s, e) => xButtonPressed(newButton, e); 
+        newButton.Released  += (s, e) => xButtonReleased(newButton, e); 
         
         return newButton;
     }
