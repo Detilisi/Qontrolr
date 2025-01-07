@@ -9,7 +9,7 @@ internal class TouchPad : Grid
     //Construction
     public TouchPad
     (
-        Action<Frame, TouchEventArgs> trackPadPanUpdated,
+        Action<Frame, PanUpdatedEventArgs> trackPadPanUpdated,
         Action<Frame, PanUpdatedEventArgs> mouseWheelPanUpdated
     )
     {
@@ -69,7 +69,7 @@ internal class TouchPad : Grid
 
     private static Frame CreateTrackPadFrame
     (
-        Action<Frame, TouchEventArgs> panUpdated
+        Action<Frame, PanUpdatedEventArgs> panUpdated
     )
     {
         var trackPadFrame = new Frame()
