@@ -29,9 +29,37 @@ public class MousePadPage : ContentPage
             Children =
             {
                 new Grid(){ BackgroundColor = Colors.Red }.Row(0),
-                new TouchPad(null, null).Row(1),
-                new MouseButtons(null, null, null).Row(2),
+                new TouchPad(TrackPadPanUpdated, MouseWheelPanUpdated).Row(1),
+                new MouseButtons(MouseButton_Clicked, MouseButton_Pressed, MouseButton_Released).Row(2),
             }
         };
 	}
+
+    //MouseButton event Hanlders
+    private void MouseButton_Clicked(Button sender, EventArgs e)
+    {
+        
+    }
+
+    private void MouseButton_Pressed(Button sender, EventArgs e)
+    {
+        
+    }
+
+    private void MouseButton_Released(Button sender, EventArgs e)
+    {
+        
+    }
+
+    //MouseWheel event hanlders
+    private void MouseWheelPanUpdated(Frame sender, PanUpdatedEventArgs e)
+    {
+        
+    }
+
+    //MouseWheel event hanlders
+    private void TrackPadPanUpdated(Frame sender, TouchEventArgs e)
+    {
+        
+    }
 }
