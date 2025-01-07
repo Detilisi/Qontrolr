@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Maui.Markup;
 using Qontrolr.Client.Views.Common.Controls;
 using Qontrolr.Client.Views.Common.Fonts;
-using System.Diagnostics;
 
 namespace Qontrolr.Client.Views.MousePad.Controls;
 
@@ -10,8 +9,8 @@ internal class TouchPad : Grid
     //Construction
     public TouchPad
     (
-        Action<PanUpdatedEventArgs> mouseWheelHandler,
-        Action<PanUpdatedEventArgs> trackPadhandler
+        Action<Frame, PanUpdatedEventArgs> trackPadhandler,
+        Action<Frame, PanUpdatedEventArgs> mouseWheelHandler
     )
     {
         //Initialize frames
@@ -34,7 +33,7 @@ internal class TouchPad : Grid
     //Helper method
     private static Frame CreateMouseWheelFrame
     (
-         Action<PanUpdatedEventArgs> handler
+         Action<Frame, PanUpdatedEventArgs> handler
     )
     {
         var mouseWheelFrame = new Frame()
@@ -62,7 +61,7 @@ internal class TouchPad : Grid
         };
 
         var mouseWheelPanGesture = new PanGestureRecognizer();
-        mouseWheelPanGesture.PanUpdated += (sender, e) => { handler.Invoke(e); };
+        mouseWheelPanGesture.PanUpdated += (sender, e) => handler(mouseWheelFrame, e); 
         mouseWheelFrame.GestureRecognizers.Add(mouseWheelPanGesture);
 
         return mouseWheelFrame;
@@ -70,7 +69,7 @@ internal class TouchPad : Grid
 
     private static Frame CreateTrackPadFrame
     (
-        Action<PanUpdatedEventArgs> handler
+        Action<Frame, PanUpdatedEventArgs> handler
     )
     {
         var trackPadFrame = new Frame()
@@ -83,10 +82,9 @@ internal class TouchPad : Grid
         };
 
         var trackPadPanGesture = new PanGestureRecognizer();
-        trackPadPanGesture.PanUpdated += (sender, e) => { handler.Invoke(e); };
+        trackPadPanGesture.PanUpdated += (sender, e) => handler(trackPadFrame, e);
         trackPadFrame.GestureRecognizers.Add(trackPadPanGesture);
 
         return trackPadFrame;
     }
-
 }
