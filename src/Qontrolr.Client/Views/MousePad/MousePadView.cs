@@ -7,6 +7,7 @@ internal class MousePadView : ContentView
 {
     public MousePadView()
     {
+        Padding = 5;
         Content = new Grid()
         {
             RowSpacing = 1,
