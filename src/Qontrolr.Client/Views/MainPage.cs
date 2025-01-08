@@ -9,26 +9,7 @@ public class MainPage : ContentPage
 {
 	public MainPage()
 	{
-        var currentView = new MousePadView();
-        var bottomTabs = new Grid()
-        {
-            Padding = 10,
-            ColumnSpacing = 10,
-            ColumnDefinitions =
-            [
-                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
-                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
-                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
-                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
-            ],
-            Children =
-            {
-                new MaterialIconButton(MaterialIconsRound.Mouse).Column(0),
-                new MaterialIconButton(MaterialIconsRound.Keyboard_alt).Column(1),
-                new MaterialIconButton(MaterialIconsRound.Sports_esports).Column(2),
-                new MaterialIconButton(MaterialIconsRound.Play_circle).Column(3),
-            }
-        };
+        CurrentView = new MousePadView();
 
         Content = new Grid
         {
@@ -40,9 +21,37 @@ public class MainPage : ContentPage
             ],
             Children =
             {
-                currentView.Row(0),
-                bottomTabs.Row(1)
+                CurrentView.Row(0),
+                BottomToolBar.Row(1)
             }
         };
+    }
+
+    //Helper methods
+    private ContentView CurrentView { get; set; }
+    private Grid BottomToolBar
+    {
+        get
+        {
+            return new Grid()
+            {
+                Padding = 10,
+                ColumnSpacing = 10,
+                ColumnDefinitions =
+                [
+                    new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+                    new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+                    new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+                    new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+                ],
+                Children =
+                {
+                    new MaterialIconButton(MaterialIconsRound.Mouse).Column(0),
+                    new MaterialIconButton(MaterialIconsRound.Keyboard_alt).Column(1),
+                    new MaterialIconButton(MaterialIconsRound.Sports_esports).Column(2),
+                    new MaterialIconButton(MaterialIconsRound.Play_circle).Column(3),
+                }
+            };
+        }
     }
 }
