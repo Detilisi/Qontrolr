@@ -1,4 +1,5 @@
 using CommunityToolkit.Maui.Markup;
+using Qontrolr.Client.ViewModels.MousePad;
 using Qontrolr.Client.Views.Common.Controls;
 using Qontrolr.Client.Views.Common.Fonts;
 using Qontrolr.Client.Views.MousePad;
@@ -10,7 +11,7 @@ public class MainPage : ContentPage
 	public MainPage()
 	{
         //Set up Main view
-        CurrentView = new MousePadView();
+        CurrentView = new MousePadView(new MousePadViewModel());
 
         Content = new Grid
         {
