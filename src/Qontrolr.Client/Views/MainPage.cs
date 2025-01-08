@@ -1,7 +1,7 @@
 using CommunityToolkit.Maui.Markup;
 using Qontrolr.Client.Views.Common.Controls;
 using Qontrolr.Client.Views.Common.Fonts;
-using Qontrolr.Client.Views.MousePad.Pages;
+using Qontrolr.Client.Views.MousePad;
 
 namespace Qontrolr.Client.Views;
 
@@ -9,6 +9,7 @@ public class MainPage : ContentPage
 {
 	public MainPage()
 	{
+        var currentView = new MousePadView();
         var bottomTabs = new Grid()
         {
             Padding = 10,
@@ -39,7 +40,7 @@ public class MainPage : ContentPage
             ],
             Children =
             {
-                new Grid(){ BackgroundColor = Colors.Red }.Row(0),
+                currentView.Row(0),
                 bottomTabs.Row(1)
             }
         };
