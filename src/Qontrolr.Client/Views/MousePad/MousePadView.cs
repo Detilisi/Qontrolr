@@ -2,6 +2,7 @@
 using Qontrolr.Client.ViewModels.MousePad;
 using Qontrolr.Client.Views.MousePad.Controls;
 using Qontrolr.Shared.Mouse.Button.Enums;
+using Qontrolr.Shared.Mouse.Wheel.Enums;
 
 namespace Qontrolr.Client.Views.MousePad;
 
@@ -96,7 +97,11 @@ internal class MousePadView : ContentView
     //MouseWheel event hanlders
     private void MouseWheelPanUpdated(Frame sender, PanUpdatedEventArgs e)
     {
+        var scroll = (int)e.TotalY;
 
+        if (scroll == 0) return;
+
+        _viewModel.ScrollMouseWheelCommand.Execute(scroll>0 ? ScrollDirection.Up : ScrollDirection.Down);
     }
 
     //MouseWheel event hanlders
