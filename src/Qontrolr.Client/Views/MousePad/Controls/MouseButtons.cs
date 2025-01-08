@@ -44,6 +44,7 @@ internal class MouseButtons : Grid
         {
             CornerRadius = 0,
             ClassId = buttonId,
+            BackgroundColor = Colors.Black,
         };
 
         newButton.Clicked   += (s, e) => xButtonClicked(newButton, e);

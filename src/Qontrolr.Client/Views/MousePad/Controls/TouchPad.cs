@@ -40,7 +40,7 @@ internal class TouchPad : Grid
         {
             Padding = 0,
             CornerRadius = 0,
-            BackgroundColor = Colors.Gray,
+            BackgroundColor = Colors.Black,
             BorderColor = Colors.Transparent,
 
             Content = new Grid()
@@ -53,8 +53,8 @@ internal class TouchPad : Grid
                 ],
                 Children =
                 {
-                    new MaterialIconLabel(MaterialIconsRound.Keyboard_arrow_up).Row(0),
-                    new MaterialIconLabel(MaterialIconsRound.Keyboard_arrow_down).Row(2)
+                    new MaterialIconLabel(MaterialIconsRound.Keyboard_arrow_up){ TextColor = Colors.White }.Row(0),
+                    new MaterialIconLabel(MaterialIconsRound.Keyboard_arrow_down){ TextColor = Colors.White }.Row(2)
                 }
             }
         };
@@ -75,7 +75,7 @@ internal class TouchPad : Grid
         {
             Padding = 0,
             CornerRadius = 0,
-            BackgroundColor = Colors.Gray,
+            BackgroundColor = Colors.Black,
             BorderColor = Colors.Transparent
         };
 
