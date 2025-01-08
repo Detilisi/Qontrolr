@@ -9,6 +9,7 @@ public class MainPage : ContentPage
 {
 	public MainPage()
 	{
+        //Set up Main view
         CurrentView = new MousePadView();
 
         Content = new Grid
@@ -27,7 +28,7 @@ public class MainPage : ContentPage
         };
     }
 
-    //Helper methods
+    //View elements
     private ContentView CurrentView { get; set; }
     private Grid BottomToolBar
     {
