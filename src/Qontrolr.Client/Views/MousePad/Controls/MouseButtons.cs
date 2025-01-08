@@ -18,8 +18,7 @@ internal class MouseButtons : Grid
         var middleButton = MouseButtons.CreateButton("M", buttonsClicked, buttonsPressed, buttonsReleased);
 
         //Set up Grid
-        Padding = 0;
-        ColumnSpacing = 1;
+        ColumnSpacing = 2;
         ColumnDefinitions =
         [
             new ColumnDefinition { Width = new GridLength(4, GridUnitType.Star) },
@@ -43,9 +42,8 @@ internal class MouseButtons : Grid
     {
         var newButton = new Button()
         {
-            ClassId = buttonId,
             CornerRadius = 0,
-            BackgroundColor = Colors.Gray
+            ClassId = buttonId,
         };
 
         newButton.Clicked   += (s, e) => xButtonClicked(newButton, e);
