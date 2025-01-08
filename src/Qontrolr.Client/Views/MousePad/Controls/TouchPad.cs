@@ -54,8 +54,7 @@ internal class TouchPad : Grid
                 Children =
                 {
                     new MaterialIconLabel(MaterialIconsRound.Keyboard_arrow_up).Row(0),
-                    new MaterialIconLabel(MaterialIconsRound.Keyboard_arrow_down).Row(2),
-                    new BoxView { WidthRequest = 2, Color = Colors.Black, VerticalOptions = LayoutOptions.Fill }.Row(1),
+                    new MaterialIconLabel(MaterialIconsRound.Keyboard_arrow_down).Row(2)
                 }
             }
         };
@@ -77,8 +76,7 @@ internal class TouchPad : Grid
             Padding = 0,
             CornerRadius = 0,
             BackgroundColor = Colors.Gray,
-            BorderColor = Colors.Transparent,
-            Content = new MaterialIconLabel(MaterialIconsRound.Mouse)
+            BorderColor = Colors.Transparent
         };
 
         var trackPadPanGesture = new PanGestureRecognizer();
