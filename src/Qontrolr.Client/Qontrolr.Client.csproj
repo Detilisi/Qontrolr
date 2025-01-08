@@ -73,4 +73,8 @@
 	  <MauiFont Include="Views\Common\Fonts\MaterialIconsRound.cs" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Qontrolr.Shared\Qontrolr.Shared.csproj" />
+	</ItemGroup>
+
 </Project>
