@@ -1,44 +1,47 @@
+using CommunityToolkit.Maui.Markup;
+using Qontrolr.Client.Views.Common.Controls;
 using Qontrolr.Client.Views.Common.Fonts;
 using Qontrolr.Client.Views.MousePad.Pages;
 
 namespace Qontrolr.Client.Views;
 
-public class MainPage : TabbedPage
+public class MainPage : ContentPage
 {
 	public MainPage()
 	{
-
-        // Tab 1
-        var tab1 = new MousePadPage();
-
-        // Tab 2
-        var tab2 = new ContentPage
+        var bottomTabs = new Grid()
         {
-            Title = "Tab 2",
-            IconImageSource = new FontImageSource()
+            Padding = 10,
+            ColumnSpacing = 10,
+            ColumnDefinitions =
+            [
+                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
+            ],
+            Children =
             {
-                FontFamily = MaterialIconsRound.FontFamily,
-                Glyph = MaterialIconsRound.Home,
-                Color = Colors.Black
-            }
-        };
-        // Tab 2
-        var tab3 = new ContentPage
-        {
-            Title = "Tab 3",
-            IconImageSource = new FontImageSource()
-            {
-                FontFamily = MaterialIconsRound.FontFamily,
-                Glyph = MaterialIconsRound.Home,
-                Color = Colors.Black
+                new MaterialIconButton(MaterialIconsRound.Mouse).Column(0),
+                new MaterialIconButton(MaterialIconsRound.Keyboard_alt).Column(1),
+                new MaterialIconButton(MaterialIconsRound.Sports_esports).Column(2),
+                new MaterialIconButton(MaterialIconsRound.Play_circle).Column(3),
             }
         };
 
-
-        // Adding Tabs to TabbedPage
-        Children.Add(tab1);
-        Children.Add(tab2);
-        Children.Add(tab3);
-
+        Content = new Grid
+        {
+            RowSpacing = 1,
+            RowDefinitions =
+            [
+                new RowDefinition { Height = new GridLength(9, GridUnitType.Star) },
+                new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
+            ],
+            Children =
+            {
+                new Grid(){ BackgroundColor = Colors.Red }.Row(0),
+                bottomTabs.Row(1)
+            }
+        };
     }
 }
