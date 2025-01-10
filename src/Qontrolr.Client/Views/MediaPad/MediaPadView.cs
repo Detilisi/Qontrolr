@@ -21,7 +21,7 @@ internal class MediaPadView : ContentView
             HeightRequest = 300,
 
             HasShadow = true,
-            BackgroundColor = Colors.LightGray,
+            BackgroundColor = Colors.Black,
             
             VerticalOptions = LayoutOptions.Center,
             HorizontalOptions = LayoutOptions.Center,
