@@ -51,7 +51,7 @@ internal class MediaControlButtons : Grid
         Action<Button, EventArgs> xButtonClicked
     )
     {
-        var newButton = new MaterialIconButton(buttonIcon)
+        var newButton = new MaterialIconButton(buttonIcon, Colors.White)
         {
             ClassId = buttonId
         };
