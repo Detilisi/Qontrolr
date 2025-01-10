@@ -34,14 +34,15 @@ internal class MediaPadView : ContentView
     {
         switch (sender.ClassId)
         {
-            case "R":
-               
+            case "pause":
                 break;
-            case "M":
-                
+            case "next":
                 break;
-            case "L":
-                
+            case "prev":
+                break;
+            case "vol_up":
+                break;
+            case "vol_down":
                 break;
             default:
                 break;
