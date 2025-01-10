@@ -5,8 +5,7 @@ namespace Qontrolr.Client.Views.Common.Controls;
 internal class MaterialIconButton : Button
 {
     public int IconSize { get; set; } = 40;
-    public Color IconColor { get; set; } = Colors.Black;
-
+    
     public MaterialIconButton(string iconName)
     {
         BackgroundColor = Colors.Transparent;
@@ -17,7 +16,21 @@ internal class MaterialIconButton : Button
         {
             Glyph = iconName,
             Size = IconSize,
-            Color = IconColor,
+            Color = Colors.Black,
+            FontFamily = MaterialIconsRound.FontFamily
+        };
+    }
+    public MaterialIconButton(string iconName, Color iconColor)
+    {
+        BackgroundColor = Colors.Transparent;
+        VerticalOptions = LayoutOptions.Center;
+        HorizontalOptions = LayoutOptions.Center;
+
+        ImageSource = new FontImageSource()
+        {
+            Glyph = iconName,
+            Size = IconSize,
+            Color = iconColor,
             FontFamily = MaterialIconsRound.FontFamily
         };
     }
