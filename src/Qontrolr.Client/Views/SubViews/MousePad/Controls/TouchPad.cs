@@ -2,7 +2,7 @@
 using Qontrolr.Client.Views.Common.Controls;
 using Qontrolr.Client.Views.Common.Fonts;
 
-namespace Qontrolr.Client.Views.MousePad.Controls;
+namespace Qontrolr.Client.Views.SubViews.MousePad.Controls;
 
 internal class TouchPad : Grid
 {
@@ -14,8 +14,8 @@ internal class TouchPad : Grid
     )
     {
         //Initialize frames
-        var trackPad = TouchPad.CreateTrackPadFrame(trackPadPanUpdated);
-        var mouseWheel = TouchPad.CreateMouseWheelFrame(mouseWheelPanUpdated);
+        var trackPad = CreateTrackPadFrame(trackPadPanUpdated);
+        var mouseWheel = CreateMouseWheelFrame(mouseWheelPanUpdated);
 
         //Set up Grid
         Padding = 0;
@@ -60,7 +60,7 @@ internal class TouchPad : Grid
         };
 
         var mouseWheelPanGesture = new PanGestureRecognizer();
-        mouseWheelPanGesture.PanUpdated += (sender, e) => panUpdated(mouseWheelFrame, e); 
+        mouseWheelPanGesture.PanUpdated += (sender, e) => panUpdated(mouseWheelFrame, e);
         mouseWheelFrame.GestureRecognizers.Add(mouseWheelPanGesture);
 
         return mouseWheelFrame;
@@ -84,5 +84,5 @@ internal class TouchPad : Grid
         trackPadFrame.GestureRecognizers.Add(trackPadPanGesture);
 
         return trackPadFrame;
-    } 
+    }
 }

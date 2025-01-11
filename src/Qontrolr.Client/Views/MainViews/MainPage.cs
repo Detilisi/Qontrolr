@@ -2,16 +2,16 @@ using CommunityToolkit.Maui.Markup;
 using Qontrolr.Client.ViewModels.MousePad;
 using Qontrolr.Client.Views.Common.Controls;
 using Qontrolr.Client.Views.Common.Fonts;
-using Qontrolr.Client.Views.MediaPad;
-using Qontrolr.Client.Views.MousePad;
+using Qontrolr.Client.Views.SubViews.MediaPad;
+using Qontrolr.Client.Views.SubViews.MousePad;
 
-namespace Qontrolr.Client.Views;
+namespace Qontrolr.Client.Views.MainViews;
 
 public class MainPage : ContentPage
 {
     //Contruction
-	public MainPage()
-	{
+    public MainPage()
+    {
         //Set up Main view
         var bottomToolBar = CreateBottomToolBar();
         CurrentView = new MousePadView(new MousePadViewModel());

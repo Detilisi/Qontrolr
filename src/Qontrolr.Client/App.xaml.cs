@@ -1,4 +1,4 @@
-﻿using Qontrolr.Client.Views;
+﻿using Qontrolr.Client.Views.MainViews;
 
 namespace Qontrolr.Client;
 

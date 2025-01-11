@@ -2,7 +2,7 @@
 using Qontrolr.Client.Views.Common.Controls;
 using Qontrolr.Client.Views.Common.Fonts;
 
-namespace Qontrolr.Client.Views.MediaPad.Controls;
+namespace Qontrolr.Client.Views.SubViews.MediaPad.Controls;
 
 internal class MediaControlButtons : Grid
 {
@@ -10,13 +10,13 @@ internal class MediaControlButtons : Grid
     public MediaControlButtons(Action<Button, EventArgs> buttonsClicked)
     {
         //Initialize buttons
-        var pauseButton = MediaControlButtons.CreateButton("pause", MaterialIconsRound.Pause, buttonsClicked);
-        var nextButton = MediaControlButtons.CreateButton("next", MaterialIconsRound.Skip_next, buttonsClicked);
-        var prevButton = MediaControlButtons.CreateButton("prev", MaterialIconsRound.Skip_previous, buttonsClicked);
+        var pauseButton = CreateButton("pause", MaterialIconsRound.Pause, buttonsClicked);
+        var nextButton = CreateButton("next", MaterialIconsRound.Skip_next, buttonsClicked);
+        var prevButton = CreateButton("prev", MaterialIconsRound.Skip_previous, buttonsClicked);
 
-        var muteButton = MediaControlButtons.CreateButton("mute", MaterialIconsRound.Volume_mute, buttonsClicked);
-        var volumUpButton = MediaControlButtons.CreateButton("vol_up", MaterialIconsRound.Volume_up, buttonsClicked);
-        var volumDownButton = MediaControlButtons.CreateButton("vol_down", MaterialIconsRound.Volume_down, buttonsClicked);
+        var muteButton = CreateButton("mute", MaterialIconsRound.Volume_mute, buttonsClicked);
+        var volumUpButton = CreateButton("vol_up", MaterialIconsRound.Volume_up, buttonsClicked);
+        var volumDownButton = CreateButton("vol_down", MaterialIconsRound.Volume_down, buttonsClicked);
 
 
         //Set up Grid
@@ -37,7 +37,7 @@ internal class MediaControlButtons : Grid
         Children.Add(prevButton.Column(0).Row(1));
         Children.Add(pauseButton.Column(1).Row(1));
         Children.Add(nextButton.Column(2).Row(1));
-        
+
         Children.Add(volumUpButton.Column(1).Row(0));
         Children.Add(volumDownButton.Column(1).Row(2));
 
