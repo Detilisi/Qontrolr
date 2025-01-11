@@ -6,83 +6,80 @@ namespace Qontrolr.Client.Views.SubViews.MousePad.Controls;
 
 internal class TouchPad : Grid
 {
-    //Construction
     public TouchPad
     (
         Action<Frame, PanUpdatedEventArgs> trackPadPanUpdated,
         Action<Frame, PanUpdatedEventArgs> mouseWheelPanUpdated
     )
     {
-        //Initialize frames
-        var trackPad = CreateTrackPadFrame(trackPadPanUpdated);
-        var mouseWheel = CreateMouseWheelFrame(mouseWheelPanUpdated);
+        // Initialize Grid properties
+        InitializeGrid();
 
-        //Set up Grid
-        Padding = 0;
-        ColumnSpacing = 1;
-        ColumnDefinitions =
-        [
-            new ColumnDefinition { Width = new GridLength(9, GridUnitType.Star) },
-            new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }
-        ];
+        var trackPad = CreateFrame(
+            trackPadPanUpdated,
+            content: null
+        );
 
-        Children.Add(trackPad.Column(0));
-        Children.Add(mouseWheel.Column(1));
+        var mouseWheel = CreateFrame(
+            mouseWheelPanUpdated,
+            content: CreateMouseWheelGrid()
+        );
+
+        // Add buttons to Grid
+        AddFrameToGrid(trackPad, column: 0);
+        AddFrameToGrid(mouseWheel, column: 1);
     }
 
-    //Helper method
-    private static Frame CreateMouseWheelFrame
-    (
-         Action<Frame, PanUpdatedEventArgs> panUpdated
-    )
+    private void InitializeGrid()
     {
-        var mouseWheelFrame = new Frame()
+        Padding = 0;
+        ColumnSpacing = 1;
+
+        ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(9, GridUnitType.Star) });
+        ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+    }
+
+    private void AddFrameToGrid(Frame frame, int column)
+    {
+        frame.Column(column);
+        Children.Add(frame);
+    }
+
+    private static Frame CreateFrame(
+        Action<Frame, PanUpdatedEventArgs> panUpdated,
+        View? content)
+    {
+        var frame = new Frame
         {
             Padding = 0,
             CornerRadius = 0,
             BackgroundColor = Colors.Black,
             BorderColor = Colors.Transparent,
+            Content = content
+        };
 
-            Content = new Grid()
+        var panGesture = new PanGestureRecognizer();
+        panGesture.PanUpdated += (sender, e) => panUpdated(frame, e);
+        frame.GestureRecognizers.Add(panGesture);
+
+        return frame;
+    }
+
+    private static Grid CreateMouseWheelGrid()
+    {
+        var grid = new Grid
+        {
+            RowDefinitions =
             {
-                RowDefinitions =
-                [
-                    new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-                    new RowDefinition { Height = new GridLength(8, GridUnitType.Star) },
-                    new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-                ],
-                Children =
-                {
-                    new MaterialIconLabel(MaterialIconsRound.Keyboard_arrow_up){ TextColor = Colors.White }.Row(0),
-                    new MaterialIconLabel(MaterialIconsRound.Keyboard_arrow_down){ TextColor = Colors.White }.Row(2)
-                }
+                new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
+                new RowDefinition { Height = new GridLength(8, GridUnitType.Star) },
+                new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
             }
         };
 
-        var mouseWheelPanGesture = new PanGestureRecognizer();
-        mouseWheelPanGesture.PanUpdated += (sender, e) => panUpdated(mouseWheelFrame, e);
-        mouseWheelFrame.GestureRecognizers.Add(mouseWheelPanGesture);
+        grid.Children.Add(new MaterialIconLabel(MaterialIconsRound.Keyboard_arrow_up) { TextColor = Colors.White }.Row(0));
+        grid.Children.Add(new MaterialIconLabel(MaterialIconsRound.Keyboard_arrow_down) { TextColor = Colors.White }.Row(2));
 
-        return mouseWheelFrame;
-    }
-
-    private static Frame CreateTrackPadFrame
-    (
-        Action<Frame, PanUpdatedEventArgs> panUpdated
-    )
-    {
-        var trackPadFrame = new Frame()
-        {
-            Padding = 0,
-            CornerRadius = 0,
-            BackgroundColor = Colors.Black,
-            BorderColor = Colors.Transparent
-        };
-
-        var trackPadPanGesture = new PanGestureRecognizer();
-        trackPadPanGesture.PanUpdated += (sender, e) => panUpdated(trackPadFrame, e);
-        trackPadFrame.GestureRecognizers.Add(trackPadPanGesture);
-
-        return trackPadFrame;
+        return grid;
     }
 }
