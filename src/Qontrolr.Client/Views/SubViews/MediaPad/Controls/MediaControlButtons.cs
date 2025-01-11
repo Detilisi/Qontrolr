@@ -6,58 +6,59 @@ namespace Qontrolr.Client.Views.SubViews.MediaPad.Controls;
 
 internal class MediaControlButtons : Grid
 {
-    //Construction
-    public MediaControlButtons(Action<Button, EventArgs> buttonsClicked)
+    public MediaControlButtons(Action<MaterialIconButton, EventArgs> buttonsClicked)
     {
-        //Initialize buttons
+        // Initialize Grid properties
+        RowSpacing = 2;
+        ColumnSpacing = 2;
+        InitializeGridDefinitions();
+
+        // Create and add buttons
         var pauseButton = CreateButton("pause", MaterialIconsRound.Pause, buttonsClicked);
         var nextButton = CreateButton("next", MaterialIconsRound.Skip_next, buttonsClicked);
         var prevButton = CreateButton("prev", MaterialIconsRound.Skip_previous, buttonsClicked);
 
         var muteButton = CreateButton("mute", MaterialIconsRound.Volume_mute, buttonsClicked);
-        var volumUpButton = CreateButton("vol_up", MaterialIconsRound.Volume_up, buttonsClicked);
-        var volumDownButton = CreateButton("vol_down", MaterialIconsRound.Volume_down, buttonsClicked);
+        var volumeUpButton = CreateButton("vol_up", MaterialIconsRound.Volume_up, buttonsClicked);
+        var volumeDownButton = CreateButton("vol_down", MaterialIconsRound.Volume_down, buttonsClicked);
 
+        // Add buttons to Grid
+        AddButtonToGrid(prevButton, column: 0, row: 1);
+        AddButtonToGrid(pauseButton, column: 1, row: 1);
+        AddButtonToGrid(nextButton, column: 2, row: 1);
 
-        //Set up Grid
-        ColumnSpacing = 2;
-        ColumnDefinitions =
-        [
-            new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
-            new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
-            new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
-        ];
-        RowDefinitions =
-        [
-            new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-            new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-            new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-        ];
-
-        Children.Add(prevButton.Column(0).Row(1));
-        Children.Add(pauseButton.Column(1).Row(1));
-        Children.Add(nextButton.Column(2).Row(1));
-
-        Children.Add(volumUpButton.Column(1).Row(0));
-        Children.Add(volumDownButton.Column(1).Row(2));
-
+        AddButtonToGrid(volumeUpButton, column: 1, row: 0);
+        AddButtonToGrid(volumeDownButton, column: 1, row: 2);
     }
 
-    //Helper methods
-    private static Button CreateButton
-    (
+    private void InitializeGridDefinitions()
+    {
+        // Define a 3x3 grid
+        for (int i = 0; i < 3; i++)
+        {
+            ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+        }
+    }
+
+    private void AddButtonToGrid(MaterialIconButton button, int column, int row)
+    {
+        button.Column(column).Row(row);
+        Children.Add(button);
+    }
+
+    private static MaterialIconButton CreateButton(
         string buttonId,
         string buttonIcon,
-        Action<Button, EventArgs> xButtonClicked
-    )
+        Action<MaterialIconButton, EventArgs> buttonClicked)
     {
-        var newButton = new MaterialIconButton(buttonIcon, Colors.White)
+        var button = new MaterialIconButton(buttonIcon, Colors.White)
         {
             ClassId = buttonId
         };
 
-        newButton.Clicked += (s, e) => xButtonClicked(newButton, e);
-        return newButton;
+        button.Clicked += (s, e) => buttonClicked(button, e);
+        return button;
     }
-
 }
+
