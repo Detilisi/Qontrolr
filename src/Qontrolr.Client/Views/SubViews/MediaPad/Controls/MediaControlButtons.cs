@@ -9,8 +9,6 @@ internal class MediaControlButtons : Grid
     public MediaControlButtons(Action<MaterialIconButton, EventArgs> buttonsClicked)
     {
         // Initialize Grid properties
-        RowSpacing = 2;
-        ColumnSpacing = 2;
         InitializeGridDefinitions();
 
         // Create and add buttons
@@ -33,6 +31,9 @@ internal class MediaControlButtons : Grid
 
     private void InitializeGridDefinitions()
     {
+        RowSpacing = 2;
+        ColumnSpacing = 2;
+
         // Define a 3x3 grid
         for (int i = 0; i < 3; i++)
         {
