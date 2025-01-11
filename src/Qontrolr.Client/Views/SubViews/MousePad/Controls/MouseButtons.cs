@@ -1,8 +1,8 @@
-﻿using CommunityToolkit.Maui.Markup;
+﻿using Qontrolr.Client.Views.Common.Controls.Base;
 
 namespace Qontrolr.Client.Views.SubViews.MousePad.Controls;
 
-internal class MouseButtons : Grid
+internal class MouseButtons : CustomGridControl
 {
     public MouseButtons
     (
@@ -11,53 +11,30 @@ internal class MouseButtons : Grid
         Action<Button, EventArgs> buttonsReleased
     )
     {
-        // Initialize Grid
         InitializeGrid();
 
         // Create buttons
-        var leftButton = CreateButton("L", buttonsClicked, buttonsPressed, buttonsReleased);
-        var middleButton = CreateButton("M", buttonsClicked, buttonsPressed, buttonsReleased);
-        var rightButton = CreateButton("R", buttonsClicked, buttonsPressed, buttonsReleased);
+        var leftButton = CreateIconButton("L", string.Empty, clicked: buttonsClicked, pressed: buttonsPressed, released: buttonsReleased);
+        var middleButton = CreateIconButton("M", string.Empty, clicked: buttonsClicked, pressed: buttonsPressed, released: buttonsReleased);
+        var rightButton = CreateIconButton("R", string.Empty, clicked: buttonsClicked, pressed: buttonsPressed, released: buttonsReleased);
+
+        leftButton.BackgroundColor = Colors.Black;
+        middleButton.BackgroundColor = Colors.Black;
+        rightButton.BackgroundColor = Colors.Black;
 
         // Add buttons to Grid
-        AddButtonToGrid(leftButton, column: 0);
-        AddButtonToGrid(middleButton, column: 1);
-        AddButtonToGrid(rightButton, column: 2);
+        AddToGrid(leftButton, column: 0);
+        AddToGrid(middleButton, column: 1);
+        AddToGrid(rightButton, column: 2);
     }
 
-    private void InitializeGrid()
+    protected override void InitializeGrid()
     {
         ColumnSpacing = 2;
 
         ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(4, GridUnitType.Star) });
         ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(2, GridUnitType.Star) });
         ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(4, GridUnitType.Star) });
-    }
-
-    private void AddButtonToGrid(Button button, int column)
-    {
-        button.Column(column);
-        Children.Add(button);
-    }
-
-    private static Button CreateButton(
-        string buttonId,
-        Action<Button, EventArgs> onClicked,
-        Action<Button, EventArgs> onPressed,
-        Action<Button, EventArgs> onReleased)
-    {
-        var button = new Button
-        {
-            CornerRadius = 0,
-            ClassId = buttonId,
-            BackgroundColor = Colors.Black,
-        };
-
-        button.Clicked += (s, e) => onClicked(button, e);
-        button.Pressed += (s, e) => onPressed(button, e);
-        button.Released += (s, e) => onReleased(button, e);
-
-        return button;
     }
 }
 
