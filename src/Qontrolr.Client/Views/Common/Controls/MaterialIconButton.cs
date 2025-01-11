@@ -23,8 +23,6 @@ internal class MaterialIconButton : Button
     public MaterialIconButton(string iconName, Color? iconColor)
     {
         BackgroundColor = Colors.Transparent;
-        VerticalOptions = LayoutOptions.Center;
-        HorizontalOptions = LayoutOptions.Center;
 
         ImageSource = new FontImageSource()
         {
