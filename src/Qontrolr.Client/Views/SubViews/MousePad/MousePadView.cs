@@ -1,10 +1,10 @@
 ﻿using CommunityToolkit.Maui.Markup;
 using Qontrolr.Client.ViewModels.MousePad;
-using Qontrolr.Client.Views.MousePad.Controls;
+using Qontrolr.Client.Views.SubViews.MousePad.Controls;
 using Qontrolr.Shared.Mouse.Button.Enums;
 using Qontrolr.Shared.Mouse.Wheel.Enums;
 
-namespace Qontrolr.Client.Views.MousePad;
+namespace Qontrolr.Client.Views.SubViews.MousePad;
 
 internal class MousePadView : ContentView
 {
@@ -44,7 +44,7 @@ internal class MousePadView : ContentView
     {
         switch (sender.ClassId)
         {
-            case "R": 
+            case "R":
                 _viewModel.ClickMouseButtonCommand.Execute(ButtonId.Right);
                 break;
             case "M":
@@ -59,7 +59,7 @@ internal class MousePadView : ContentView
     }
 
     private void MouseButton_Pressed(Button sender, EventArgs e)
-    {   
+    {
         switch (sender.ClassId)
         {
             case "R":
@@ -101,7 +101,7 @@ internal class MousePadView : ContentView
 
         if (scroll == 0) return;
 
-        _viewModel.ScrollMouseWheelCommand.Execute(scroll>0 ? ScrollDirection.Up : ScrollDirection.Down);
+        _viewModel.ScrollMouseWheelCommand.Execute(scroll > 0 ? ScrollDirection.Up : ScrollDirection.Down);
     }
 
     //MouseWheel event hanlders

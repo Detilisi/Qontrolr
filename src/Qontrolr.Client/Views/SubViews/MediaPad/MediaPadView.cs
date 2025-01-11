@@ -1,6 +1,6 @@
-﻿using Qontrolr.Client.Views.MediaPad.Controls;
+﻿using Qontrolr.Client.Views.SubViews.MediaPad.Controls;
 
-namespace Qontrolr.Client.Views.MediaPad;
+namespace Qontrolr.Client.Views.SubViews.MediaPad;
 
 internal class MediaPadView : ContentView
 {
