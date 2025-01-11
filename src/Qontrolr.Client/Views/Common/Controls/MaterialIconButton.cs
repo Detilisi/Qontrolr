@@ -20,7 +20,7 @@ internal class MaterialIconButton : Button
             FontFamily = MaterialIconsRound.FontFamily
         };
     }
-    public MaterialIconButton(string iconName, Color iconColor)
+    public MaterialIconButton(string iconName, Color? iconColor)
     {
         BackgroundColor = Colors.Transparent;
         VerticalOptions = LayoutOptions.Center;
@@ -30,7 +30,7 @@ internal class MaterialIconButton : Button
         {
             Glyph = iconName,
             Size = IconSize,
-            Color = iconColor,
+            Color = iconColor ?? Colors.Black,
             FontFamily = MaterialIconsRound.FontFamily
         };
     }

@@ -26,17 +26,17 @@ internal abstract class CustomGridControl : Grid
     (
         string buttonId,
         string buttonIcon,
-        Color? backgroundColor = null,
+        Color? iconColor = null,
         Action<MaterialIconButton, EventArgs>? clicked = null,
         Action<MaterialIconButton, EventArgs>? pressed = null,
         Action<MaterialIconButton, EventArgs>? released = null
     )
     {
-        var button = new MaterialIconButton(buttonIcon)
+        var button = new MaterialIconButton(buttonIcon, iconColor)
         {
             CornerRadius = 0,
             ClassId = buttonId,
-            BackgroundColor = backgroundColor ?? Colors.Transparent,
+            BackgroundColor = Colors.Transparent,
         };
 
         if (clicked != null)
