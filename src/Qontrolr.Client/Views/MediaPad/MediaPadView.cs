@@ -16,13 +16,11 @@ internal class MediaPadView : ContentView
         Padding = 5;
         Content = new Frame
         {
+            HasShadow = true,
             CornerRadius = 200,
             WidthRequest = 300,
             HeightRequest = 300,
-
-            HasShadow = true,
             BackgroundColor = Colors.Black,
-            
             VerticalOptions = LayoutOptions.Center,
             HorizontalOptions = LayoutOptions.Center,
             Content = new MediaControlButtons(MediaButton_Clicked)
