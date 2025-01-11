@@ -1,7 +1,7 @@
 using CommunityToolkit.Maui.Markup;
 using Qontrolr.Client.ViewModels.MousePad;
 using Qontrolr.Client.Views.Common.Controls;
-using Qontrolr.Client.Views.Common.Fonts;
+using Qontrolr.Client.Views.MainViews.Controls;
 using Qontrolr.Client.Views.SubViews.MediaPad;
 using Qontrolr.Client.Views.SubViews.MousePad;
 
@@ -13,7 +13,7 @@ public class MainPage : ContentPage
     public MainPage()
     {
         //Set up Main view
-        var bottomToolBar = CreateBottomToolBar();
+        var bottomToolBar = new BottomToolBar(NewButton_Clicked);
         CurrentView = new MousePadView(new MousePadViewModel());
 
         Content = new Grid
@@ -48,47 +48,8 @@ public class MainPage : ContentPage
         }
     }
 
-    //Helper methods
-    private Grid CreateBottomToolBar()
-    {
-        return new Grid()
-        {
-            Padding = 10,
-            ColumnSpacing = 10,
-            ColumnDefinitions =
-            [
-                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
-                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
-                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
-                new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) },
-            ],
-            Children =
-            {
-                CreateButton("mouse", MaterialIconsRound.Mouse).Column(0),
-                CreateButton("keyboard", MaterialIconsRound.Keyboard_alt).Column(1),
-                CreateButton("gamepad", MaterialIconsRound.Sports_esports).Column(2),
-                CreateButton("media", MaterialIconsRound.Play_circle).Column(3),
-            }
-        };
-    }
-
-    private MaterialIconButton CreateButton
-    (
-        string buttonId,
-        string buttonIcon
-    )
-    {
-        var newButton = new MaterialIconButton(buttonIcon)
-        {
-            ClassId = buttonId
-        };
-
-        newButton.Clicked += NewButton_Clicked;
-        return newButton;
-    }
-
     //Event handlers
-    private void NewButton_Clicked(object? sender, EventArgs e)
+    private void NewButton_Clicked(MaterialIconButton sender, EventArgs e)
     {
         if (sender is not Button button) return;
 
