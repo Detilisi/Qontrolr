@@ -2,6 +2,7 @@ using CommunityToolkit.Maui.Markup;
 using Qontrolr.Client.ViewModels.MousePad;
 using Qontrolr.Client.Views.Common.Controls;
 using Qontrolr.Client.Views.MainViews.Controls;
+using Qontrolr.Client.Views.SubViews.KeyPad;
 using Qontrolr.Client.Views.SubViews.MediaPad;
 using Qontrolr.Client.Views.SubViews.MousePad;
 
@@ -59,6 +60,7 @@ public class MainPage : ContentPage
                 CurrentView = new MousePadView(new MousePadViewModel());
                 break;
             case "keyboard":
+                CurrentView = new KeyPadView();
                 break;
             case "gamepad":
                 break;
