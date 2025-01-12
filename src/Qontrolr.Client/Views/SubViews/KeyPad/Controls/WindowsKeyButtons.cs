@@ -37,8 +37,9 @@ internal class WindowsKeyButtons : CustomGridControl
 
     protected override void InitializeGrid()
     {
-        RowSpacing = 2;
-        ColumnSpacing = 2;
+        Padding = 10;
+        RowSpacing = 5;
+        ColumnSpacing = 5;
 
         // Define a 3x3 grid
         for (int i = 0; i < 3; i++)
@@ -61,11 +62,7 @@ internal class WindowsKeyButtons : CustomGridControl
         {
             Text = buttonText,
             ClassId = buttonId,
-
-            BorderWidth = 5,
             CornerRadius = 20,
-            
-            BorderColor = Colors.White,
             TextColor = Colors.White,
             BackgroundColor = Colors.Black,
         };
