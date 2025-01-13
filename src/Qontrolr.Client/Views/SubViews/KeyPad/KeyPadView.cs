@@ -7,12 +7,6 @@ internal class KeyPadView : ContentView
 {
 	public KeyPadView()
 	{
-        var entryView = new Entry()
-        {
-            TextColor = Colors.Transparent,
-        };
-        //entryView.Focus();
-
         Content = new Grid()
         {
             RowSpacing = 1,
@@ -24,12 +18,17 @@ internal class KeyPadView : ContentView
             Children =
             {
                 new WindowsKeyButtons(Keypad_Clicked).Row(0),
-                new KeyBoardTriggerControl(null).Row(1),
+                new KeyBoardTriggerControl(Keyboard_Clicked).Row(1),
             }
         };
     }
 
+    //Handlers
     private void Keypad_Clicked(Button sender, EventArgs e)
+    {
+    }
+
+    private void Keyboard_Clicked(TextChangedEventArgs e)
     {
     }
 }
