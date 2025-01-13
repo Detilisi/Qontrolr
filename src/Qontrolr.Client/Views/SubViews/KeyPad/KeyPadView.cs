@@ -7,8 +7,11 @@ internal class KeyPadView : ContentView
 {
 	public KeyPadView()
 	{
-        var entryView = new Entry();
-        entryView.Focus();
+        var entryView = new Entry()
+        {
+            TextColor = Colors.Transparent,
+        };
+        //entryView.Focus();
 
         Content = new Grid()
         {
@@ -21,7 +24,7 @@ internal class KeyPadView : ContentView
             Children =
             {
                 new WindowsKeyButtons(Keypad_Clicked).Row(0),
-                entryView.Row(1)
+                new KeyBoardTriggerControl(null).Row(1),
             }
         };
     }
