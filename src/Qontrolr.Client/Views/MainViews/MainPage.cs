@@ -14,7 +14,7 @@ public class MainPage : ContentPage
     public MainPage()
     {
         //Set up Main view
-        var bottomToolBar = new BottomToolBar(NewButton_Clicked);
+        var bottomToolBar = new BottomToolBar(ToolBarButton_Clicked);
         CurrentView = new MousePadView(new MousePadViewModel());
 
         Content = new Grid
@@ -50,7 +50,7 @@ public class MainPage : ContentPage
     }
 
     //Event handlers
-    private void NewButton_Clicked(MaterialIconButton sender, EventArgs e)
+    private void ToolBarButton_Clicked(MaterialIconButton sender, EventArgs e)
     {
         if (sender is not Button button) return;
 
