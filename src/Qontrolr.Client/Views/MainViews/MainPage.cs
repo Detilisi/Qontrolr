@@ -81,9 +81,27 @@ public class MainPage : ContentPage
     // Helpers
     protected override void OnAppearing()
     {
-        base.OnAppearing(); 
+        base.OnAppearing();
 
-        var popup = new BarcodeScannerPopup();
-        this.ShowPopup(popup);
+        /*
+         * Show popup #1
+         * - This is displays a list of connected devices
+         * -- User can select a device from the list to connect to
+         * -- If connection is successful, the popup closes
+         * - It also has a button to scan for new devices
+         */
+
+        /*
+         * Show popup #2
+         * - This scan a QR code to connect to a device
+         * -- User can scan a QR code to connect to a device
+         * -- If connection is successful, the popup closes
+         * -- If connection fails, an error message is displayed and Show pop #1
+         */
+        Dispatcher.Dispatch(async () =>
+        {
+            var popup = new BarcodeScannerPopup();
+            var result = await this.ShowPopupAsync(popup);
+        });
     }
 }
