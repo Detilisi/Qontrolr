@@ -100,8 +100,8 @@ public class MainPage : ContentPage
          */
         Dispatcher.Dispatch(async () =>
         {
-            var popup = new BarcodeScannerPopup();
-            var result = await this.ShowPopupAsync(popup);
+            var barcodeScanner = new BarcodeScannerPopup();
+            var result = await this.ShowPopupAsync(barcodeScanner);
         });
     }
 }
