@@ -4,8 +4,14 @@ namespace Qontrolr.Client.Views.SubViews.KeyPad;
 
 public class KeyPadView : ContentView
 {
-	public KeyPadView()
+    //Fields
+    private readonly KeyPadViewModel _viewModel;
+    
+    //Construction
+    public KeyPadView(KeyPadViewModel viewModel)
 	{
+        _viewModel = viewModel;
+
         Content = new Grid()
         {
             RowSpacing = 1,
@@ -25,9 +31,11 @@ public class KeyPadView : ContentView
     //Handlers
     private void Keypad_Clicked(Button sender, EventArgs e)
     {
+        _viewModel.HandleClickedKeyCommand.Execute(sender.ClassId);
     }
 
     private void Keyboard_Clicked(TextChangedEventArgs e)
     {
+        _viewModel.HandleClickedKeyCommand.Execute(e.NewTextValue);
     }
 }
