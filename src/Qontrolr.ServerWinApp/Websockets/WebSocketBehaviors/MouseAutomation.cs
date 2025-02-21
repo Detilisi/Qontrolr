@@ -41,7 +41,7 @@ internal class MouseAutomation : WebSocketBehavior
             var cursorMovedEvent = JsonSerializer.Deserialize<DeviceEvent<CursorPosition>>(jsonMessage);
             if (cursorMovedEvent == null) return;
             
-            _inputSimulator.Mouse.MoveMouseBy(cursorMovedEvent.Data.DeltaX, cursorMovedEvent.Data.DeltaY);
+            _inputSimulator.Mouse.MoveMouseBy(cursorMovedEvent.Data.PosX, cursorMovedEvent.Data.PosY);
         }
         else if (jsonMessage.Contains(ButtonEvents.ButtonClick))
         {

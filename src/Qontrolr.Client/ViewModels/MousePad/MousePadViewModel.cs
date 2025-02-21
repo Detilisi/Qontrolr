@@ -19,7 +19,7 @@ internal partial class MousePadViewModel : ObservableObject
     [RelayCommand]
     public void DragMousePointer(CursorPosition cursorPosition)
     {
-        Debug.WriteLine(cursorPosition);
+        Debug.WriteLine(cursorPosition.PosX + "," + cursorPosition.PosY);
     }
 
     [RelayCommand]

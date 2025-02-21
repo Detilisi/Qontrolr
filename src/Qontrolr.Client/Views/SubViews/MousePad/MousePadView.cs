@@ -2,6 +2,7 @@
 using Qontrolr.Client.ViewModels.MousePad;
 using Qontrolr.Client.Views.SubViews.MousePad.Controls;
 using Qontrolr.Shared.Mouse.Button.Enums;
+using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
 using Qontrolr.Shared.Mouse.Wheel.Enums;
 
 namespace Qontrolr.Client.Views.SubViews.MousePad;
@@ -107,6 +108,7 @@ internal class MousePadView : ContentView
     //MouseWheel event hanlders
     private void TrackPadPanUpdated(Frame sender, PanUpdatedEventArgs e)
     {
-
+        var newPosition = new CursorPosition((int)e.TotalX, (int)e.TotalY);
+        _viewModel.DragMousePointerCommand.Execute(newPosition);
     }
 }
