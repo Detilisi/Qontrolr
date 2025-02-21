@@ -1,5 +1,7 @@
+using CommunityToolkit.Maui.Views;
 using Qontrolr.Client.Views.Common.Controls;
 using Qontrolr.Client.Views.MainViews.Controls;
+using Qontrolr.Client.Views.MainViews.Popups;
 
 namespace Qontrolr.Client.Views.MainViews;
 
@@ -74,5 +76,14 @@ public class MainPage : ContentPage
         {
             CurrentView = view;
         }
+    }
+
+    // Helpers
+    protected override void OnAppearing()
+    {
+        base.OnAppearing(); 
+
+        var popup = new BarcodeScannerPopup();
+        this.ShowPopup(popup);
     }
 }
