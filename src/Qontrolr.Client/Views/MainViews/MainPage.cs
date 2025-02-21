@@ -30,7 +30,7 @@ public class MainPage : ContentPage
         }
     }
 
-    // Constructor with dependency injection
+    // Construction 
     public MainPage(KeyPadView keyPadView, MediaPadView mediaPadView, MousePadView mousePadView)
     {
         _keyPadView = keyPadView;
@@ -40,7 +40,6 @@ public class MainPage : ContentPage
         InitializeMainView();
     }
 
-    // Initialize the main view
     private void InitializeMainView()
     {
         Content = new Grid
@@ -59,7 +58,7 @@ public class MainPage : ContentPage
         };
     }
 
-    // Event handler for toolbar button clicks
+    // Event handlers
     private void OnToolBarButtonClicked(MaterialIconButton sender, EventArgs e)
     {
         if (sender is not Button button) return;
