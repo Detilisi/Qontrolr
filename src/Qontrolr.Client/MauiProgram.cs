@@ -1,7 +1,5 @@
 ﻿using CommunityToolkit.Maui;
-using CommunityToolkit.Maui.Markup;
 using Microsoft.Extensions.Logging;
-using Qontrolr.Client.Views.Common.Fonts;
 
 namespace Qontrolr.Client;
 
@@ -24,6 +22,19 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+        // Register ViewModels
+        builder.Services.AddSingleton<MousePadViewModel>();
+        //builder.Services.AddSingleton<KeyPadViewModel>();
+        //builder.Services.AddSingleton<MediaPadViewModel>();
+
+        // Register Views
+        builder.Services.AddSingleton<KeyPadView>();
+        builder.Services.AddSingleton<MediaPadView>();
+        builder.Services.AddSingleton<MousePadView>();
+
+        // Register Pages
+        builder.Services.AddSingleton<MainPage>();
+
 
         return builder.Build();
     }

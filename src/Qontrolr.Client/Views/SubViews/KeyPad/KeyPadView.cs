@@ -1,9 +1,8 @@
-﻿using CommunityToolkit.Maui.Markup;
-using Qontrolr.Client.Views.SubViews.KeyPad.Controls;
+﻿using Qontrolr.Client.Views.SubViews.KeyPad.Controls;
 
 namespace Qontrolr.Client.Views.SubViews.KeyPad;
 
-internal class KeyPadView : ContentView
+public class KeyPadView : ContentView
 {
 	public KeyPadView()
 	{

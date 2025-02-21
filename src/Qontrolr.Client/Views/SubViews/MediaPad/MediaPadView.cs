@@ -2,7 +2,7 @@
 
 namespace Qontrolr.Client.Views.SubViews.MediaPad;
 
-internal class MediaPadView : ContentView
+public class MediaPadView : ContentView
 {
     //Construction
     public MediaPadView()

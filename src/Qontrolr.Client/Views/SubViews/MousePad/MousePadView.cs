@@ -1,13 +1,11 @@
-﻿using CommunityToolkit.Maui.Markup;
-using Qontrolr.Client.ViewModels.MousePad;
-using Qontrolr.Client.Views.SubViews.MousePad.Controls;
+﻿using Qontrolr.Client.Views.SubViews.MousePad.Controls;
 using Qontrolr.Shared.Mouse.Button.Enums;
 using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
 using Qontrolr.Shared.Mouse.Wheel.Enums;
 
 namespace Qontrolr.Client.Views.SubViews.MousePad;
 
-internal class MousePadView : ContentView
+public class MousePadView : ContentView
 {
     //Fields
     private readonly MousePadViewModel _viewModel;

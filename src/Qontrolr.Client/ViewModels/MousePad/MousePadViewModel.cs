@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace Qontrolr.Client.ViewModels.MousePad;
 
-internal partial class MousePadViewModel : ObservableObject
+public partial class MousePadViewModel : ObservableObject
 {
     //Commands
     [RelayCommand]

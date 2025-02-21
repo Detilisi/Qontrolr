@@ -1,74 +1,79 @@
-using CommunityToolkit.Maui.Markup;
-using Qontrolr.Client.ViewModels.MousePad;
 using Qontrolr.Client.Views.Common.Controls;
 using Qontrolr.Client.Views.MainViews.Controls;
-using Qontrolr.Client.Views.SubViews.KeyPad;
-using Qontrolr.Client.Views.SubViews.MediaPad;
-using Qontrolr.Client.Views.SubViews.MousePad;
 
 namespace Qontrolr.Client.Views.MainViews;
 
 public class MainPage : ContentPage
 {
-    //Contruction
-    public MainPage()
-    {
-        //Set up Main view
-        var bottomToolBar = new BottomToolBar(ToolBarButton_Clicked);
-        CurrentView = new MousePadView(new MousePadViewModel());
+    // View elements
+    private readonly KeyPadView _keyPadView;
+    private readonly MediaPadView _mediaPadView;
+    private readonly MousePadView _mousePadView;
 
-        Content = new Grid
-        {
-            RowSpacing = 1,
-            RowDefinitions =
-            [
-                new RowDefinition { Height = new GridLength(9, GridUnitType.Star) },
-                new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-            ],
-            Children =
-            {
-                CurrentView.Row(0),
-                bottomToolBar.Row(1)
-            }
-        };
-    }
-
-    //View elements
     private ContentView? _currentView;
     private ContentView CurrentView
     {
-        get => _currentView ?? new();
+        get => _currentView ?? _mousePadView;
         set
         {
             if (_currentView == value) return;
 
             _currentView = value;
             OnPropertyChanged(nameof(CurrentView));
-            (Content as Grid)?.Children.RemoveAt(0); // Remove old view
-            (Content as Grid)?.Children.Insert(0, _currentView); // Add new view
+
+            //Update current View
+            if (Content is Grid grid)
+            {
+                grid.Children.RemoveAt(0); // Remove old view
+                grid.Children.Insert(0, _currentView); // Add new view
+            }
         }
     }
 
-    //Event handlers
-    private void ToolBarButton_Clicked(MaterialIconButton sender, EventArgs e)
+    // Constructor with dependency injection
+    public MainPage(KeyPadView keyPadView, MediaPadView mediaPadView, MousePadView mousePadView)
+    {
+        _keyPadView = keyPadView;
+        _mediaPadView = mediaPadView;
+        _mousePadView = mousePadView;
+
+        InitializeMainView();
+    }
+
+    // Initialize the main view
+    private void InitializeMainView()
+    {
+        Content = new Grid
+        {
+            RowSpacing = 1,
+            RowDefinitions =
+            {
+                new RowDefinition { Height = new GridLength(9, GridUnitType.Star) },
+                new RowDefinition { Height = new GridLength(1, GridUnitType.Star) }
+            },
+            Children =
+            {
+                CurrentView.Row(0),
+                new BottomToolBar(OnToolBarButtonClicked).Row(1)
+            }
+        };
+    }
+
+    // Event handler for toolbar button clicks
+    private void OnToolBarButtonClicked(MaterialIconButton sender, EventArgs e)
     {
         if (sender is not Button button) return;
 
-        switch (button.ClassId)
+        var viewMap = new Dictionary<string, ContentView>
         {
-            case "mouse":
-                CurrentView = new MousePadView(new MousePadViewModel());
-                break;
-            case "keyboard":
-                CurrentView = new KeyPadView();
-                break;
-            case "gamepad":
-                break;
-            case "media":
-                CurrentView = new MediaPadView();
-                break;
-            default:
-                break;
+            { "mouse", _mousePadView },
+            { "keyboard", _keyPadView },
+            { "media", _mediaPadView }
+        };
+
+        if (viewMap.TryGetValue(button.ClassId, out var view))
+        {
+            CurrentView = view;
         }
     }
 }
