@@ -77,8 +77,4 @@
 	  <ProjectReference Include="..\Qontrolr.Shared\Qontrolr.Shared.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="ViewModels\MediaPad\" />
-	</ItemGroup>
-
 </Project>

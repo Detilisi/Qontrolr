@@ -4,9 +4,14 @@ namespace Qontrolr.Client.Views.SubViews.MediaPad;
 
 public class MediaPadView : ContentView
 {
+    //Fields
+    private readonly MediaPadViewModel _viewModel;
+
     //Construction
-    public MediaPadView()
+    public MediaPadView(MediaPadViewModel viewModel)
     {
+        _viewModel = viewModel;
+
         InitializeView();
     }
 
@@ -33,14 +38,19 @@ public class MediaPadView : ContentView
         switch (sender.ClassId)
         {
             case "pause":
+                _viewModel.TogglePlayCommand.Execute(null);
                 break;
             case "next":
+                _viewModel.NextCommand.Execute(null);
                 break;
             case "prev":
+                _viewModel.PreviousCommand.Execute(null);
                 break;
             case "vol_up":
+                _viewModel.VolumnUpCommand.Execute(null);
                 break;
             case "vol_down":
+                _viewModel.VolumnDownCommand.Execute(null);
                 break;
             default:
                 break;

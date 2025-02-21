@@ -10,3 +10,4 @@ global using Qontrolr.Client.Views.SubViews.MousePad;
 
 global using Qontrolr.Client.ViewModels.KeyPad;
 global using Qontrolr.Client.ViewModels.MousePad;
+global using Qontrolr.Client.ViewModels.MediaPad;

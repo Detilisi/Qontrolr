@@ -22,10 +22,11 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
+
         // Register ViewModels
         builder.Services.AddSingleton<KeyPadViewModel>();
         builder.Services.AddSingleton<MousePadViewModel>();
-        //builder.Services.AddSingleton<MediaPadViewModel>();
+        builder.Services.AddSingleton<MediaPadViewModel>();
 
         // Register Views
         builder.Services.AddSingleton<KeyPadView>();
