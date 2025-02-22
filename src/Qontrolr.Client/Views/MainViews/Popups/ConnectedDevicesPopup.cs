@@ -47,7 +47,7 @@ public partial class ConnectedDevicesPopup : Popup
                     TextColor = Colors.White,
                     BackgroundColor = Colors.Black,
                     Text = "Scan for New Device",
-                    Command = new Command(OnScanClicked)
+                    Command = new Command(()=>{  Close(null); })
                 }
             }
         };
@@ -61,11 +61,6 @@ public partial class ConnectedDevicesPopup : Popup
         {
             Close(selectedDevice);
         }
-    }
-
-    private void OnScanClicked()
-    {
-        Close(null);
     }
 }
 
