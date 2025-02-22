@@ -1,5 +1,6 @@
 ﻿global using CommunityToolkit.Maui.Markup;
 global using CommunityToolkit.Mvvm.Input;
+global using CommunityToolkit.Maui.Views;
 global using CommunityToolkit.Mvvm.ComponentModel;
 
 global using Qontrolr.Client.Views.Common.Fonts;

@@ -1,6 +1,4 @@
-﻿using Qontrolr.Client.Views.Common.Fonts;
-
-namespace Qontrolr.Client.Views.Common.Controls;
+﻿namespace Qontrolr.Client.Views.Common.Controls;
 
 internal class MaterialIconLabel : Label
 {

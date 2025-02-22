@@ -1,7 +1,5 @@
-﻿using CommunityToolkit.Maui.Views;
-using ZXing.Net.Maui;
+﻿using ZXing.Net.Maui;
 using ZXing.Net.Maui.Controls;
-
 namespace Qontrolr.Client.Views.MainViews.Popups;
 
 public partial class BarcodeScannerPopup : Popup
@@ -10,20 +8,24 @@ public partial class BarcodeScannerPopup : Popup
 
     public BarcodeScannerPopup()
     {
+        InitializePopup();
+    }
+
+    private void InitializePopup()
+    {
         Size = new Size(300, 500);
 
         var barcodeReaderView = new CameraBarcodeReaderView
         {
-            IsDetecting = true,
             IsTorchOn = false,
-            CameraLocation = CameraLocation.Rear,
-            HeightRequest = 350,
+            IsDetecting = true,
             WidthRequest = 250,
-            Margin = new Thickness(10)
+            HeightRequest = 350,
+            Margin = new Thickness(10),
+            CameraLocation = CameraLocation.Rear,
         };
         barcodeReaderView.BarcodesDetected += BarcodesDetected;
 
-        
         var closeButton = new Button
         {
             Text = "✕ Close",
@@ -34,7 +36,7 @@ public partial class BarcodeScannerPopup : Popup
             HeightRequest = 35,
             HorizontalOptions = LayoutOptions.Fill
         };
-        closeButton.Clicked += OnCloseClicked;
+        closeButton.Clicked += (s, e) => { Close(null); };
 
         Content = new VerticalStackLayout
         {
@@ -57,6 +59,7 @@ public partial class BarcodeScannerPopup : Popup
         };
     }
 
+    //Handlers
     private async void BarcodesDetected(object sender, BarcodeDetectionEventArgs e)
     {
         if (_isProcessing || e.Results.Length == 0) return;
@@ -77,10 +80,4 @@ public partial class BarcodeScannerPopup : Popup
             _isProcessing = false;
         }
     }
-
-    private void OnCloseClicked(object sender, EventArgs e)
-    {
-        Close(null);
-    }
-
 }
