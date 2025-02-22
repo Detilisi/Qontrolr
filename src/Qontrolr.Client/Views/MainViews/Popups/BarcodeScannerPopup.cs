@@ -22,7 +22,7 @@ public partial class BarcodeScannerPopup : Popup
             WidthRequest = 250,
             HeightRequest = 350,
             Margin = new Thickness(10),
-            CameraLocation = CameraLocation.Rear,
+            CameraLocation = CameraLocation.Rear
         };
         barcodeReaderView.BarcodesDetected += BarcodesDetected;
 
