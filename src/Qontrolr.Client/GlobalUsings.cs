@@ -12,3 +12,6 @@ global using Qontrolr.Client.Views.SubViews.MousePad;
 global using Qontrolr.Client.ViewModels.KeyPad;
 global using Qontrolr.Client.ViewModels.MousePad;
 global using Qontrolr.Client.ViewModels.MediaPad;
+
+global using Qontrolr.Client.Services;
+global using ZXing.Net.Maui.Controls;

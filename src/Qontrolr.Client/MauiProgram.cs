@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
-using ZXing.Net.Maui.Controls;
 
 namespace Qontrolr.Client;
 
@@ -25,6 +24,9 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
+        //Register Services
+        builder.Services.AddSingleton<WebSocketService>();
+
         // Register ViewModels
         builder.Services.AddSingleton<KeyPadViewModel>();
         builder.Services.AddSingleton<MousePadViewModel>();
@@ -37,7 +39,6 @@ public static class MauiProgram
 
         // Register Pages
         builder.Services.AddSingleton<MainPage>();
-
 
         return builder.Build();
     }
