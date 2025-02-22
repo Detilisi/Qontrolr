@@ -100,17 +100,30 @@ public class MainPage : ContentPage
          */
         Dispatcher.Dispatch(async () =>
         {
-            var deviceListPopup = new ConnectedDevicesPopup(new List<string> { "Device 1", "Device 2", "Device 3" });
-            var devicePopupResult = await this.ShowPopupAsync(deviceListPopup);
-
-            if (devicePopupResult == null)
-            {
-                var barcodeScanner = new BarcodeScannerPopup();
-                var result = await this.ShowPopupAsync(barcodeScanner);
-            }
-
-            //Connect to device
-
+            await ConnectToDevice();
         });
+    }
+
+    private async Task ConnectToDevice()
+    {
+        var isConnected = false;
+
+        //Connect to device
+        var deviceListPopup = new ConnectedDevicesPopup(new List<string> { "Device 1", "Device 2", "Device 3" });
+        var devicePopupResult = await this.ShowPopupAsync(deviceListPopup);
+
+        if (devicePopupResult == null)
+        {
+            var barcodeScanner = new BarcodeScannerPopup();
+            var scannerResult = await this.ShowPopupAsync(barcodeScanner);
+            //isConnected = true;
+        }
+
+        //isConnected = true;
+
+        if(!isConnected)
+        {
+            await ConnectToDevice();
+        }
     }
 }

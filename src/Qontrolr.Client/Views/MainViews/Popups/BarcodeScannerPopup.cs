@@ -5,7 +5,7 @@ namespace Qontrolr.Client.Views.MainViews.Popups;
 public partial class BarcodeScannerPopup : Popup
 {
     private bool _isProcessing;
-
+    private CameraBarcodeReaderView? _cameraBarcodeReaderView;
     public BarcodeScannerPopup()
     {
         InitializePopup();
@@ -15,7 +15,7 @@ public partial class BarcodeScannerPopup : Popup
     {
         Size = new Size(300, 500);
 
-        var barcodeReaderView = new CameraBarcodeReaderView
+        _cameraBarcodeReaderView = new CameraBarcodeReaderView
         {
             IsTorchOn = false,
             IsDetecting = true,
@@ -24,7 +24,8 @@ public partial class BarcodeScannerPopup : Popup
             Margin = new Thickness(10),
             CameraLocation = CameraLocation.Rear
         };
-        barcodeReaderView.BarcodesDetected += BarcodesDetected;
+
+        _cameraBarcodeReaderView.BarcodesDetected += BarcodesDetected;
 
         Content = new VerticalStackLayout
         {
@@ -41,7 +42,7 @@ public partial class BarcodeScannerPopup : Popup
                     TextColor = Colors.Black,
                     Margin = new Thickness(0, 10, 0, 5)
                 },
-                barcodeReaderView,
+                _cameraBarcodeReaderView,
                 new Button
                 {
                     Text = "✕ Close",
@@ -58,24 +59,42 @@ public partial class BarcodeScannerPopup : Popup
     }
 
     //Handlers
-    private async void BarcodesDetected(object sender, BarcodeDetectionEventArgs e)
+    private void BarcodesDetected(object sender, BarcodeDetectionEventArgs e)
     {
         if (_isProcessing || e.Results.Length == 0) return;
 
         _isProcessing = true;
+
         try
         {
             var barcode = e.Results[0].Value;
-            await Task.Delay(500);
             Close(barcode);
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error detecting barcode: {ex.Message}");
         }
-        finally
-        {
-            _isProcessing = false;
-        }
     }
+
+    protected override async Task OnClosed(object? result, bool wasDismissedByTappingOutsideOfPopup, CancellationToken token = default)
+    {
+
+        if (_cameraBarcodeReaderView != null)
+        {
+            // Stop the camera and release resources
+            _cameraBarcodeReaderView.IsDetecting = false;
+            _cameraBarcodeReaderView.IsEnabled = false;
+            _cameraBarcodeReaderView.IsTorchOn = false;
+            _cameraBarcodeReaderView.BarcodesDetected -= BarcodesDetected;
+
+            // Dispose the camera view to release resources
+            _cameraBarcodeReaderView = null;
+        }
+
+        // Reset processing flag
+        _isProcessing = false;
+
+        await base.OnClosed(result, wasDismissedByTappingOutsideOfPopup, token);
+    }
+
 }
