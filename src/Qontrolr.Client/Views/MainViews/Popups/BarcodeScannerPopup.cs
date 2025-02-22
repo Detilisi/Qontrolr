@@ -26,18 +26,6 @@ public partial class BarcodeScannerPopup : Popup
         };
         barcodeReaderView.BarcodesDetected += BarcodesDetected;
 
-        var closeButton = new Button
-        {
-            Text = "✕ Close",
-            BackgroundColor = Colors.Black,
-            TextColor = Colors.White,
-            FontSize = 14,
-            CornerRadius = 0,
-            HeightRequest = 35,
-            HorizontalOptions = LayoutOptions.Fill
-        };
-        closeButton.Clicked += (s, e) => { Close(null); };
-
         Content = new VerticalStackLayout
         {
             Spacing = 10,
@@ -54,7 +42,17 @@ public partial class BarcodeScannerPopup : Popup
                     Margin = new Thickness(0, 10, 0, 5)
                 },
                 barcodeReaderView,
-                closeButton
+                new Button
+                {
+                    Text = "✕ Close",
+                    BackgroundColor = Colors.Black,
+                    TextColor = Colors.White,
+                    FontSize = 14,
+                    CornerRadius = 0,
+                    HeightRequest = 35,
+                    HorizontalOptions = LayoutOptions.Fill,
+                    Command = new Command(() => { Close(null); })
+                }
             }
         };
     }
