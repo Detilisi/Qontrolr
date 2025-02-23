@@ -5,13 +5,14 @@ using System.Diagnostics;
 
 namespace Qontrolr.Client.ViewModels.MousePad;
 
-public partial class MousePadViewModel : ObservableObject
+public partial class MousePadViewModel(WebSocketService webSocketService) : ViewModel(webSocketService)
 {
     //Commands
     [RelayCommand]
-    public void ScrollMouseWheel(ScrollDirection scrollDirection)
+    public async Task ScrollMouseWheel(ScrollDirection scrollDirection)
     {
         Debug.WriteLine(scrollDirection);
+        await _webSocketService.SendAsync("MousePad.ScrollMouseWheel");
     }
 
     [RelayCommand]

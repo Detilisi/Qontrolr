@@ -1,7 +1,5 @@
-using CommunityToolkit.Maui.Views;
 using Qontrolr.Client.Views.Common.Controls;
 using Qontrolr.Client.Views.MainViews.Controls;
-using Qontrolr.Client.Views.MainViews.Popups;
 
 namespace Qontrolr.Client.Views.MainViews;
 
@@ -75,55 +73,6 @@ public class MainPage : ContentPage
         if (viewMap.TryGetValue(button.ClassId, out var view))
         {
             CurrentView = view;
-        }
-    }
-
-    // Helpers
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-
-        /*
-         * Show popup #1
-         * - This is displays a list of connected devices
-         * -- User can select a device from the list to connect to
-         * -- If connection is successful, the popup closes
-         * - It also has a button to scan for new devices
-         */
-
-        /*
-         * Show popup #2
-         * - This scan a QR code to connect to a device
-         * -- User can scan a QR code to connect to a device
-         * -- If connection is successful, the popup closes
-         * -- If connection fails, an error message is displayed and Show pop #1
-         */
-        Dispatcher.Dispatch(async () =>
-        {
-            await ConnectToDevice();
-        });
-    }
-
-    private async Task ConnectToDevice()
-    {
-        var isConnected = false;
-
-        //Connect to device
-        var deviceListPopup = new ConnectedDevicesPopup(new List<string> { "Device 1", "Device 2", "Device 3" });
-        var devicePopupResult = await this.ShowPopupAsync(deviceListPopup);
-
-        if (devicePopupResult == null)
-        {
-            var barcodeScanner = new BarcodeScannerPopup();
-            var scannerResult = await this.ShowPopupAsync(barcodeScanner);
-            //isConnected = true;
-        }
-
-        //isConnected = true;
-
-        if(!isConnected)
-        {
-            await ConnectToDevice();
         }
     }
 }

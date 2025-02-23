@@ -2,7 +2,7 @@
 
 namespace Qontrolr.Client.ViewModels.MediaPad;
 
-public partial class MediaPadViewModel : ObservableObject
+public partial class MediaPadViewModel(WebSocketService webSocketService) : ViewModel(webSocketService)
 {
     [RelayCommand]
     public void TogglePlay()
