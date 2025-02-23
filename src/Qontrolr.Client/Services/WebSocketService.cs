@@ -1,5 +1,7 @@
-﻿using System.Net.WebSockets;
+﻿using Qontrolr.Shared.Common.Events;
+using System.Net.WebSockets;
 using System.Text;
+using System.Text.Json;
 
 namespace Qontrolr.Client.Services;
 
@@ -26,8 +28,9 @@ public class WebSocketService
             var serverRoute = $"{serverUrl}/qontrolr";
             await _webSocket.ConnectAsync(new Uri(serverRoute), token);
         }
-        catch
+        catch(Exception ex) 
         {
+            var message = ex.GetType();
             ErrorOccurred?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -45,9 +48,16 @@ public class WebSocketService
             var buffer = Encoding.UTF8.GetBytes(data);
             await _webSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, token);
         }
-        catch
+        catch (Exception ex)
         {
+            var message = ex.Message;
             ErrorOccurred?.Invoke(this, EventArgs.Empty);
         }
+    }
+
+    public async Task SendEventAsync<T>(DeviceEvent<T> deviceEvent)
+    {
+        string jsonCommand = JsonSerializer.Serialize(deviceEvent);
+        await SendAsync(jsonCommand);
     }
 }
