@@ -1,7 +1,10 @@
-﻿using Qontrolr.Shared.Mouse.Button.Enums;
+﻿using Qontrolr.Shared.Common.Events;
+using Qontrolr.Shared.Mouse.Button.Constants;
+using Qontrolr.Shared.Mouse.Button.Enums;
+using Qontrolr.Shared.Mouse.Cursor.Constants;
 using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
+using Qontrolr.Shared.Mouse.Wheel.Constants;
 using Qontrolr.Shared.Mouse.Wheel.Enums;
-using System.Diagnostics;
 
 namespace Qontrolr.Client.ViewModels.MousePad;
 
@@ -11,31 +14,30 @@ public partial class MousePadViewModel(WebSocketService webSocketService) : View
     [RelayCommand]
     public async Task ScrollMouseWheel(ScrollDirection scrollDirection)
     {
-        Debug.WriteLine(scrollDirection);
-        await _webSocketService.SendAsync("MousePad.ScrollMouseWheel");
+        await _webSocketService.SendEventAsync(new DeviceEvent<ScrollDirection>(WheelEvents.WheelScrolled, scrollDirection));
     }
 
     [RelayCommand]
-    public void DragMousePointer(CursorPosition cursorPosition)
+    public async Task DragMousePointer(CursorPosition cursorPosition)
     {
-        Debug.WriteLine(cursorPosition.PosX + "," + cursorPosition.PosY);
+        await _webSocketService.SendEventAsync(new DeviceEvent<CursorPosition>(CursorEvents.CursorMoved, cursorPosition));
     }
 
     [RelayCommand]
-    public void ClickMouseButton(ButtonId buttonId)
+    public async Task ClickMouseButton(ButtonId buttonId)
     {
-        Debug.WriteLine(buttonId);
+        await _webSocketService.SendEventAsync(new DeviceEvent<ButtonId>(ButtonEvents.ButtonClick, buttonId));
     }
     
     [RelayCommand]
-    public void PressMouseButton(ButtonId buttonId)
+    public async Task PressMouseButton(ButtonId buttonId)
     {
-        Debug.WriteLine(buttonId);
+        await _webSocketService.SendEventAsync(new DeviceEvent<ButtonId>(ButtonEvents.ButtonPressed, buttonId));
     }
 
     [RelayCommand]
-    public void ReleaseMouseButton(ButtonId buttonId)
+    public async Task ReleaseMouseButton(ButtonId buttonId)
     {
-        Debug.WriteLine(buttonId);
+        await _webSocketService.SendEventAsync(new DeviceEvent<ButtonId>(ButtonEvents.ButtonReleased, buttonId));
     }
 }
