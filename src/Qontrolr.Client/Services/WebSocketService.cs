@@ -55,8 +55,9 @@ public class WebSocketService
         }
     }
 
-    public async Task SendEventAsync<T>(DeviceEvent<T> deviceEvent)
+    public async Task SendDeviceEventAsync<T>(string name, T data)
     {
+        var deviceEvent = new DeviceEvent<T>(name, data);
         string jsonCommand = JsonSerializer.Serialize(deviceEvent);
         await SendAsync(jsonCommand);
     }
