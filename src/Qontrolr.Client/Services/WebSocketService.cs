@@ -9,7 +9,7 @@ public class WebSocketService
     private readonly ClientWebSocket _webSocket;
 
     //Properties
-    public event EventHandler<EventArgs>? ClientOnError;
+    public event EventHandler<EventArgs>? ErrorOccurred;
     public bool IsConnected => _webSocket.State == WebSocketState.Open;
 
     //Construction
@@ -28,7 +28,7 @@ public class WebSocketService
         }
         catch
         {
-            ClientOnError?.Invoke(this, EventArgs.Empty);
+            ErrorOccurred?.Invoke(this, EventArgs.Empty);
         }
     }
 
@@ -47,7 +47,7 @@ public class WebSocketService
         }
         catch
         {
-            ClientOnError?.Invoke(this, EventArgs.Empty);
+            ErrorOccurred?.Invoke(this, EventArgs.Empty);
         }
     }
 }
