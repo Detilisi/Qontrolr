@@ -1,10 +1,10 @@
 ﻿using Qontrolr.Client.Views.Common.Controls.Base;
 
-namespace Qontrolr.Client.Views.SubViews.MousePad.Controls;
+namespace Qontrolr.Client.Views.SubViews.Touchpad.Controls;
 
-internal class MouseButtons : CustomGridControl
+internal class ControlButtons : CustomGridControl
 {
-    public MouseButtons
+    public ControlButtons
     (
         Action<Button, EventArgs> buttonsClicked,
         Action<Button, EventArgs> buttonsPressed,

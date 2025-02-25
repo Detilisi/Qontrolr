@@ -2,7 +2,7 @@
 using Qontrolr.Client.Views.Common.Controls.Base;
 using Qontrolr.Client.Views.Common.Fonts;
 
-namespace Qontrolr.Client.Views.SubViews.KeyPad.Controls;
+namespace Qontrolr.Client.Views.SubViews.KeyBoard.Controls;
 
 internal class KeyBoardTriggerControl : CustomGridControl
 {
@@ -14,7 +14,7 @@ internal class KeyBoardTriggerControl : CustomGridControl
         // Create components
         _keyboardEntry = new Entry();
         _showKeyboarButton = new MaterialIconButton(MaterialIconsRound.Keyboard_hide, 60);
-        
+
         _keyboardEntry.TextColor = Colors.Transparent;
         _keyboardEntry.TextChanged += (s, e) => textChanged(e);
         _showKeyboarButton.Clicked += ShowKeyboarButton_Clicked;

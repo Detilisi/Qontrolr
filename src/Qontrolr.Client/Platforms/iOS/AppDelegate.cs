@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace Qontrolr.Client
+namespace Qontrolr.Client.Platforms.iOS
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

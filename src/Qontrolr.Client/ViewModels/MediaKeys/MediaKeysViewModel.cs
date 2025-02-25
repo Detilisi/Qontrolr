@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 
-namespace Qontrolr.Client.ViewModels.MediaPad;
+namespace Qontrolr.Client.ViewModels.MediaKeys;
 
-public partial class MediaPadViewModel(WebSocketService webSocketService) : ViewModel(webSocketService)
+public partial class MediaKeysViewModel(WebSocketService webSocketService) : ViewModel(webSocketService)
 {
     [RelayCommand]
     public void TogglePlay()
