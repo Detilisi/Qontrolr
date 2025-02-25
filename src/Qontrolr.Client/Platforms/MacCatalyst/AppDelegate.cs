@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace Qontrolr.Client
+namespace Qontrolr.Client.Platforms.MacCatalyst
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

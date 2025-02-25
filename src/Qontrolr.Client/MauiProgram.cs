@@ -28,14 +28,14 @@ public static class MauiProgram
         builder.Services.AddSingleton<WebSocketService>();
 
         // Register ViewModels
-        builder.Services.AddSingleton<KeyPadViewModel>();
-        builder.Services.AddSingleton<MousePadViewModel>();
-        builder.Services.AddSingleton<MediaPadViewModel>();
+        builder.Services.AddSingleton<KeyBoardViewModel>();
+        builder.Services.AddSingleton<TouchpadViewModel>();
+        builder.Services.AddSingleton<MediaKeysViewModel>();
 
         // Register Views
         builder.Services.AddSingleton<KeyPadView>();
         builder.Services.AddSingleton<MediaPadView>();
-        builder.Services.AddSingleton<MousePadView>();
+        builder.Services.AddSingleton<TouchpadView>();
 
         // Register Pages
         builder.Services.AddSingleton<MainPage>();

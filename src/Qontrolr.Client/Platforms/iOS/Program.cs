@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace Qontrolr.Client
+namespace Qontrolr.Client.Platforms.iOS
 {
     public class Program
     {

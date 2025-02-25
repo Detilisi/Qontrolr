@@ -1,6 +1,6 @@
 ﻿using Qontrolr.Client.Views.Common.Controls.Base;
 
-namespace Qontrolr.Client.Views.SubViews.KeyPad.Controls;
+namespace Qontrolr.Client.Views.SubViews.KeyBoard.Controls;
 
 internal class WindowsKeyButtons : CustomGridControl
 {

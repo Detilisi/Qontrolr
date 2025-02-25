@@ -8,12 +8,14 @@ global using CommunityToolkit.Mvvm.ComponentModel;
 global using Qontrolr.Client.Services;
 
 global using Qontrolr.Client.ViewModels.Base;
-global using Qontrolr.Client.ViewModels.KeyPad;
-global using Qontrolr.Client.ViewModels.MousePad;
-global using Qontrolr.Client.ViewModels.MediaPad;
+global using Qontrolr.Client.ViewModels.KeyBoard;
+global using Qontrolr.Client.ViewModels.MediaKeys;
+global using Qontrolr.Client.ViewModels.TouchPad;
 
 global using Qontrolr.Client.Views.MainViews;
 global using Qontrolr.Client.Views.Common.Fonts;
-global using Qontrolr.Client.Views.SubViews.KeyPad;
-global using Qontrolr.Client.Views.SubViews.MediaPad;
-global using Qontrolr.Client.Views.SubViews.MousePad;
+global using Qontrolr.Client.Views.SubViews.KeyBoard;
+global using Qontrolr.Client.Views.SubViews.MediaKeys;
+global using Qontrolr.Client.Views.SubViews.Touchpad;
+
+global using Qontrolr.SharedLib.Common;

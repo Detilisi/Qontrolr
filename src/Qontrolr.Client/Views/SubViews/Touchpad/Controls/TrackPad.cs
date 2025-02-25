@@ -1,12 +1,10 @@
-﻿using CommunityToolkit.Maui.Markup;
-using Qontrolr.Client.Views.Common.Controls;
-using Qontrolr.Client.Views.Common.Fonts;
+﻿using Qontrolr.Client.Views.Common.Controls;
 
-namespace Qontrolr.Client.Views.SubViews.MousePad.Controls;
+namespace Qontrolr.Client.Views.SubViews.Touchpad.Controls;
 
-internal class TouchPad : Grid
+internal class TrackPad : Grid
 {
-    public TouchPad
+    public TrackPad
     (
         Action<Frame, PanUpdatedEventArgs> trackPadPanUpdated,
         Action<Frame, PanUpdatedEventArgs> mouseWheelPanUpdated
@@ -20,14 +18,14 @@ internal class TouchPad : Grid
             content: null
         );
 
-        var mouseWheel = CreateFrame(
+        var scrollWheel = CreateFrame(
             mouseWheelPanUpdated,
             content: CreateMouseWheelGrid()
         );
 
         // Add buttons to Grid
         AddFrameToGrid(trackPad, column: 0);
-        AddFrameToGrid(mouseWheel, column: 1);
+        AddFrameToGrid(scrollWheel, column: 1);
     }
 
     private void InitializeGrid()

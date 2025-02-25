@@ -75,6 +75,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\Qontrolr.SharedLib\Qontrolr.SharedLib.csproj" />
 	  <ProjectReference Include="..\Qontrolr.Shared\Qontrolr.Shared.csproj" />
 	</ItemGroup>
 

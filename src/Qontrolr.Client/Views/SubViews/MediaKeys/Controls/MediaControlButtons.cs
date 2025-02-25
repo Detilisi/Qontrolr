@@ -2,7 +2,7 @@
 using Qontrolr.Client.Views.Common.Controls.Base;
 using Qontrolr.Client.Views.Common.Fonts;
 
-namespace Qontrolr.Client.Views.SubViews.MediaPad.Controls;
+namespace Qontrolr.Client.Views.SubViews.MediaKeys.Controls;
 
 internal class MediaControlButtons : CustomGridControl
 {

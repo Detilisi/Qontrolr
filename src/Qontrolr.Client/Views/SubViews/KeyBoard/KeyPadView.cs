@@ -1,15 +1,16 @@
-﻿using Qontrolr.Client.Views.SubViews.KeyPad.Controls;
+﻿using Qontrolr.Client.ViewModels.KeyBoard;
+using Qontrolr.Client.Views.SubViews.KeyBoard.Controls;
 
-namespace Qontrolr.Client.Views.SubViews.KeyPad;
+namespace Qontrolr.Client.Views.SubViews.KeyBoard;
 
 public class KeyPadView : ContentView
 {
     //Fields
-    private readonly KeyPadViewModel _viewModel;
-    
+    private readonly KeyBoardViewModel _viewModel;
+
     //Construction
-    public KeyPadView(KeyPadViewModel viewModel)
-	{
+    public KeyPadView(KeyBoardViewModel viewModel)
+    {
         _viewModel = viewModel;
 
         Content = new Grid()

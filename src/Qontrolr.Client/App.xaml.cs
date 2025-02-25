@@ -1,6 +1,4 @@
-﻿using Qontrolr.Client.Views.MainViews;
-
-namespace Qontrolr.Client;
+﻿namespace Qontrolr.Client;
 
 public partial class App : Application
 {

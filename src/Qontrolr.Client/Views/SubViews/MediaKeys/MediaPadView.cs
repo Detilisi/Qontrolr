@@ -1,14 +1,14 @@
-﻿using Qontrolr.Client.Views.SubViews.MediaPad.Controls;
+﻿using Qontrolr.Client.Views.SubViews.MediaKeys.Controls;
 
-namespace Qontrolr.Client.Views.SubViews.MediaPad;
+namespace Qontrolr.Client.Views.SubViews.MediaKeys;
 
 public class MediaPadView : ContentView
 {
     //Fields
-    private readonly MediaPadViewModel _viewModel;
+    private readonly MediaKeysViewModel _viewModel;
 
     //Construction
-    public MediaPadView(MediaPadViewModel viewModel)
+    public MediaPadView(MediaKeysViewModel viewModel)
     {
         _viewModel = viewModel;
 

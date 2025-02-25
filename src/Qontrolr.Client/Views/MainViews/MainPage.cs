@@ -8,7 +8,7 @@ public class MainPage : ContentPage
     // View elements
     private readonly KeyPadView _keyPadView;
     private readonly MediaPadView _mediaPadView;
-    private readonly MousePadView _mousePadView;
+    private readonly TouchpadView _mousePadView;
 
     private ContentView? _currentView;
     private ContentView CurrentView
@@ -31,7 +31,7 @@ public class MainPage : ContentPage
     }
 
     // Construction 
-    public MainPage(KeyPadView keyPadView, MediaPadView mediaPadView, MousePadView mousePadView)
+    public MainPage(KeyPadView keyPadView, MediaPadView mediaPadView, TouchpadView mousePadView)
     {
         _keyPadView = keyPadView;
         _mediaPadView = mediaPadView;

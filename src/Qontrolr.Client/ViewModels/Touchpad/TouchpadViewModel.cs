@@ -5,9 +5,9 @@ using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
 using Qontrolr.Shared.Mouse.Wheel.Constants;
 using Qontrolr.Shared.Mouse.Wheel.Enums;
 
-namespace Qontrolr.Client.ViewModels.MousePad;
+namespace Qontrolr.Client.ViewModels.TouchPad;
 
-public partial class MousePadViewModel(WebSocketService webSocketService) : ViewModel(webSocketService)
+public partial class TouchpadViewModel(WebSocketService webSocketService) : ViewModel(webSocketService)
 {
     //Commands
     [RelayCommand]
