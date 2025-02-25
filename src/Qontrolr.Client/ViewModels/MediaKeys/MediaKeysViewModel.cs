@@ -1,36 +1,36 @@
-﻿using System.Diagnostics;
+﻿using Qontrolr.SharedLib.MediaKeys.EventData;
 
 namespace Qontrolr.Client.ViewModels.MediaKeys;
 
 public partial class MediaKeysViewModel(WebSocketService webSocketService) : ViewModel(webSocketService)
 {
     [RelayCommand]
-    public void TogglePlay()
+    public async Task TogglePlay()
     {
-        Debug.WriteLine("Pause");
+        await _webSocketService.SendDeviceEventAsync(EventNames.ButtonClicked, MediaButtons.Play);
     }
 
     [RelayCommand]
-    public void Next()
+    public async Task Next()
     {
-        Debug.WriteLine("Next");
+        await _webSocketService.SendDeviceEventAsync(EventNames.ButtonClicked, MediaButtons.Next);
     }
 
     [RelayCommand]
-    public void Previous()
+    public async Task Previous()
     {
-        Debug.WriteLine("Previous");
+        await _webSocketService.SendDeviceEventAsync(EventNames.ButtonClicked, MediaButtons.Prev);
     }
 
     [RelayCommand]
-    public void VolumnUp()
+    public async Task VolumnUp()
     {
-        Debug.WriteLine("VolumnUp");
+        await _webSocketService.SendDeviceEventAsync(EventNames.ButtonClicked, MediaButtons.VolumnUp);
     }
 
     [RelayCommand]
-    public void VolumnDown()
+    public async Task VolumnDown()
     {
-        Debug.WriteLine("VolumnDown");
+        await _webSocketService.SendDeviceEventAsync(EventNames.ButtonClicked, MediaButtons.VolumnDown);
     }
 }

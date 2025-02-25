@@ -17,3 +17,5 @@ global using Qontrolr.Client.Views.Common.Fonts;
 global using Qontrolr.Client.Views.SubViews.KeyBoard;
 global using Qontrolr.Client.Views.SubViews.MediaKeys;
 global using Qontrolr.Client.Views.SubViews.Touchpad;
+
+global using Qontrolr.SharedLib.Common;
