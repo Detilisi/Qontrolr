@@ -23,11 +23,20 @@ public abstract partial class ViewModel: ObservableObject
         return await page.ShowPopupAsync(popup);
     }
 
+    public async Task ShowAlertAsync(string title, string message)
+    {
+        var page = Application.Current?.MainPage;
+        if (page == null) return;
+        await page.DisplayAlert(title, message, "OK");
+    }
+
     //Event handlers
     private async Task RetryConnection()
     {
+       await ShowAlertAsync("Connection Error", "An error occurred. Please try connecting to a server.");
+
         //Connect to device
-        var deviceListPopup = new ConnectedDevicesPopup(new List<string> { "Device 1", "Device 2", "Device 3" });
+        var deviceListPopup = new ConnectedDevicesPopup(["Device 1", "Device 2", "Device 3"]);
         var devicePopupResult = await ShowPopupAsync(deviceListPopup);
 
         if (devicePopupResult == null)
