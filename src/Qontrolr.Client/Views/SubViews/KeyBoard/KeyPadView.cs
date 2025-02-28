@@ -1,5 +1,4 @@
-﻿using Qontrolr.Client.ViewModels.KeyBoard;
-using Qontrolr.Client.Views.SubViews.KeyBoard.Controls;
+﻿using Qontrolr.Client.Views.SubViews.KeyBoard.Controls;
 
 namespace Qontrolr.Client.Views.SubViews.KeyBoard;
 
@@ -23,16 +22,22 @@ public class KeyPadView : ContentView
             ],
             Children =
             {
-                new WindowsKeyButtons(Keypad_Clicked).Row(0),
+                new WindowsKeyButtons(WinButton_Clicked).Row(0),
                 new KeyBoardTriggerControl(Keyboard_Clicked).Row(1),
             }
         };
     }
 
-    //Handlers
-    private void Keypad_Clicked(Button sender, EventArgs e)
+    private void WinButton_Clicked(Button sender, EventArgs e)
     {
-        _viewModel.HandleClickedKeyCommand.Execute(sender.ClassId);
+        var buttonId = sender.ClassId;
+
+        // Find the matching WinButtonId based on the buttonId
+        var winButtonIds = Enum.GetValues(typeof(WinButtonId)).Cast<WinButtonId>();
+        var winButtonId = winButtonIds.FirstOrDefault(wb => wb.ToString().Equals(buttonId, StringComparison.OrdinalIgnoreCase));
+
+        if (winButtonId == default) return;
+        _viewModel.HandleClickedWinButtonCommand.Execute(winButtonId);
     }
 
     private void Keyboard_Clicked(TextChangedEventArgs e)

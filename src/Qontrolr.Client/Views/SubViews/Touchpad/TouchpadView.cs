@@ -1,7 +1,4 @@
 ﻿using Qontrolr.Client.Views.SubViews.Touchpad.Controls;
-using Qontrolr.Shared.Mouse.Button.Enums;
-using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
-using Qontrolr.Shared.Mouse.Wheel.Enums;
 
 namespace Qontrolr.Client.Views.SubViews.Touchpad;
 
@@ -44,13 +41,13 @@ public class TouchpadView : ContentView
         switch (sender.ClassId)
         {
             case "R":
-                _viewModel.ClickMouseButtonCommand.Execute(ButtonId.Right);
+                _viewModel.ClickMouseButtonCommand.Execute(MouseButtonId.Right);
                 break;
             case "M":
-                _viewModel.ClickMouseButtonCommand.Execute(ButtonId.Middle);
+                _viewModel.ClickMouseButtonCommand.Execute(MouseButtonId.Middle);
                 break;
             case "L":
-                _viewModel.ClickMouseButtonCommand.Execute(ButtonId.Left);
+                _viewModel.ClickMouseButtonCommand.Execute(MouseButtonId.Left);
                 break;
             default:
                 break;
@@ -62,13 +59,13 @@ public class TouchpadView : ContentView
         switch (sender.ClassId)
         {
             case "R":
-                _viewModel.PressMouseButtonCommand.Execute(ButtonId.Right);
+                _viewModel.PressMouseButtonCommand.Execute(MouseButtonId.Right);
                 break;
             case "M":
-                _viewModel.PressMouseButtonCommand.Execute(ButtonId.Middle);
+                _viewModel.PressMouseButtonCommand.Execute(MouseButtonId.Middle);
                 break;
             case "L":
-                _viewModel.PressMouseButtonCommand.Execute(ButtonId.Left);
+                _viewModel.PressMouseButtonCommand.Execute(MouseButtonId.Left);
                 break;
             default:
                 break;
@@ -80,13 +77,13 @@ public class TouchpadView : ContentView
         switch (sender.ClassId)
         {
             case "R":
-                _viewModel.ReleaseMouseButtonCommand.Execute(ButtonId.Right);
+                _viewModel.ReleaseMouseButtonCommand.Execute(MouseButtonId.Right);
                 break;
             case "M":
-                _viewModel.ReleaseMouseButtonCommand.Execute(ButtonId.Middle);
+                _viewModel.ReleaseMouseButtonCommand.Execute(MouseButtonId.Middle);
                 break;
             case "L":
-                _viewModel.ReleaseMouseButtonCommand.Execute(ButtonId.Left);
+                _viewModel.ReleaseMouseButtonCommand.Execute(MouseButtonId.Left);
                 break;
             default:
                 break;
@@ -106,7 +103,7 @@ public class TouchpadView : ContentView
     //MouseWheel event hanlders
     private void TrackPadPanUpdated(Frame sender, PanUpdatedEventArgs e)
     {
-        var newPosition = new CursorPosition((int)e.TotalX, (int)e.TotalY);
+        var newPosition = new Vector2((int)e.TotalX, (int)e.TotalY);
         _viewModel.DragMousePointerCommand.Execute(newPosition);
     }
 }

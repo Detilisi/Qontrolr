@@ -1,42 +1,35 @@
-﻿using Qontrolr.Shared.Mouse.Button.Constants;
-using Qontrolr.Shared.Mouse.Button.Enums;
-using Qontrolr.Shared.Mouse.Cursor.Constants;
-using Qontrolr.Shared.Mouse.Cursor.ValueObjects;
-using Qontrolr.Shared.Mouse.Wheel.Constants;
-using Qontrolr.Shared.Mouse.Wheel.Enums;
-
-namespace Qontrolr.Client.ViewModels.TouchPad;
+﻿namespace Qontrolr.Client.ViewModels.TouchPad;
 
 public partial class TouchpadViewModel(WebSocketService webSocketService) : ViewModel(webSocketService)
 {
     //Commands
     [RelayCommand]
-    public async Task ClickMouseButton(ButtonId buttonId)
+    public async Task ClickMouseButton(MouseButtonId buttonId)
     {
-        await _webSocketService.SendDeviceEventAsync(ButtonEvents.ButtonClick, buttonId);
+        await _webSocketService.SendDeviceEventAsync(DeviceId.Touchpad, EventNames.ButtonClicked, buttonId);
     }
 
     [RelayCommand]
-    public async Task PressMouseButton(ButtonId buttonId)
+    public async Task PressMouseButton(MouseButtonId buttonId)
     {
-        await _webSocketService.SendDeviceEventAsync(ButtonEvents.ButtonPressed, buttonId);
+        await _webSocketService.SendDeviceEventAsync(DeviceId.Touchpad, EventNames.ButtonPressed, buttonId);
     }
 
     [RelayCommand]
-    public async Task ReleaseMouseButton(ButtonId buttonId)
+    public async Task ReleaseMouseButton(MouseButtonId buttonId)
     {
-        await _webSocketService.SendDeviceEventAsync(ButtonEvents.ButtonReleased, buttonId);
+        await _webSocketService.SendDeviceEventAsync(DeviceId.Touchpad, EventNames.ButtonReleased, buttonId);
     }
 
     [RelayCommand]
     public async Task ScrollMouseWheel(ScrollDirection scrollDirection)
     {
-        await _webSocketService.SendDeviceEventAsync(WheelEvents.WheelScrolled, scrollDirection);
+        await _webSocketService.SendDeviceEventAsync(DeviceId.Touchpad, TouchpadEventNames.WheelScrolled, scrollDirection);
     }
 
     [RelayCommand]
-    public async Task DragMousePointer(CursorPosition cursorPosition)
+    public async Task DragMousePointer(Vector2 cursorPosition)
     {
-        await _webSocketService.SendDeviceEventAsync(CursorEvents.CursorMoved, cursorPosition);
+        await _webSocketService.SendDeviceEventAsync(DeviceId.Touchpad, TouchpadEventNames.CursorMoved, cursorPosition);
     }
 }

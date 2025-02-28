@@ -1,4 +1,5 @@
-﻿global using ZXing.Net.Maui.Controls;
+﻿global using System.Numerics;
+global using ZXing.Net.Maui.Controls;
 
 global using CommunityToolkit.Mvvm.Input;
 global using CommunityToolkit.Maui.Views;
@@ -18,4 +19,8 @@ global using Qontrolr.Client.Views.SubViews.KeyBoard;
 global using Qontrolr.Client.Views.SubViews.MediaKeys;
 global using Qontrolr.Client.Views.SubViews.Touchpad;
 
+global using Qontrolr.SharedLib;
 global using Qontrolr.SharedLib.Common;
+global using Qontrolr.SharedLib.Touchpad;
+global using Qontrolr.SharedLib.Touchpad.EventData;
+global using Qontrolr.SharedLib.KeyBoard.EventData;

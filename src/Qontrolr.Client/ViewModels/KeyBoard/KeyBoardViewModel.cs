@@ -1,12 +1,17 @@
-﻿using System.Diagnostics;
-
-namespace Qontrolr.Client.ViewModels.KeyBoard;
+﻿namespace Qontrolr.Client.ViewModels.KeyBoard;
 
 public partial class KeyBoardViewModel(WebSocketService webSocketService) : ViewModel(webSocketService)
 {
     [RelayCommand]
-    public void HandleClickedKey(string key)
+    public async Task HandleClickedKey(string key)
     {
-        Debug.WriteLine(key);
+        await _webSocketService.SendDeviceEventAsync(DeviceId.Keyboard, EventNames.ButtonClicked, key);
+    }
+
+    [RelayCommand]
+    public async Task HandleClickedWinButton(WinButtonId winButton)
+    {
+
+        await _webSocketService.SendDeviceEventAsync(DeviceId.Keyboard, EventNames.ButtonClicked, winButton);
     }
 }

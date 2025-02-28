@@ -1,6 +1,6 @@
 ﻿namespace Qontrolr.SharedLib.Touchpad.EventData;
 
-public enum Buttons
+public enum MouseButtonId
 {
     Left,
     Right,

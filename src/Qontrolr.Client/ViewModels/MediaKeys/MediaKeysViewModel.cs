@@ -7,30 +7,30 @@ public partial class MediaKeysViewModel(WebSocketService webSocketService) : Vie
     [RelayCommand]
     public async Task TogglePlay()
     {
-        await _webSocketService.SendDeviceEventAsync(EventNames.ButtonClicked, MediaButtons.Play);
+        await _webSocketService.SendDeviceEventAsync(DeviceId.MediaKeys, EventNames.ButtonClicked, MediaButtonId.Play);
     }
 
     [RelayCommand]
     public async Task Next()
     {
-        await _webSocketService.SendDeviceEventAsync(EventNames.ButtonClicked, MediaButtons.Next);
+        await _webSocketService.SendDeviceEventAsync(DeviceId.MediaKeys, EventNames.ButtonClicked, MediaButtonId.Next);
     }
 
     [RelayCommand]
     public async Task Previous()
     {
-        await _webSocketService.SendDeviceEventAsync(EventNames.ButtonClicked, MediaButtons.Prev);
+        await _webSocketService.SendDeviceEventAsync(DeviceId.MediaKeys, EventNames.ButtonClicked, MediaButtonId.Prev);
     }
 
     [RelayCommand]
     public async Task VolumnUp()
     {
-        await _webSocketService.SendDeviceEventAsync(EventNames.ButtonClicked, MediaButtons.VolumnUp);
+        await _webSocketService.SendDeviceEventAsync(DeviceId.MediaKeys, EventNames.ButtonClicked, MediaButtonId.VolumnUp);
     }
 
     [RelayCommand]
     public async Task VolumnDown()
     {
-        await _webSocketService.SendDeviceEventAsync(EventNames.ButtonClicked, MediaButtons.VolumnDown);
+        await _webSocketService.SendDeviceEventAsync(DeviceId.MediaKeys, EventNames.ButtonClicked, MediaButtonId.VolumnDown);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Qontrolr.SharedLib.KeyBoard.EventData;
 
-public enum WinButtons
+public enum WinButtonId
 {
     Win,
     Fn,
@@ -13,6 +13,5 @@ public enum WinButtons
     Tab,
 
     Insrt,
-    PrtSc,
-
+    PrtSc
 }

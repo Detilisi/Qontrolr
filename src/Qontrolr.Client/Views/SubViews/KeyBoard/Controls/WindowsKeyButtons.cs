@@ -8,31 +8,19 @@ internal class WindowsKeyButtons : CustomGridControl
     {
         InitializeGrid();
 
-        // Create and add buttons
-        var escapeButton = CreateButton("escape", "Esc", clicked: buttonsClicked);
-        var tabButton = CreateButton("tab", "Tab", clicked: buttonsClicked);
-        var windowButton = CreateButton("win", "Win", clicked: buttonsClicked);
+        // Create buttons dynamically using the WinButtonId enum
+        foreach (WinButtonId buttonId in Enum.GetValues(typeof(WinButtonId)))
+        {
+            var button = CreateButton(
+                buttonId.ToString().ToLower(), 
+                buttonId.ToString(),          
+                clicked: buttonsClicked
+            );
 
-        var shiftButton = CreateButton("shft", "Shft", clicked: buttonsClicked);
-        var controlButton = CreateButton("ctrl", "Ctrl", clicked: buttonsClicked);
-        var altButton = CreateButton("alt", "Alt", clicked: buttonsClicked);
-
-        var functionButton = CreateButton("fn", "Fn", clicked: buttonsClicked);
-        var insertButton = CreateButton("insrt", "Insrt", clicked: buttonsClicked);
-        var printButton = CreateButton("prt", "Prt", clicked: buttonsClicked);
-
-        // Add buttons to Grid
-        AddToGrid(escapeButton, column: 0, row: 0);
-        AddToGrid(tabButton, column: 1, row: 0);
-        AddToGrid(windowButton, column: 2, row: 0);
-
-        AddToGrid(shiftButton, column: 0, row: 1);
-        AddToGrid(controlButton, column: 1, row: 1);
-        AddToGrid(altButton, column: 2, row: 1);
-
-        AddToGrid(functionButton, column: 0, row: 2);
-        AddToGrid(insertButton, column: 1, row: 2);
-        AddToGrid(printButton, column: 2, row: 2);
+            // Add buttons to the grid dynamically
+            int index = (int)buttonId;
+            AddToGrid(button, column: index % 3, row: index / 3);
+        }
     }
 
     protected override void InitializeGrid()

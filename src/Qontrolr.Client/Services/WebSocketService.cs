@@ -1,5 +1,4 @@
-﻿using Qontrolr.Shared.Common.Events;
-using System.Net.WebSockets;
+﻿using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
 
@@ -55,9 +54,9 @@ public class WebSocketService
         }
     }
 
-    public async Task SendDeviceEventAsync<T>(string name, T data)
+    public async Task SendDeviceEventAsync<T>(DeviceId device, string name, T data)
     {
-        var deviceEvent = new DeviceEvent<T>(name, data);
+        var deviceEvent = new DeviceEvent<T>(device, name, data);
         string jsonCommand = JsonSerializer.Serialize(deviceEvent);
         await SendAsync(jsonCommand);
     }

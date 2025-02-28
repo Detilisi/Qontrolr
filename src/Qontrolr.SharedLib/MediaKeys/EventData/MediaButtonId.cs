@@ -1,6 +1,6 @@
 ﻿namespace Qontrolr.SharedLib.MediaKeys.EventData;
 
-public enum MediaButtons
+public enum MediaButtonId
 {
     Play,
     Next,
