@@ -24,8 +24,7 @@ public class WebSocketService
     {
         try
         {
-            var serverRoute = $"{serverUrl}/qontrolr";
-            await _webSocket.ConnectAsync(new Uri(serverRoute), token);
+            await _webSocket.ConnectAsync(new Uri(serverUrl), token);
         }
         catch(Exception ex) 
         {
