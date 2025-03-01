@@ -31,12 +31,17 @@ public abstract partial class ViewModel: ObservableObject
     }
 
     //Event handlers
+    private static bool _isRetrying = false;
     private async Task RetryConnection()
     {
-       await ShowAlertAsync("Connection Error", "An error occurred. Please try connecting to a server.");
+        if (_isRetrying) return;
+        _isRetrying = true;
+
+        //Show error message
+        await ShowAlertAsync("Connection Error", "An error occurred. Please try connecting to a server.");
 
         //Connect to device
-        var deviceListPopup = new ConnectedDevicesPopup(["Device 1", "Device 2", "Device 3"]);
+        var deviceListPopup = new ConnectedDevicesPopup(["ws://localhost:5000/ws/", "Device 2", "Device 3"]);
         var devicePopupResult = await ShowPopupAsync(deviceListPopup);
 
         if (devicePopupResult == null)
@@ -53,5 +58,7 @@ public abstract partial class ViewModel: ObservableObject
         {
             await _webSocketService.ConnectAsync((string)devicePopupResult);
         }
+
+        _isRetrying = false;
     }
 }
