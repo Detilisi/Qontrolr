@@ -1,5 +1,6 @@
 ﻿using Qontrolr.SharedLib;
 using Qontrolr.SharedLib.Common;
+using Qontrolr.SharedLib.MediaKeys.EventData;
 using Qontrolr.SharedLib.Touchpad;
 using Qontrolr.SharedLib.Touchpad.EventData;
 using System.Numerics;
@@ -19,33 +20,34 @@ internal class WindowsAutomation : WebSocketBehavior
     
     protected override void OnMessage(MessageEventArgs e)
     {
-        var message = e.Data;
-        if (string.IsNullOrEmpty(message)) return;
-        
-        ProccessEvent(message);
-    }
+        var jsonMessage = e.Data;
+        if (string.IsNullOrEmpty(jsonMessage)) return;
 
-    private void ProccessEvent(string jsonMessage)
-    {
-        var eventRequest = JsonSerializer.Deserialize<DeviceEvent<object>>(jsonMessage);
-        if (eventRequest == null) return;
-
-        switch (eventRequest.Device)
+        try
         {
-            case DeviceId.Touchpad:
-                HandleTouchPadRequest(eventRequest);
-                break;
-            case DeviceId.MediaKeys:
-                HandleMediaKeysRequest(eventRequest);
-                break;
-            case DeviceId.Keyboard:
-                HandleKeyboardRequest(eventRequest);
-                break;
-            default:
-                break;
+            var eventRequest = JsonSerializer.Deserialize<DeviceEvent<object>>(jsonMessage);
+            if (eventRequest == null) return;
+
+            switch (eventRequest.Device)
+            {
+                case DeviceId.Touchpad:
+                    HandleTouchPadRequest(eventRequest);
+                    break;
+                case DeviceId.MediaKeys:
+                    HandleMediaKeysRequest(eventRequest);
+                    break;
+                case DeviceId.Keyboard:
+                    HandleKeyboardRequest(eventRequest);
+                    break;
+                default:
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
         }
     }
-
 
     private void HandleTouchPadRequest(DeviceEvent<object> deviceEvent)
     {
@@ -119,13 +121,37 @@ internal class WindowsAutomation : WebSocketBehavior
 
     private void HandleMediaKeysRequest(DeviceEvent<object> deviceEvent)
     {
+        if (deviceEvent.EventName != EventNames.ButtonClicked) return;
 
+        var eventData = (MediaButtonId)deviceEvent.EventData;
+        if (eventData == MediaButtonId.Play)
+        {
+            _inputSimulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.MEDIA_PLAY_PAUSE);
+        }
+        else if (eventData == MediaButtonId.Next)
+        {
+            _inputSimulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.MEDIA_NEXT_TRACK);
+        }
+        else if (eventData == MediaButtonId.Prev)
+        {
+            _inputSimulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.MEDIA_PREV_TRACK);
+        }
+        else if (eventData == MediaButtonId.VolumnUp)
+        {
+            _inputSimulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.VOLUME_UP);
+        }
+        else if (eventData == MediaButtonId.VolumnDown)
+        {
+            _inputSimulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.VOLUME_DOWN);
+        }
     }
 
     private void HandleKeyboardRequest(DeviceEvent<object> deviceEvent)
     {
+        if (deviceEvent.EventName != EventNames.ButtonClicked) return;
+        var eventData = (string)deviceEvent.EventData;
 
+        _inputSimulator.Keyboard.TextEntry(eventData);
     }
-
 }
 
