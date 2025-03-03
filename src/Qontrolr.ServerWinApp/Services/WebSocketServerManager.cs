@@ -1,4 +1,4 @@
-﻿using Qontrolr.Server.Websockets.WebSocketBehaviors;
+﻿using Qontrolr.Server.Services.SocketBehaviors;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
@@ -19,7 +19,7 @@ public class WebSocketServerManager
         }
 
         _webSocketServer = new WebSocketServer(SeverUrl);
-        _webSocketServer.AddWebSocketService<MouseAutomation>(MouseAutomation.Endpoint);
+        _webSocketServer.AddWebSocketService<WindowsAutomation>(WindowsAutomation.Endpoint);
     }
 
     public string SeverUrl { get; set; }

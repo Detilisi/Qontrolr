@@ -1,4 +1,4 @@
-﻿using Qontrolr.Server.Websockets;
+﻿using Qontrolr.Server.Services;
 using QRCoder;
 using System.IO;
 using System.Windows;
@@ -12,12 +12,12 @@ namespace Qontrolr.ServerWinApp
     public partial class MainWindow : Window
     {
         //Fields
-        private readonly ServerSocket _serverWebSocket;
+        private readonly WebSocketServerManager _serverWebSocket;
 
         //Construction
         public MainWindow()
         {
-            _serverWebSocket = new ServerSocket();
+            _serverWebSocket = new WebSocketServerManager();
 
             InitializeComponent();
             StartServerAndDisplayQrCode();
@@ -28,8 +28,8 @@ namespace Qontrolr.ServerWinApp
         {
             // UI update
             _serverWebSocket.Start();
-            ConnectText.Text = ServerSocket.BaseUrl;
-            QrCodeImage.Source = GenerateQRCode(ServerSocket.BaseUrl);
+            ConnectText.Text = _serverWebSocket.SeverUrl;
+            QrCodeImage.Source = GenerateQRCode(_serverWebSocket.SeverUrl);
         }
 
         private static BitmapImage GenerateQRCode(string text)
