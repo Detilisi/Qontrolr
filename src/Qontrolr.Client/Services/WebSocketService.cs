@@ -24,11 +24,12 @@ public class WebSocketService
     {
         try
         {
-            await _webSocket.ConnectAsync(new Uri(serverUrl), token);
+            var serverRoute = $"{serverUrl}/qontrolr";
+            await _webSocket.ConnectAsync(new Uri(serverRoute), token);
         }
         catch(Exception ex) 
         {
-            var message = ex.GetType();
+            var message = ex.Message;
             ErrorOccurred?.Invoke(this, EventArgs.Empty);
         }
     }
