@@ -14,7 +14,7 @@ namespace Qontrolr.Server.Services.SocketBehaviors;
 internal class WindowsAutomation : WebSocketBehavior
 {
     //Construct
-    public static string Endpoint => "qontrolr";
+    public static string Endpoint => "/qontrolr";
     private readonly InputSimulator _inputSimulator;
     public WindowsAutomation() => _inputSimulator = new InputSimulator();
     
