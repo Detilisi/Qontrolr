@@ -41,7 +41,7 @@ public abstract partial class ViewModel: ObservableObject
         await ShowAlertAsync("Connection Error", "An error occurred. Please try connecting to a server.");
 
         //Connect to device
-        var deviceListPopup = new ConnectedDevicesPopup(["ws://localhost:5000/ws/", "Device 2", "Device 3"]);
+        var deviceListPopup = new ConnectedDevicesPopup(["ws://localhost:5000/qontrolr/", "Device 2", "Device 3"]);
         var devicePopupResult = await ShowPopupAsync(deviceListPopup);
 
         if (devicePopupResult == null)
