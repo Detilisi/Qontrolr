@@ -34,7 +34,6 @@ public class WebSocketService
         try
         {
             await _webSocket.ConnectAsync(_serverUri, token);
-            await _webSocket.ConnectAsync(_serverUri, CancellationToken.None);
         }
         catch(Exception ex) 
         {
