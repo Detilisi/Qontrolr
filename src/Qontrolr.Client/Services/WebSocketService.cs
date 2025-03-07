@@ -7,7 +7,10 @@ namespace Qontrolr.Client.Services;
 public class WebSocketService
 {
     //Fields
-    private readonly ClientWebSocket _webSocket;
+    private Uri _serverUri;
+    private ClientWebSocket _webSocket;
+    private readonly object _lock = new();
+    private readonly SemaphoreSlim _sendLock = new(1, 1);
 
     //Properties
     public event EventHandler<EventArgs>? ErrorOccurred;
@@ -22,10 +25,16 @@ public class WebSocketService
     //Public methods
     public async Task ConnectAsync(string serverUrl, CancellationToken token = default)
     {
+        lock (_lock)
+        {
+            _serverUri = new Uri(serverUrl);
+            _webSocket = new ClientWebSocket();
+        }
+
         try
         {
-            var serverRoute = $"{serverUrl}/qontrolr";
-            await _webSocket.ConnectAsync(new Uri(serverRoute), token);
+            await _webSocket.ConnectAsync(_serverUri, token);
+            await _webSocket.ConnectAsync(_serverUri, CancellationToken.None);
         }
         catch(Exception ex) 
         {
@@ -42,6 +51,7 @@ public class WebSocketService
     //Transmit data
     public async Task SendAsync(string data, CancellationToken token = default)
     {
+        await _sendLock.WaitAsync(); // Ensure only one send operation at a time
         try
         {
             var buffer = Encoding.UTF8.GetBytes(data);
@@ -51,6 +61,10 @@ public class WebSocketService
         {
             var message = ex.Message;
             ErrorOccurred?.Invoke(this, EventArgs.Empty);
+        }
+        finally
+        {
+            _sendLock.Release();
         }
     }
 
