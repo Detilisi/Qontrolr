@@ -5,6 +5,7 @@ using Qontrolr.SharedLib.Touchpad;
 using Qontrolr.SharedLib.Touchpad.EventData;
 using System.Numerics;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using WindowsInput;
@@ -25,19 +26,21 @@ internal class WindowsAutomation : WebSocketBehavior
 
         try
         {
-            var eventRequest = JsonSerializer.Deserialize<DeviceEvent<object>>(jsonMessage);
-            if (eventRequest == null) return;
+            JsonNode jsonNode = JsonNode.Parse(jsonMessage);
+            if (jsonNode == null) return;
 
-            switch (eventRequest.Device)
+            DeviceId deviceId = jsonNode["Device"].Deserialize<DeviceId>();
+            switch (deviceId)
             {
                 case DeviceId.Touchpad:
-                    HandleTouchPadRequest(eventRequest);
+
+                    HandleTouchPadJsonEvent(jsonNode);
                     break;
                 case DeviceId.MediaKeys:
-                    HandleMediaKeysRequest(eventRequest);
+                    HandleMediaKeysJsonEvent(jsonNode);
                     break;
                 case DeviceId.Keyboard:
-                    HandleKeyboardRequest(eventRequest);
+                    HandleKeyboardJsonEvent(jsonNode);
                     break;
                 default:
                     break;
@@ -49,109 +52,101 @@ internal class WindowsAutomation : WebSocketBehavior
         }
     }
 
-    private void HandleTouchPadRequest(DeviceEvent<object> deviceEvent)
+    private void HandleTouchPadJsonEvent(JsonNode jsonNode)
     {
-        if (deviceEvent.EventName == TouchpadEventNames.CursorMoved)
+        string eventName = jsonNode["EventName"]?.ToString() ?? string.Empty;
+        if (string.IsNullOrEmpty(eventName)) return;
+
+        switch (eventName)
         {
-            var eventData = (Vector2)deviceEvent.EventData;
-            _inputSimulator.Mouse.MoveMouseBy((int)eventData.X, (int)eventData.Y);
-        }
-        else if (deviceEvent.EventName == TouchpadEventNames.WheelScrolled)
-        {
-            var eventData = (ScrollDirection)deviceEvent.EventData;
-            const int scrollFactor = 2;
-            if (eventData == ScrollDirection.Up)
-            {
-                _inputSimulator.Mouse.VerticalScroll(scrollFactor);
-            }
-            else if (eventData == ScrollDirection.Down)
-            {
-                _inputSimulator.Mouse.VerticalScroll(scrollFactor * -1);
-            }
-        }
-        else if (deviceEvent.EventName == EventNames.ButtonClicked)
-        {
-            var eventData = (MouseButtonId)deviceEvent.EventData;
-            if (eventData == MouseButtonId.Right)
-            {
-                _inputSimulator.Mouse.RightButtonClick();
-            }
-            else if (eventData == MouseButtonId.Left)
-            {
-                _inputSimulator.Mouse.LeftButtonClick();
-            }
-            else if (eventData == MouseButtonId.Middle)
-            {
-                _inputSimulator.Mouse.XButtonClick((int)MouseButton.MiddleButton);
-            }
-        }
-        else if (deviceEvent.EventName == EventNames.ButtonPressed)
-        {
-            var eventData = (MouseButtonId)deviceEvent.EventData;
-            if (eventData == MouseButtonId.Right)
-            {
-                _inputSimulator.Mouse.RightButtonDown();
-            }
-            else if (eventData == MouseButtonId.Left)
-            {
-                _inputSimulator.Mouse.LeftButtonDown();
-            }
-            else if (eventData == MouseButtonId.Middle)
-            {
-                _inputSimulator.Mouse.XButtonDown((int)MouseButton.MiddleButton);
-            }
-        }
-        else if (deviceEvent.EventName == EventNames.ButtonReleased)
-        {
-            var eventData = (MouseButtonId)deviceEvent.EventData;
-            if (eventData == MouseButtonId.Right)
-            {
-                _inputSimulator.Mouse.RightButtonUp();
-            }
-            else if (eventData == MouseButtonId.Left)
-            {
-                _inputSimulator.Mouse.LeftButtonUp();
-            }
-            else if (eventData == MouseButtonId.Middle)
-            {
-                _inputSimulator.Mouse.XButtonUp((int)MouseButton.MiddleButton);
-            }
+            case nameof(TouchpadEventNames.CursorMoved):
+                var cursorMovedData = jsonNode["EventData"].Deserialize<Vector2>();
+                _inputSimulator.Mouse.MoveMouseBy((int)cursorMovedData.X, (int)cursorMovedData.Y);
+                break;
+
+            case nameof(TouchpadEventNames.WheelScrolled):
+                const int scrollFactor = 2;
+                var wheelScrolledData = jsonNode["EventData"].Deserialize<ScrollDirection>();
+                var scrollValue = wheelScrolledData == ScrollDirection.Up ? scrollFactor : scrollFactor * -1;
+
+                _inputSimulator.Mouse.VerticalScroll(scrollValue);
+                break;
+
+            case nameof(EventNames.ButtonClicked):
+                var buttonClickedData = jsonNode["EventData"].Deserialize<MouseButtonId>();
+                var buttonClicked = buttonClickedData switch
+                {
+                    MouseButtonId.Right => MouseButton.RightButton,
+                    MouseButtonId.Left => MouseButton.LeftButton,
+                    MouseButtonId.Middle => MouseButton.MiddleButton,
+                    _ => MouseButton.MiddleButton
+                };
+
+                _inputSimulator.Mouse.XButtonClick((int)buttonClicked);
+                break;
+            case nameof(EventNames.ButtonPressed):
+                var buttonPressedData = jsonNode["EventData"].Deserialize<MouseButtonId>();
+                var buttonPressed = buttonPressedData switch
+                {
+                    MouseButtonId.Right => MouseButton.RightButton,
+                    MouseButtonId.Left => MouseButton.LeftButton,
+                    MouseButtonId.Middle => MouseButton.MiddleButton,
+                    _ => MouseButton.MiddleButton
+                };
+
+                _inputSimulator.Mouse.XButtonDown((int)buttonPressed);
+                break;
+            case nameof(EventNames.ButtonReleased):
+                var buttonReleasedData = jsonNode["EventData"].Deserialize<MouseButtonId>();
+                var buttonReleased = buttonReleasedData switch
+                {
+                    MouseButtonId.Right => MouseButton.RightButton,
+                    MouseButtonId.Left => MouseButton.LeftButton,
+                    MouseButtonId.Middle => MouseButton.MiddleButton,
+                    _ => MouseButton.MiddleButton
+                };
+
+                _inputSimulator.Mouse.XButtonUp((int)buttonReleased);
+                break;
+            default:
+                break;
         }
     }
 
-    private void HandleMediaKeysRequest(DeviceEvent<object> deviceEvent)
+    private void HandleMediaKeysJsonEvent(JsonNode jsonNode)
     {
-        if (deviceEvent.EventName != EventNames.ButtonClicked) return;
+        string eventName = jsonNode["EventName"]?.ToString() ?? string.Empty;
+        if (string.IsNullOrEmpty(eventName)) return;
 
-        var eventData = (MediaButtonId)deviceEvent.EventData;
-        if (eventData == MediaButtonId.Play)
+        switch (eventName)
         {
-            _inputSimulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.MEDIA_PLAY_PAUSE);
-        }
-        else if (eventData == MediaButtonId.Next)
-        {
-            _inputSimulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.MEDIA_NEXT_TRACK);
-        }
-        else if (eventData == MediaButtonId.Prev)
-        {
-            _inputSimulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.MEDIA_PREV_TRACK);
-        }
-        else if (eventData == MediaButtonId.VolumnUp)
-        {
-            _inputSimulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.VOLUME_UP);
-        }
-        else if (eventData == MediaButtonId.VolumnDown)
-        {
-            _inputSimulator.Keyboard.KeyPress(WindowsInput.Native.VirtualKeyCode.VOLUME_DOWN);
+            case nameof(EventNames.ButtonClicked):
+                var mediaButtonClickedData = jsonNode["EventData"].Deserialize<MediaButtonId>();
+                var mediaButtonClicked = mediaButtonClickedData switch
+                {
+                    MediaButtonId.Play => WindowsInput.Native.VirtualKeyCode.MEDIA_PLAY_PAUSE,
+                    MediaButtonId.Next => WindowsInput.Native.VirtualKeyCode.MEDIA_NEXT_TRACK,
+                    MediaButtonId.Prev => WindowsInput.Native.VirtualKeyCode.MEDIA_PREV_TRACK,
+                    MediaButtonId.VolumnUp => WindowsInput.Native.VirtualKeyCode.VOLUME_UP,
+                    MediaButtonId.VolumnDown => WindowsInput.Native.VirtualKeyCode.VOLUME_DOWN,
+                    //_ => 
+                };
+
+                _inputSimulator.Keyboard.KeyPress(mediaButtonClicked);
+                break;
+            default:
+                break;
         }
     }
 
-    private void HandleKeyboardRequest(DeviceEvent<object> deviceEvent)
+    private void HandleKeyboardJsonEvent(JsonNode jsonNode)
     {
-        if (deviceEvent.EventName != EventNames.ButtonClicked) return;
-        var eventData = (string)deviceEvent.EventData;
+        string eventName = jsonNode["EventName"]?.ToString() ?? string.Empty;
+        if (eventName != EventNames.ButtonClicked) return;
 
-        _inputSimulator.Keyboard.TextEntry(eventData);
+        var keyPresed = jsonNode["EventData"].Deserialize<string>();
+        _inputSimulator.Keyboard.TextEntry(keyPresed);
+
     }
 }
 
