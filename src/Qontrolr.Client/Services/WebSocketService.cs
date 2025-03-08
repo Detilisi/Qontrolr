@@ -27,7 +27,7 @@ public class WebSocketService
     {
         lock (_lock)
         {
-            _serverUri = new Uri(serverUrl);
+            _serverUri = new Uri($"{serverUrl}/qontrolr/");
             _webSocket = new ClientWebSocket();
         }
 
