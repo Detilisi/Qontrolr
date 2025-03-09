@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Services\Handlers\KeyboardJsonNodeHandler.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="InputSimulatorCore" Version="1.0.5" />
     <PackageReference Include="QRCoder" Version="1.6.0" />
     <PackageReference Include="websocketsharp.core" Version="1.0.1" />
