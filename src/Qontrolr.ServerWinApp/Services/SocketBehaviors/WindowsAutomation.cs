@@ -18,7 +18,13 @@ internal class WindowsAutomation : WebSocketBehavior
     public static string Endpoint => "/qontrolr";
     private readonly InputSimulator _inputSimulator;
     public WindowsAutomation() => _inputSimulator = new InputSimulator();
-    
+
+    override protected void OnOpen()
+    {
+        Console.WriteLine($"Client connected: {ID}");
+        Send("Connected to Windows Automation Server");   
+    }
+
     protected override void OnMessage(MessageEventArgs e)
     {
         var jsonMessage = e.Data;
