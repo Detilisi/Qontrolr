@@ -4,7 +4,7 @@ using WebSocketSharp.Server;
 
 namespace Qontrolr.Server.Services.SocketBehaviors;
 
-internal class WindowsAutomation : WebSocketBehavior
+internal class WinAutoSocketBehavior : WebSocketBehavior
 {
     //Fields
     private readonly TouchPadJsonNodeHandler _touchPadJsonNodeHandler;
@@ -15,7 +15,7 @@ internal class WindowsAutomation : WebSocketBehavior
     public static string Endpoint => "/qontrolr";
 
     //Construct
-    public WindowsAutomation()
+    public WinAutoSocketBehavior()
     {
         _touchPadJsonNodeHandler = new TouchPadJsonNodeHandler();
         _keyboardJsonNodeHandler = new KeyboardJsonNodeHandler();
@@ -25,7 +25,6 @@ internal class WindowsAutomation : WebSocketBehavior
     //Override
     protected override void OnOpen()
     {
-        Console.WriteLine($"Client connected: {ID}");
         Send($"{ID}");   
     }
 
@@ -58,7 +57,6 @@ internal class WindowsAutomation : WebSocketBehavior
         catch (Exception ex)
         {
             Send(ex.Message);
-            Console.WriteLine(ex.Message);
         }
     }
 }

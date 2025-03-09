@@ -19,7 +19,7 @@ public class WebSocketServerManager
         }
 
         _webSocketServer = new WebSocketServer(SeverUrl);
-        _webSocketServer.AddWebSocketService<WindowsAutomation>(WindowsAutomation.Endpoint);
+        _webSocketServer.AddWebSocketService<WinAutoSocketBehavior>(WinAutoSocketBehavior.Endpoint);
     }
 
     public string SeverUrl { get; set; }
