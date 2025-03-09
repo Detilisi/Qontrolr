@@ -4,7 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
-namespace Qontrolr.ServerWinApp
+namespace Qontrolr.Server
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
