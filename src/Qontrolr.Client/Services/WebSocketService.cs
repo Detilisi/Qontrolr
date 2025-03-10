@@ -27,7 +27,7 @@ public class WebSocketService
     {
         lock (_lock)
         {
-            _serverUri = new Uri($"{serverUrl}/{Configs.ServerEndPoint}/");
+            _serverUri = new Uri($"{serverUrl}/{QontrolrConfigs.SocketEndPoint}/");
             _webSocket = new ClientWebSocket();
         }
 
