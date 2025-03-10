@@ -11,9 +11,6 @@ internal class WinAutoSocketBehavior : WebSocketBehavior
     private readonly KeyboardJsonNodeHandler _keyboardJsonNodeHandler;
     private readonly MediaKeysJsonNodeHandler _mediaKeysJsonNodeHandler;
 
-    //Properties
-    public static string Endpoint => "/qontrolr";
-
     //Construct
     public WinAutoSocketBehavior()
     {

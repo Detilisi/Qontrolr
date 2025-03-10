@@ -1,4 +1,5 @@
 ﻿using Qontrolr.Server.Services.SocketBehaviors;
+using Qontrolr.SharedLib;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
@@ -19,7 +20,7 @@ public class WebSocketServerManager
         }
 
         _webSocketServer = new WebSocketServer(SeverUrl);
-        _webSocketServer.AddWebSocketService<WinAutoSocketBehavior>(WinAutoSocketBehavior.Endpoint);
+        _webSocketServer.AddWebSocketService<WinAutoSocketBehavior>($"/{Configs.ServerEndPoint}");
     }
 
     public string SeverUrl { get; set; }
