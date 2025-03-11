@@ -7,33 +7,28 @@ namespace Qontrolr.Client.Services;
 public class ClientSocketService
 {
     //Fields
-    private Uri _serverUri;
     private ClientWebSocket _webSocket;
-    private readonly object _lock = new();
-    private readonly SemaphoreSlim _sendLock = new(1, 1);
 
     //Properties
-    public event EventHandler<EventArgs>? ErrorOccurred;
-    public bool IsConnected => _webSocket.State == WebSocketState.Open;
+    public Uri? ServerUri { get; private set; }
+    public event EventHandler<EventArgs>? ErrorOccurred;    
 
     //Construction
-    public ClientSocketService()
-    {
-        _webSocket = new ClientWebSocket();
-    }
-
+    public ClientSocketService() => _webSocket = new ClientWebSocket();
+    
     //Public methods
+    private readonly object _lock = new();
     public async Task ConnectAsync(string serverUrl, CancellationToken token = default)
     {
         lock (_lock)
         {
-            _serverUri = new Uri($"{serverUrl}/{QontrolrConfigs.SocketEndPoint}/");
+            ServerUri = new Uri($"{serverUrl}/{QontrolrConfigs.SocketEndPoint}/");
             _webSocket = new ClientWebSocket();
         }
 
         try
         {
-            await _webSocket.ConnectAsync(_serverUri, token);
+            await _webSocket.ConnectAsync(ServerUri, token);
         }
         catch(Exception ex) 
         {
@@ -48,6 +43,7 @@ public class ClientSocketService
     }
 
     //Transmit data
+    private readonly SemaphoreSlim _sendLock = new(1, 1);
     public async Task SendAsync(string data, CancellationToken token = default)
     {
         await _sendLock.WaitAsync(); // Ensure only one send operation at a time
