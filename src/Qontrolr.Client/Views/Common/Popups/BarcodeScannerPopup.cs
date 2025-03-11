@@ -1,5 +1,5 @@
 ﻿using ZXing.Net.Maui;
-namespace Qontrolr.Client.Views.MainViews.Popups;
+namespace Qontrolr.Client.Views.Common.Popups;
 
 public partial class BarcodeScannerPopup : Popup
 {

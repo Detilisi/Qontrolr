@@ -1,7 +1,6 @@
 using Qontrolr.Client.Views.Common.Controls;
-using Qontrolr.Client.Views.MainViews.Controls;
 
-namespace Qontrolr.Client.Views.MainViews;
+namespace Qontrolr.Client.Views;
 
 public class MainPage : ContentPage
 {

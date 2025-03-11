@@ -1,7 +1,7 @@
 ﻿using Qontrolr.Client.Views.Common.Controls;
 using System.Collections.ObjectModel;
 
-namespace Qontrolr.Client.Views.MainViews.Popups;
+namespace Qontrolr.Client.Views.Common.Popups;
 
 public partial class ConnectedDevicesPopup : Popup
 {

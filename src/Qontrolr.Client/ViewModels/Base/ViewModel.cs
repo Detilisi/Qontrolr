@@ -1,4 +1,4 @@
-﻿using Qontrolr.Client.Views.MainViews.Popups;
+﻿using Qontrolr.Client.Views.Common.Popups;
 
 namespace Qontrolr.Client.ViewModels.Base;
 

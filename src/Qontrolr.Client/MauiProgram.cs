@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Qontrolr.Client.Views;
 
 namespace Qontrolr.Client;
 

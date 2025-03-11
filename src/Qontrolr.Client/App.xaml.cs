@@ -1,4 +1,6 @@
-﻿namespace Qontrolr.Client;
+﻿using Qontrolr.Client.Views;
+
+namespace Qontrolr.Client;
 
 public partial class App : Application
 {

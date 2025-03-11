@@ -1,7 +1,6 @@
-﻿using Qontrolr.Client.Views.Common.Controls;
-using Qontrolr.Client.Views.Common.Controls.Base;
+﻿using Qontrolr.Client.Views.Common.Controls.Base;
 
-namespace Qontrolr.Client.Views.MainViews.Controls;
+namespace Qontrolr.Client.Views.Common.Controls;
 
 internal class BottomToolBar : CustomGridControl
 {
