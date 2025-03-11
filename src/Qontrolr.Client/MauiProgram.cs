@@ -25,7 +25,7 @@ public static class MauiProgram
 #endif
 
         //Register Services
-        builder.Services.AddSingleton<WebSocketService>();
+        builder.Services.AddSingleton<ClientSocketService>();
 
         // Register ViewModels
         builder.Services.AddSingleton<KeyBoardViewModel>();

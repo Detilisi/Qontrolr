@@ -1,6 +1,6 @@
 ﻿namespace Qontrolr.Client.ViewModels.TouchPad;
 
-public partial class TouchpadViewModel(WebSocketService webSocketService) : ViewModel(webSocketService)
+public partial class TouchpadViewModel(ClientSocketService webSocketService) : ViewModel(webSocketService)
 {
     //Commands
     [RelayCommand]

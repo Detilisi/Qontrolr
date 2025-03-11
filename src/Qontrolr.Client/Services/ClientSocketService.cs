@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace Qontrolr.Client.Services;
 
-public class WebSocketService
+public class ClientSocketService
 {
     //Fields
     private Uri _serverUri;
@@ -17,7 +17,7 @@ public class WebSocketService
     public bool IsConnected => _webSocket.State == WebSocketState.Open;
 
     //Construction
-    public WebSocketService()
+    public ClientSocketService()
     {
         _webSocket = new ClientWebSocket();
     }

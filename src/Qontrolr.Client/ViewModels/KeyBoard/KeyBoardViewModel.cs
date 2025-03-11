@@ -1,6 +1,6 @@
 ﻿namespace Qontrolr.Client.ViewModels.KeyBoard;
 
-public partial class KeyBoardViewModel(WebSocketService webSocketService) : ViewModel(webSocketService)
+public partial class KeyBoardViewModel(ClientSocketService webSocketService) : ViewModel(webSocketService)
 {
     [RelayCommand]
     public async Task HandleClickedKey(string key)

@@ -2,7 +2,7 @@
 
 namespace Qontrolr.Client.ViewModels.MediaKeys;
 
-public partial class MediaKeysViewModel(WebSocketService webSocketService) : ViewModel(webSocketService)
+public partial class MediaKeysViewModel(ClientSocketService webSocketService) : ViewModel(webSocketService)
 {
     [RelayCommand]
     public async Task TogglePlay()

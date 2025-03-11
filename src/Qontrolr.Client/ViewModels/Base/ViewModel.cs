@@ -5,10 +5,10 @@ namespace Qontrolr.Client.ViewModels.Base;
 public abstract partial class ViewModel: ObservableObject
 {
     //Fields
-    protected readonly WebSocketService _webSocketService;
+    protected readonly ClientSocketService _webSocketService;
 
     //Construction
-    protected ViewModel(WebSocketService webSocketService)
+    protected ViewModel(ClientSocketService webSocketService)
     {
         _webSocketService = webSocketService;
         _webSocketService.ErrorOccurred += async (s, e) =>{ await RetryConnection(); };
