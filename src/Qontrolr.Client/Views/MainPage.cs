@@ -1,9 +1,13 @@
+using Qontrolr.Client.ViewModels;
 using Qontrolr.Client.Views.Common.Controls;
 
 namespace Qontrolr.Client.Views;
 
 public class MainPage : ContentPage
 {
+    //Fields
+    private readonly MainViewModel _mainViewModel;
+
     // View elements
     private readonly KeyPadView _keyPadView;
     private readonly MediaPadView _mediaPadView;
@@ -30,8 +34,10 @@ public class MainPage : ContentPage
     }
 
     // Construction 
-    public MainPage(KeyPadView keyPadView, MediaPadView mediaPadView, TouchpadView mousePadView)
+    public MainPage(MainViewModel mainViewModel, KeyPadView keyPadView, MediaPadView mediaPadView, TouchpadView mousePadView)
     {
+        _mainViewModel = mainViewModel;
+
         _keyPadView = keyPadView;
         _mediaPadView = mediaPadView;
         _mousePadView = mousePadView;

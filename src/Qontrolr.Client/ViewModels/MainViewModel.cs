@@ -9,7 +9,7 @@ public partial class MainViewModel : ObservableObject
     private readonly ClientSocketService _clientSocketService;
 
     //Construction
-    protected MainViewModel(ClientSocketService webSocketService)
+    public MainViewModel(ClientSocketService webSocketService)
     {
         _clientSocketService = webSocketService;
     }

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Qontrolr.Client.ViewModels;
 using Qontrolr.Client.Views;
 
 namespace Qontrolr.Client;
@@ -29,6 +30,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<ClientSocketService>();
 
         // Register ViewModels
+        builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddSingleton<KeyBoardViewModel>();
         builder.Services.AddSingleton<TouchpadViewModel>();
         builder.Services.AddSingleton<MediaKeysViewModel>();
