@@ -22,6 +22,8 @@ public partial class MainViewModel : ObservableObject
         await _clientSocketService.SendAsync(jsonCommand);
     }
 
+    //Commands
+    [RelayCommand]
     public async Task ConnectToServerAsync()
     {
         var connectedDevices = new List<string> { "ws://localhost:5000/", "Device 2", "Device 3" };
