@@ -38,10 +38,10 @@ public class MainPage : ContentPage
         };
     }
 
-    protected override async void OnAppearing()
+    protected override void OnAppearing()
     {
         base.OnAppearing();
-        await _mainViewModel.ConnectToServerAsync();
+        _mainViewModel.ConnectToServerCommand.Execute(null);
     }
 
     // View elements
