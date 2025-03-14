@@ -1,7 +1,7 @@
 ﻿<Application x:Class="Qontrolr.Server.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Qontrolr.ServerWinApp"
+             xmlns:local="clr-namespace:Qontrolr.Server"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
