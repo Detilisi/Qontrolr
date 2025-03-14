@@ -1,6 +1,5 @@
 ﻿using System.Net.WebSockets;
 using System.Text;
-using System.Text.Json;
 
 namespace Qontrolr.Client.Services;
 
@@ -9,13 +8,23 @@ public class ClientSocketService
     //Fields
     private ClientWebSocket _webSocket;
 
+    //Construct
+    public ClientSocketService()
+    {
+        _webSocket = new ClientWebSocket();
+    }
+    
     //Properties
     public Uri? ServerUri { get; private set; }
-    public event EventHandler<EventArgs>? ErrorOccurred;    
 
-    //Construction
-    public ClientSocketService() => _webSocket = new ClientWebSocket();
-    
+    //Error handler
+    public event Action? OnConnected;
+    public event Action? OnDisconnected;
+
+    public event Action<Exception>? OnSendError;
+    public event Action<Exception>? OnConnectedError;
+    public event Action<Exception>? OnDisconnectedError;
+
     //Public methods
     private readonly object _lock = new();
     public async Task ConnectAsync(string serverUrl, CancellationToken token = default)
@@ -29,17 +38,18 @@ public class ClientSocketService
         try
         {
             await _webSocket.ConnectAsync(ServerUri, token);
+            OnConnected?.Invoke();
         }
         catch(Exception ex) 
         {
-            var message = ex.Message;
-            ErrorOccurred?.Invoke(this, EventArgs.Empty);
+            OnConnectedError?.Invoke(ex);
         }
     }
 
     public async Task CloseAsync(CancellationToken token = default)
     {
         await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closed by user", token);
+        OnDisconnected?.Invoke();
     }
 
     //Transmit data
@@ -54,19 +64,11 @@ public class ClientSocketService
         }
         catch (Exception ex)
         {
-            var message = ex.Message;
-            ErrorOccurred?.Invoke(this, EventArgs.Empty);
+            OnSendError?.Invoke(ex);
         }
         finally
         {
             _sendLock.Release();
         }
-    }
-
-    public async Task SendDeviceEventAsync<T>(DeviceId device, string name, T data)
-    {
-        var deviceEvent = new DeviceEvent<T>(device, name, data);
-        string jsonCommand = JsonSerializer.Serialize(deviceEvent);
-        await SendAsync(jsonCommand);
     }
 }

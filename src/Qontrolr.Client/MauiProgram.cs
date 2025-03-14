@@ -31,6 +31,8 @@ public static class MauiProgram
 
         // Register ViewModels
         builder.Services.AddSingleton<MainViewModel>();
+
+        // Register SubViewModels
         builder.Services.AddSingleton<KeyBoardViewModel>();
         builder.Services.AddSingleton<TouchpadViewModel>();
         builder.Services.AddSingleton<MediaKeysViewModel>();

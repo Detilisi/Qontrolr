@@ -3,22 +3,19 @@ using System.Text.Json;
 
 namespace Qontrolr.Client.ViewModels;
 
-public partial class MainViewModel : ObservableObject
+public partial class MainViewModel(ClientSocketService webSocketService) : ViewModel
 {
     //Fields
-    private readonly ClientSocketService _clientSocketService;
+    private readonly ClientSocketService _clientSocketService = webSocketService;
 
-    //Construction
-    public MainViewModel(ClientSocketService webSocketService) => _clientSocketService = webSocketService;
-
-    //Commands]
-    [RelayCommand]
+    //Methods
     public async Task SendDeviceEvent<T>(DeviceEvent<T> deviceEvent)
     {
         string jsonCommand = JsonSerializer.Serialize(deviceEvent);
         await _clientSocketService.SendAsync(jsonCommand);
     }
 
+    //Commands
     [RelayCommand]
     public async Task ConnectToServerAsync()
     {
