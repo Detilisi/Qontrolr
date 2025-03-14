@@ -15,3 +15,6 @@ Qontrolr transforms your Android device into a wireless mouse, keyboard, and med
 - [Input Simulator Core](https://github.com/cwevers/InputSimulatorCore) – To simulate mouse and keyboard inputs on Windows.
 - [QRCoder](https://github.com/codebude/QRCoder) - For generating QR code on server-app.
 - [ZXing.Net.Maui](https://github.com/Redth/ZXing.Net.Maui) - For scanning QR code on client-app
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
