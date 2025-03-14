@@ -9,20 +9,16 @@ public partial class MainViewModel : ObservableObject
     private readonly ClientSocketService _clientSocketService;
 
     //Construction
-    public MainViewModel(ClientSocketService webSocketService)
-    {
-        _clientSocketService = webSocketService;
-    }
+    public MainViewModel(ClientSocketService webSocketService) => _clientSocketService = webSocketService;
 
-    //Methods
-    public async Task SendDeviceEventAsync<T>(DeviceId device, string name, T data)
+    //Commands]
+    [RelayCommand]
+    public async Task SendDeviceEvent<T>(DeviceEvent<T> deviceEvent)
     {
-        var deviceEvent = new DeviceEvent<T>(device, name, data);
         string jsonCommand = JsonSerializer.Serialize(deviceEvent);
         await _clientSocketService.SendAsync(jsonCommand);
     }
 
-    //Commands
     [RelayCommand]
     public async Task ConnectToServerAsync()
     {
