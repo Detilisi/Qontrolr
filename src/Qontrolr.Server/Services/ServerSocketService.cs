@@ -7,11 +7,11 @@ using WebSocketSharp.Server;
 
 namespace Qontrolr.Server.Services;
 
-public class WebSocketServerManager
+public class ServerSocketService
 {
     // Construct
     private readonly WebSocketServer _webSocketServer;
-    public WebSocketServerManager()
+    public ServerSocketService()
     {
         SeverUrl = GenerateQontrolrUrl(7890);
         if (string.IsNullOrWhiteSpace(SeverUrl))

@@ -12,12 +12,12 @@ namespace Qontrolr.Server
     public partial class MainWindow : Window
     {
         //Fields
-        private readonly WebSocketServerManager _serverWebSocket;
+        private readonly ServerSocketService _serverWebSocket;
 
         //Construction
         public MainWindow()
         {
-            _serverWebSocket = new WebSocketServerManager();
+            _serverWebSocket = new ServerSocketService();
 
             InitializeComponent();
             StartServerAndDisplayQrCode();
