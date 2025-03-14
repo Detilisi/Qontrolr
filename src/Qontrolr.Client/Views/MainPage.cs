@@ -44,6 +44,12 @@ public class MainPage : ContentPage
         _mainViewModel.ConnectToServerCommand.Execute(null);
     }
 
+    protected override void OnBindingContextChanged()
+    {
+        base.OnBindingContextChanged();
+        SetBinding(IsBusyProperty, new Binding(nameof(ViewModel.IsBusy)));
+    }
+
     // View elements
     private readonly KeyPadView _keyPadView;
     private readonly MediaPadView _mediaPadView;

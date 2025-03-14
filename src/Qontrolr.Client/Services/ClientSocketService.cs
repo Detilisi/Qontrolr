@@ -13,7 +13,7 @@ public class ClientSocketService
     {
         _webSocket = new ClientWebSocket();
     }
-    
+
     //Properties
     public Uri? ServerUri { get; private set; }
 
@@ -23,7 +23,6 @@ public class ClientSocketService
 
     public event Action<Exception>? OnSendError;
     public event Action<Exception>? OnConnectedError;
-    public event Action<Exception>? OnDisconnectedError;
 
     //Public methods
     private readonly object _lock = new();
