@@ -2,5 +2,6 @@
 
 public static class QontrolrConfigs
 {
-    public static string SocketEndPoint { get; } = "qontrolr";
+    public static int SocketPort => 7890;
+    public static string SocketEndPoint => "qontrolr";
 }
