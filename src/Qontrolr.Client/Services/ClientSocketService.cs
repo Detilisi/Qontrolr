@@ -3,29 +3,19 @@ using System.Text;
 
 namespace Qontrolr.Client.Services;
 
-public class ClientSocketService
+public partial class ClientSocketService : IDisposable
 {
-    //Fields
-    private ClientWebSocket _webSocket;
+    private ClientWebSocket _webSocket = new();
 
-    //Construct
-    public ClientSocketService()
-    {
-        _webSocket = new ClientWebSocket();
-    }
+    private readonly object _lock = new();
+    private readonly SemaphoreSlim _sendLock = new(1, 1);
 
-    //Properties
     public Uri? ServerUri { get; private set; }
-
-    //Error handler
     public event Action? OnConnected;
     public event Action? OnDisconnected;
-
     public event Action<Exception>? OnSendError;
     public event Action<Exception>? OnConnectedError;
 
-    //Public methods
-    private readonly object _lock = new();
     public async Task ConnectAsync(string serverAddress, CancellationToken token = default)
     {
         lock (_lock)
@@ -37,7 +27,8 @@ public class ClientSocketService
                 Port = QontrolrConfigs.SocketPort,
                 Path = $"/{QontrolrConfigs.SocketEndPoint}"
             }.Uri;
-            
+
+            _webSocket?.Dispose();
             _webSocket = new ClientWebSocket();
         }
 
@@ -46,7 +37,7 @@ public class ClientSocketService
             await _webSocket.ConnectAsync(ServerUri, token);
             OnConnected?.Invoke();
         }
-        catch(Exception ex) 
+        catch (Exception ex)
         {
             OnConnectedError?.Invoke(ex);
         }
@@ -54,19 +45,22 @@ public class ClientSocketService
 
     public async Task CloseAsync(CancellationToken token = default)
     {
-        await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closed by user", token);
-        OnDisconnected?.Invoke();
+        if (_webSocket.State == WebSocketState.Open)
+        {
+            await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closed by user", token);
+            OnDisconnected?.Invoke();
+        }
     }
 
-    //Transmit data
-    private readonly SemaphoreSlim _sendLock = new(1, 1);
     public async Task SendAsync(string data, CancellationToken token = default)
     {
-        await _sendLock.WaitAsync(); // Ensure only one send operation at a time
+        if (_webSocket.State != WebSocketState.Open) return;
+
+        await _sendLock.WaitAsync(token);
         try
         {
             var buffer = Encoding.UTF8.GetBytes(data);
-            await _webSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, token);
+            await _webSocket.SendAsync(buffer, WebSocketMessageType.Text, true, token);
         }
         catch (Exception ex)
         {
@@ -76,5 +70,11 @@ public class ClientSocketService
         {
             _sendLock.Release();
         }
+    }
+
+    public void Dispose()
+    {
+        _webSocket.Dispose();
+        _sendLock.Dispose();
     }
 }
