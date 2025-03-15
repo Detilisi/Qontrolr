@@ -28,8 +28,8 @@ namespace Qontrolr.Server
         {
             // UI update
             _serverWebSocket.Start();
-            ConnectText.Text = _serverWebSocket.SeverUrl;
-            QrCodeImage.Source = GenerateQRCode(_serverWebSocket.SeverUrl);
+            ConnectText.Text = _serverWebSocket.SeverAddress;
+            QrCodeImage.Source = GenerateQRCode(_serverWebSocket.SeverAddress);
         }
 
         private static BitmapImage GenerateQRCode(string text)
