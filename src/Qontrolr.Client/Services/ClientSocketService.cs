@@ -26,11 +26,18 @@ public class ClientSocketService
 
     //Public methods
     private readonly object _lock = new();
-    public async Task ConnectAsync(string serverUrl, CancellationToken token = default)
+    public async Task ConnectAsync(string serverAddress, CancellationToken token = default)
     {
         lock (_lock)
         {
-            ServerUri = new Uri($"{serverUrl}/{QontrolrConfigs.SocketEndPoint}/");
+            ServerUri = new UriBuilder
+            {
+                Scheme = "ws",
+                Host = serverAddress,
+                Port = QontrolrConfigs.SocketPort,
+                Path = $"/{QontrolrConfigs.SocketEndPoint}"
+            }.Uri;
+            
             _webSocket = new ClientWebSocket();
         }
 
