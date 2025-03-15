@@ -13,49 +13,41 @@ public class ServerSocketService
     private readonly WebSocketServer _webSocketServer;
     public ServerSocketService()
     {
-        SeverUrl = GenerateQontrolrUrl(7890);
-        if (string.IsNullOrWhiteSpace(SeverUrl))
-        {
-            throw new InvalidOperationException("Server URL is not initialized.");
-        }
-
-        _webSocketServer = new WebSocketServer(SeverUrl);
+        HostAddress = GetHostAddress();
+        _webSocketServer = new WebSocketServer(HostAddress, QontrolrConfigs.SocketPort);
         _webSocketServer.AddWebSocketService<WinAutoSocketBehavior>($"/{QontrolrConfigs.SocketEndPoint}");
     }
 
-    public string SeverUrl { get; set; }
+    public IPAddress HostAddress { get; set; }
 
     // Public Methods
     public void Start()
     {
         if (_webSocketServer.IsListening) return;
-
         _webSocketServer.Start();
     }
 
     public void Stop()
     {
         if (!_webSocketServer.IsListening) return;
-
         _webSocketServer.Stop();
     }
 
     //Helpers
-    private static string GenerateQontrolrUrl(int port)
+    private static IPAddress GetHostAddress()
     {
         try
         {
             var addressList = Dns.GetHostEntry(Dns.GetHostName())?.AddressList;
-            if (addressList == null || addressList.Length == 0) return string.Empty;
+            if (addressList == null || addressList.Length == 0) return IPAddress.Any;
 
             var ipv4Address = addressList?.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
-
-            return ipv4Address != null ? $"ws://{ipv4Address}:{port}" : string.Empty;
+            return ipv4Address ?? IPAddress.Any;
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"Error initializing BaseUrl: {ex.Message}");
-            return string.Empty;
+            return IPAddress.Any;
         }
     }
 }
