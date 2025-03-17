@@ -103,7 +103,7 @@ public class TouchpadView : ContentView
     //MouseWheel event hanlders
     private void TrackPadPanUpdated(Frame sender, PanUpdatedEventArgs e)
     {
-        var newPosition = new Vector2((int)e.TotalX, (int)e.TotalY);
+        var newPosition = new CursorVector((int)e.TotalX, (int)e.TotalY);
         _viewModel.DragMousePointerCommand.Execute(newPosition);
     }
 }

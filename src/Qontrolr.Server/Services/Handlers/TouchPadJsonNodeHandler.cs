@@ -1,6 +1,5 @@
-﻿using Qontrolr.SharedLib.Touchpad.EventData;
-using Qontrolr.SharedLib.Touchpad;
-using System.Numerics;
+﻿using Qontrolr.SharedLib.Touchpad;
+using Qontrolr.SharedLib.Touchpad.EventData;
 
 namespace Qontrolr.Server.Services.Handlers;
 
@@ -14,8 +13,10 @@ public class TouchPadJsonNodeHandler : JsonNodeHandler
         switch (eventName)
         {
             case nameof(TouchpadEventNames.CursorMoved):
-                var cursorMovedData = jsonNode["EventData"].Deserialize<Vector2>();
-                InputSimulator.Mouse.MoveMouseBy((int)cursorMovedData.X, (int)cursorMovedData.Y);
+                var cursorMovedData = jsonNode["EventData"].Deserialize<CursorVector>();
+                if (cursorMovedData == null) break;
+
+                InputSimulator.Mouse.MoveMouseBy(cursorMovedData.PosX, cursorMovedData.PosY);
                 break;
 
             case nameof(TouchpadEventNames.WheelScrolled):

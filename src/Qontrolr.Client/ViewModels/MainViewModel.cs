@@ -42,7 +42,6 @@ public partial class MainViewModel: ViewModel
         await ConnectToServerAsync();
     }
 
-
     //Methods
     public async Task SendDeviceEvent<T>(DeviceEvent<T> deviceEvent)
     {
@@ -54,7 +53,7 @@ public partial class MainViewModel: ViewModel
     [RelayCommand]
     public async Task ConnectToServerAsync()
     {
-        var connectedDevices = new List<string> { "ws://localhost:5000/", "Device 2", "Device 3" };
+        var connectedDevices = new List<string> { "Device 1", "Device 2", "Device 3" };
         var deviceListPopup = new ConnectedDevicesPopup(connectedDevices);
         var devicePopupResult = await PopupService.ShowPopupAsync(deviceListPopup);
 

@@ -28,7 +28,7 @@ public partial class TouchpadViewModel(MainViewModel parentViewModel) : SubViewM
     }
 
     [RelayCommand]
-    public async Task DragMousePointer(Vector2 cursorPosition)
+    public async Task DragMousePointer(CursorVector cursorPosition)
     {
         await SendDeviceEventAsync(DeviceId.Touchpad, TouchpadEventNames.CursorMoved, cursorPosition);
     }
