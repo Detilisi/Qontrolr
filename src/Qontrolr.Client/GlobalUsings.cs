@@ -17,3 +17,4 @@ global using Qontrolr.SharedLib.Touchpad;
 global using Qontrolr.SharedLib.Touchpad.EventData;
 global using System.Numerics;
 global using ZXing.Net.Maui.Controls;
+global using System.Text.Json;
