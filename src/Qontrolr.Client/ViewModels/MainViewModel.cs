@@ -48,7 +48,7 @@ public partial class MainViewModel : ViewModel
         {
             MainThread.BeginInvokeOnMainThread(async () =>
             {
-                await PopupService.ShowAlertAsync("Send Error", ex.Message);
+                await HandleConnectionErrorAsync("Send Error", ex.Message);
             });
         };
     }
@@ -56,11 +56,11 @@ public partial class MainViewModel : ViewModel
     //Methods
     public async Task SendDeviceEvent<T>(DeviceEvent<T> deviceEvent)
     {
-        if (!_clientSocketService.IsConnected)
-        {
-            await PopupService.ShowAlertAsync("Not connected.", "Your action will be sent when connection is restored.");
-            return;
-        }
+        //if (!_clientSocketService.IsConnected)
+        //{
+        //    await PopupService.ShowAlertAsync("Not connected.", "Your action will be sent when connection is restored.");
+        //    return;
+        //}
 
         FireViewModelBusy();
         try
