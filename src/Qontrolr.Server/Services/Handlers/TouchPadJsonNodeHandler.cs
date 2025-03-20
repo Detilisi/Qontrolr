@@ -13,57 +13,92 @@ public class TouchPadJsonNodeHandler : JsonNodeHandler
         switch (eventName)
         {
             case nameof(TouchpadEventNames.CursorMoved):
-                var cursorMovedData = jsonNode["EventData"].Deserialize<CursorVector>();
-                if (cursorMovedData == null) break;
-
-                InputSimulator.Mouse.MoveMouseBy(cursorMovedData.PosX, cursorMovedData.PosY);
+                if (jsonNode["EventData"]?.Deserialize<CursorVector>() is CursorVector cursorMovedData)
+                {
+                    InputSimulator.Mouse.MoveMouseBy(cursorMovedData.PosX, cursorMovedData.PosY);
+                }
                 break;
 
             case nameof(TouchpadEventNames.WheelScrolled):
                 const int scrollFactor = 2;
-                var wheelScrolledData = jsonNode["EventData"].Deserialize<ScrollDirection>();
-                var scrollValue = wheelScrolledData == ScrollDirection.Up ? scrollFactor : scrollFactor * -1;
-
-                InputSimulator.Mouse.VerticalScroll(scrollValue);
+                if (jsonNode["EventData"]?.Deserialize<ScrollDirection>() is ScrollDirection direction)
+                {
+                    int scrollValue = direction == ScrollDirection.Up ? scrollFactor : -scrollFactor;
+                    InputSimulator.Mouse.VerticalScroll(scrollValue);
+                }
                 break;
 
             case nameof(EventNames.ButtonClicked):
-                var buttonClickedData = jsonNode["EventData"].Deserialize<MouseButtonId>();
-                var buttonClicked = buttonClickedData switch
+            case nameof(EventNames.ButtonPressed):
+            case nameof(EventNames.ButtonReleased):
+                if (jsonNode["EventData"]?.Deserialize<MouseButtonId>() is MouseButtonId buttonId)
                 {
-                    MouseButtonId.Right => MouseButton.RightButton,
-                    MouseButtonId.Left => MouseButton.LeftButton,
-                    MouseButtonId.Middle => MouseButton.MiddleButton,
-                    _ => MouseButton.MiddleButton
-                };
+                    HandleMouseButtonAction(eventName, buttonId);
+                }
+                break;
+        }
+    }
 
-                InputSimulator.Mouse.XButtonClick((int)buttonClicked);
+    private void HandleMouseButtonAction(string eventName, MouseButtonId buttonId)
+    {
+        switch (buttonId)
+        {
+            case MouseButtonId.Left:
+                PerformLeftButtonAction(eventName);
+                break;
+            case MouseButtonId.Right:
+                PerformRightButtonAction(eventName);
+                break;
+            case MouseButtonId.Middle:
+                PerformMiddleButtonAction(eventName);
+                break;
+        }
+    }
+
+    private void PerformLeftButtonAction(string eventName)
+    {
+        switch (eventName)
+        {
+            case nameof(EventNames.ButtonClicked):
+                InputSimulator.Mouse.LeftButtonClick();
                 break;
             case nameof(EventNames.ButtonPressed):
-                var buttonPressedData = jsonNode["EventData"].Deserialize<MouseButtonId>();
-                var buttonPressed = buttonPressedData switch
-                {
-                    MouseButtonId.Right => MouseButton.RightButton,
-                    MouseButtonId.Left => MouseButton.LeftButton,
-                    MouseButtonId.Middle => MouseButton.MiddleButton,
-                    _ => MouseButton.MiddleButton
-                };
-
-                InputSimulator.Mouse.XButtonDown((int)buttonPressed);
+                InputSimulator.Mouse.LeftButtonDown();
                 break;
             case nameof(EventNames.ButtonReleased):
-                var buttonReleasedData = jsonNode["EventData"].Deserialize<MouseButtonId>();
-                var buttonReleased = buttonReleasedData switch
-                {
-                    MouseButtonId.Right => MouseButton.RightButton,
-                    MouseButtonId.Left => MouseButton.LeftButton,
-                    MouseButtonId.Middle => MouseButton.MiddleButton,
-                    _ => MouseButton.MiddleButton
-                };
-
-                InputSimulator.Mouse.XButtonUp((int)buttonReleased);
+                InputSimulator.Mouse.LeftButtonUp();
                 break;
-            default:
+        }
+    }
+
+    private void PerformRightButtonAction(string eventName)
+    {
+        switch (eventName)
+        {
+            case nameof(EventNames.ButtonClicked):
+                InputSimulator.Mouse.RightButtonClick();
+                break;
+            case nameof(EventNames.ButtonPressed):
+                InputSimulator.Mouse.RightButtonDown();
+                break;
+            case nameof(EventNames.ButtonReleased):
+                InputSimulator.Mouse.RightButtonUp();
+                break;
+        }
+    }
+
+    private void PerformMiddleButtonAction(string eventName)
+    {
+        switch (eventName)
+        {
+            case nameof(EventNames.ButtonClicked):
+                InputSimulator.Mouse.XButtonClick(((int)MouseButton.MiddleButton));
+                break;
+            case nameof(EventNames.ButtonPressed):
+                InputSimulator.Mouse.XButtonDown(((int)MouseButton.MiddleButton));
+                break;
+            case nameof(EventNames.ButtonReleased):
+                InputSimulator.Mouse.XButtonUp(((int)MouseButton.MiddleButton));
                 break;
         }
     }
