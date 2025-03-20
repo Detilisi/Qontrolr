@@ -8,7 +8,7 @@ public class TouchpadView : ContentView
     // Constants
     private const int MinimumInterval = 16;         // ~60fps
     private const double MinimumVelocity = 0.3;     // Dead zone threshold
-    private const double AccelerationFactor = 1.8;  // Acceleration curve power
+    private const double AccelerationFactor = 2;  // Acceleration curve power
 
     // Fields
     private CursorVector _lastPosition = new(0, 0);
