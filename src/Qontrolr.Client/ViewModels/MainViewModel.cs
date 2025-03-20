@@ -56,12 +56,6 @@ public partial class MainViewModel : ViewModel
     //Methods
     public async Task SendDeviceEvent<T>(DeviceEvent<T> deviceEvent)
     {
-        //if (!_clientSocketService.IsConnected)
-        //{
-        //    await PopupService.ShowAlertAsync("Not connected.", "Your action will be sent when connection is restored.");
-        //    return;
-        //}
-
         FireViewModelBusy();
         try
         {
