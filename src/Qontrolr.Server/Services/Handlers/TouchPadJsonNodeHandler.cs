@@ -29,8 +29,8 @@ public class TouchPadJsonNodeHandler : JsonNodeHandler
                 break;
 
             case nameof(EventNames.ButtonClicked):
-            case nameof(EventNames.ButtonPressed):
-            case nameof(EventNames.ButtonReleased):
+            case nameof(EventNames.ButtonDown):
+            case nameof(EventNames.ButtonUp):
                 if (jsonNode["EventData"]?.Deserialize<MouseButtonId>() is MouseButtonId buttonId)
                 {
                     HandleMouseButtonAction(eventName, buttonId);
@@ -62,10 +62,10 @@ public class TouchPadJsonNodeHandler : JsonNodeHandler
             case nameof(EventNames.ButtonClicked):
                 InputSimulator.Mouse.LeftButtonClick();
                 break;
-            case nameof(EventNames.ButtonPressed):
+            case nameof(EventNames.ButtonDown):
                 InputSimulator.Mouse.LeftButtonDown();
                 break;
-            case nameof(EventNames.ButtonReleased):
+            case nameof(EventNames.ButtonUp):
                 InputSimulator.Mouse.LeftButtonUp();
                 break;
         }
@@ -78,10 +78,10 @@ public class TouchPadJsonNodeHandler : JsonNodeHandler
             case nameof(EventNames.ButtonClicked):
                 InputSimulator.Mouse.RightButtonClick();
                 break;
-            case nameof(EventNames.ButtonPressed):
+            case nameof(EventNames.ButtonDown):
                 InputSimulator.Mouse.RightButtonDown();
                 break;
-            case nameof(EventNames.ButtonReleased):
+            case nameof(EventNames.ButtonUp):
                 InputSimulator.Mouse.RightButtonUp();
                 break;
         }
@@ -94,10 +94,10 @@ public class TouchPadJsonNodeHandler : JsonNodeHandler
             case nameof(EventNames.ButtonClicked):
                 InputSimulator.Mouse.XButtonClick(((int)MouseButton.MiddleButton));
                 break;
-            case nameof(EventNames.ButtonPressed):
+            case nameof(EventNames.ButtonDown):
                 InputSimulator.Mouse.XButtonDown(((int)MouseButton.MiddleButton));
                 break;
-            case nameof(EventNames.ButtonReleased):
+            case nameof(EventNames.ButtonUp):
                 InputSimulator.Mouse.XButtonUp(((int)MouseButton.MiddleButton));
                 break;
         }

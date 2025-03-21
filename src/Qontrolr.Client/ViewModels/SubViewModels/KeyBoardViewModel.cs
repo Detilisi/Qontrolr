@@ -5,12 +5,12 @@ public partial class KeyBoardViewModel(MainViewModel parentViewModel) : SubViewM
     [RelayCommand]
     public async Task HandleClickedKey(string key)
     {
-        await SendDeviceEventAsync(DeviceId.Keyboard, EventNames.ButtonClicked, key);
+        await SendDeviceEventAsync(DeviceId.Keyboard, EventNames.KeyClicked, key);
     }
 
     [RelayCommand]
     public async Task HandleClickedWinButton(WinButtonId winButton)
     {
-        await SendDeviceEventAsync(DeviceId.Keyboard, EventNames.ButtonClicked, winButton);
+        await SendDeviceEventAsync(DeviceId.Keyboard, EventNames.KeyClicked, winButton);
     }
 }

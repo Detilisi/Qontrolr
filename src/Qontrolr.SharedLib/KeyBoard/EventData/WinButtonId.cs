@@ -2,16 +2,9 @@
 
 public enum WinButtonId
 {
-    Win,
-    Fn,
+    Esc, Shift, Tab,
 
-    Esc,
-    Ctrl,
-    Alt,
-    
-    Shift,
-    Tab,
+    Fn, Insrt, PrtSc,
 
-    Insrt,
-    PrtSc
+    Ctrl, Win, Alt
 }

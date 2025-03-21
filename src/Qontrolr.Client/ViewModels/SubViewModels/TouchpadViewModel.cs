@@ -12,13 +12,13 @@ public partial class TouchpadViewModel(MainViewModel parentViewModel) : SubViewM
     [RelayCommand]
     public async Task PressMouseButton(MouseButtonId buttonId)
     {
-        await SendDeviceEventAsync(DeviceId.Touchpad, EventNames.ButtonPressed, buttonId);
+        await SendDeviceEventAsync(DeviceId.Touchpad, EventNames.ButtonDown, buttonId);
     }
 
     [RelayCommand]
     public async Task ReleaseMouseButton(MouseButtonId buttonId)
     {
-        await SendDeviceEventAsync(DeviceId.Touchpad, EventNames.ButtonReleased, buttonId);
+        await SendDeviceEventAsync(DeviceId.Touchpad, EventNames.ButtonUp, buttonId);
     }
 
     [RelayCommand]

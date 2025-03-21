@@ -131,7 +131,7 @@ public partial class MainViewModel : ViewModel
         }
     }
 
-    //Error handlers
+    //Event handlers
     private async Task HandleConnectionEventAsync(string title, string message)
     {
         if (title == "Connected" && !string.IsNullOrEmpty(_currentDevice))
@@ -148,7 +148,6 @@ public partial class MainViewModel : ViewModel
     {
         await PopupService.ShowAlertAsync(title, message);
 
-        // Only prompt to reconnect if we're not already trying to reconnect
         if (_clientSocketService.ConnectionState != ConnectionState.Reconnecting)
         {
             await ConnectToServerAsync();
