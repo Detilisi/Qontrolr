@@ -7,7 +7,7 @@ internal class WindowsKeyButtons : CustomGridControl
     public WindowsKeyButtons(Action<Button, EventArgs> buttonsClicked)
     {
         InitializeGrid();
-
+       
         // Create buttons dynamically using the WinButtonId enum
         foreach (WinButtonId buttonId in Enum.GetValues(typeof(WinButtonId)))
         {
@@ -26,8 +26,10 @@ internal class WindowsKeyButtons : CustomGridControl
     protected override void InitializeGrid()
     {
         Padding = 10;
-        RowSpacing = 5;
-        ColumnSpacing = 5;
+        RowSpacing = 20;
+        ColumnSpacing = 20;
+
+        Padding = new Thickness(30, 15);
 
         // Define a 3x3 grid
         for (int i = 0; i < 3; i++)
@@ -50,7 +52,10 @@ internal class WindowsKeyButtons : CustomGridControl
         {
             Text = buttonText,
             ClassId = buttonId,
+            FontSize = 18,
             CornerRadius = 20,
+            WidthRequest = 100,
+            HeightRequest = 100,
             TextColor = Colors.White,
             BackgroundColor = Colors.Black,
         };
