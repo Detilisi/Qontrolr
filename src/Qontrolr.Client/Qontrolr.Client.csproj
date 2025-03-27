@@ -78,4 +78,10 @@
 	  <ProjectReference Include="..\Qontrolr.SharedLib\Qontrolr.SharedLib.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\AppStyles.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>
