@@ -30,27 +30,19 @@ public partial class BarcodeScannerPopup : Popup
         {
             Spacing = 10,
             Padding = new Thickness(10),
-            BackgroundColor = Colors.White,
             Children =
             {
                 new Label
                 {
-                    Text = "Scan QR code to connect",
                     FontSize = 20,
+                    Text = "Scan QR code to connect",
                     HorizontalOptions = LayoutOptions.Center,
-                    TextColor = Colors.Black,
                     Margin = new Thickness(0, 10, 0, 5)
                 },
                 _cameraBarcodeReaderView,
                 new Button
                 {
                     Text = "✕ Close",
-                    BackgroundColor = Colors.Black,
-                    TextColor = Colors.White,
-                    FontSize = 14,
-                    CornerRadius = 0,
-                    HeightRequest = 35,
-                    HorizontalOptions = LayoutOptions.Fill,
                     Command = new Command(() => { Close(null); })
                 }
             }

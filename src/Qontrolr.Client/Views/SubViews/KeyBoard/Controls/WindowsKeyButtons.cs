@@ -55,9 +55,7 @@ internal class WindowsKeyButtons : CustomGridControl
             FontSize = 18,
             CornerRadius = 20,
             WidthRequest = 100,
-            HeightRequest = 100,
-            TextColor = Colors.White,
-            BackgroundColor = Colors.Black,
+            HeightRequest = 100
         };
 
         if (clicked != null)

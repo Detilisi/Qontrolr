@@ -23,9 +23,7 @@ public partial class ConnectedDevicesPopup : Popup
     {
         Content = new VerticalStackLayout
         {
-            Spacing = 10,
             WidthRequest = 300,
-            Padding = new Thickness(10),
             Children =
             {
                 new Label
@@ -44,8 +42,6 @@ public partial class ConnectedDevicesPopup : Popup
 
                 new Button
                 {
-                    TextColor = Colors.White,
-                    BackgroundColor = Colors.Black,
                     Text = "Scan for New Device",
                     Command = new Command(()=>{  Close(null); })
                 }
