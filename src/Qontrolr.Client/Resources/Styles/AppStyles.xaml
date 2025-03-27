@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Style TargetType="Page" ApplyToDerivedTypes="True">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="TextColor" Value="{StaticResource Tertiary}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource Black}" />
+        <Setter Property="BorderColor" Value="{StaticResource Secondary}" />
+        <Setter Property="FontFamily" Value="OpenSansRegular"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="BorderWidth" Value="0"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Padding" Value="14,10"/>
+        <Setter Property="MinimumHeightRequest" Value="44"/>
+        <Setter Property="MinimumWidthRequest" Value="44"/>
+    </Style>
+
+</ResourceDictionary>
