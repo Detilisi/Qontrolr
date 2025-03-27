@@ -11,6 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qontrolr.SharedLib", "src\Q
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qontrolr.Server", "src\Qontrolr.Server\Qontrolr.Server.csproj", "{7F73BBB2-9939-4819-89FE-DED85F20A690}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "screenshots", "screenshots", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\Detilisi\OneDrive\Pictures\Screenshots\IMG-20250327-WA0007.jpg = C:\Users\Detilisi\OneDrive\Pictures\Screenshots\IMG-20250327-WA0007.jpg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,5 +44,8 @@ Global
 		{DEE45A31-30A2-4626-BFE2-3F40448A822E} = {1D7A0DB3-5951-42E5-922F-8C0AB90D0AEF}
 		{04CDA2C0-AB6E-4378-A666-72181ED6D603} = {1D7A0DB3-5951-42E5-922F-8C0AB90D0AEF}
 		{7F73BBB2-9939-4819-89FE-DED85F20A690} = {1D7A0DB3-5951-42E5-922F-8C0AB90D0AEF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E7D741B1-FDBA-43E7-8C07-0E0A41895F64}
 	EndGlobalSection
 EndGlobal
